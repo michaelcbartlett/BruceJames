@@ -12,7 +12,14 @@ $button-text: #fff;
 body {
   background-color: $background;
   color: $text;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  h1, h2, h3 {
+    font-weight: 600; /* or 700 for very bold */
+}
+
+p {
+    font-weight: 400;
+}
 }
 
 .hero {
