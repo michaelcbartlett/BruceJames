@@ -40,3 +40,56 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# --- Node + Angular ---
+node_modules/
+dist/
+.tmp/
+.angular/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.env
+
+# --- Angular editor + OS files ---
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+.DS_Store
+Thumbs.db
+
+# --- Django ---
+*.pyc
+*.pyo
+__pycache__/
+db.sqlite3
+*.sqlite3
+*.log
+
+# Django env + configs
+.env
+.env.*
+*.env
+venv/
+env/
+ENV/
+*.bak
+
+# Django migrations (optional: keep if you want them in Git)
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/__pycache__/
+
+# Static + media (if collected outside version control)
+staticfiles/
+media/
+
+# --- OS + misc ---
+*.swp
+*.bak
+*.tmp
+*.~lock.*
+*.orig

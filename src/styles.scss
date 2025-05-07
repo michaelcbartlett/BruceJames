@@ -1,1 +1,87 @@
-/* You can add global styles to this file, and also import other style files */
+@use "sass:color";
+@use "bulma/bulma";
+
+// Color overrides
+$primary: #1f1f1f;
+$background: #f8f6f3;
+$text: #222;
+$text-light: #999;
+$button-background: #2b2b2b;
+$button-text: #fff;
+
+body {
+  background-color: $background;
+  color: $text;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.hero {
+  background-color: $primary;
+  color: $background;
+  padding: 4rem 2rem;
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .button {
+    margin-top: 2rem;
+    background-color: $button-background;
+    color: $button-text;
+    border: none;
+
+    &:hover {
+        background-color: color.adjust($button-background, $lightness: 10%);
+    }
+  }
+}
+
+.section {
+  padding: 4rem 2rem;
+
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    font-size: 1rem;
+    color: $text;
+  }
+}
+
+.footer {
+  background-color: $primary;
+  color: $background;
+  padding: 2rem;
+  text-align: center;
+}
+
+// Custom component overrides
+.navbar {
+  background-color: $primary;
+
+  .navbar-item,
+  .navbar-link {
+    color: $background;
+    font-weight: 600;
+    &:hover {
+        color: color.adjust($background, $lightness: 20%);
+    }
+    .navbar-burger span {
+        background-color: $background;
+      }
+    
+      .navbar-burger.is-active span {
+        background-color: color.adjust($background, $lightness: 20%);
+      }
+  }
+}
+

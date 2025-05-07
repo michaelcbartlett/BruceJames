@@ -32,6 +32,7 @@
               }
             ],
             "styles": [
+              "node_modules/bulma/bulma.scss",
               "src/styles.scss"
             ],
             "scripts": []
