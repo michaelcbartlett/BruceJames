@@ -155,11 +155,34 @@
   margin-top: 2rem;
 }
 
+
+
+.plugin-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.plugin-card {
+  flex: 1 1 280px; /* grow, shrink, minimum width */
+  max-width: 350px;
+  text-align: center;
+}
+
+.plugin-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
 .plugin-blurb {
   font-size: 0.95rem;
   text-align: center;
-  color: #5e5353;
-  margin-top: 0.5rem;
+  color: #444;
+  margin-top: 1rem;
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;
