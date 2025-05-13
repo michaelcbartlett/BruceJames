@@ -146,4 +146,21 @@
     }
   }
   
-  
+  .landing-image-block {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.plugin-blurb {
+  font-size: 0.95rem;
+  text-align: center;
+  color: #5e5353;
+  margin-top: 0.5rem;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
