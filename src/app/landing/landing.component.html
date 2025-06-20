@@ -1,66 +1,134 @@
-<section class="landing-section">
-  <div class="landing-container">
-    <div class="landing-text">
-      <h1 class="title">BruceJames</h1>
-      <p class="subtitle">Distinctive VST3 and CLAP Plugins for Creative Audio Workflows</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco — BruceJames Plugins</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .plugin-image {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .coming-soon img {
+      border-radius: 8px;
+    }
+    .hero.is-dark {
+      background: linear-gradient(135deg, #1f1f1f, #2e2b2b);
+      color: white;
+    }
+    .hero .title {
+      font-size: 3rem;
+    }
+    .hero .subtitle {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    .hero .buttons {
+      margin-top: 1.5rem;
+    }
+    .hero code {
+      background-color: #333;
+      color: #fff;
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+    }
+    .video-embed iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border-radius: 8px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero is-dark is-bold has-text-centered">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Marco is Here</h1>
+        <h2 class="subtitle">Push sounds back — with clarity, not compromise.</h2>
 
-      <div class="columns">
-        <div class="column">
-          <div class="content">
-            <p>
-              BruceJames is the creative studio of Michael Bartlett, dedicated to crafting plugins that offer fresh solutions for modern music production. Whether you're chasing spatial depth, expressive performance, or invisible precision — you're in the right place.
-            </p>
-
-            <p>
-              🧭 <strong>Now Available:</strong> <strong>Marco</strong> — a spatial placement tool designed to push elements back in the mix with clarity and character.
-            </p>
-
-            <p>
-              🧪 <strong>Try it Free:</strong> Download the plugin and explore in demo mode, or <a href="https://brucejames.gumroad.com/l/nfrqf" target="_blank">purchase via Gumroad</a> for full access.
-            </p>
-
-            <p>
-              🎬 <a href="https://youtu.be/OidqU4JqVSA?si=_a9MHH3nTjbgNPwJ" target="_blank">Feature Overview</a> | <a href="https://youtu.be/lv3Jimrhnzk?si=kZlGqD0uVOmlld06" target="_blank">No-Talking Demo</a>
-            </p>
-          </div>
+        <div class="buttons is-centered">
+          <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_0_Windows.zip" class="button is-light is-medium">
+            🎧 Try the Demo
+          </a>
+          <a href="https://brucejames.gumroad.com/l/nfrqf" class="button is-primary is-medium">
+            📎 Buy Marco
+          </a>
         </div>
+
+        <p class="mt-4 is-size-7 has-text-grey-light">
+          Persistent <code>DemoMode</code> available: All features present, but will silence audio periodically.
+        </p>
       </div>
+    </div>
+  </section>
 
-      <div class="plugin-showcase">
-        <div class="plugin-card marco-live">
-          <img src="/MarcoUpdate.png" alt="Marco plugin image" />
-          <p class="plugin-blurb">
-            <strong>Marco</strong><br>
-            Spatial clarity — push elements back without losing definition.
+  <!-- Marco Feature Section -->
+  <section class="section">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-half has-text-centered">
+          <img src="/MarcoUpdate.png" alt="Marco plugin" class="plugin-image" />
+        </div>
+        <div class="column is-half">
+          <h2 class="title">What is Marco?</h2>
+          <p class="mb-4">
+            Marco is a spatial placement plugin that helps you push sounds back in your mix while keeping their clarity and character intact. Perfect for realistic depth, cinematic space, and clean, intentional separation.
           </p>
-
-          <div class="buttons mt-3">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_0_0_Windows.zip" class="button is-light is-small">
-              🎧 Try the Demo
-            </a>
-            <a href="https://brucejames.gumroad.com/l/nfrqf" class="button is-primary is-small">
-              💾 Buy Marco
-            </a>
-          </div>
-
-          <div class="install-notes mt-2">
-            <p class="is-size-7">
-              <!-- Use license code <code>MarcoBeta</code> to unlock full features until December.<br /> -->
-              Includes VST3 Windows Only /  MacOS available as soon as possible but TBD.
-            </p>
-          </div>
-        </div>
-
-        <div class="plugin-card">
-          <img src="/deepperfection.png" alt="DeepPerfection plugin image" />
-          <p class="plugin-blurb"><strong>DeepPerfection</strong><br>Take the guesswork out of your low end — and the danger out of your mix.</p>
-        </div>
-
-        <div class="plugin-card">
-          <img src="/thumbelina.png" alt="Thumbelina plugin image" />
-          <p class="plugin-blurb"><strong>Thumbelina</strong><br>Your sound’s timeline — bent, blurred, and brought to life in real time.</p>
+          <ul>
+            <li>✅ Frequency-aware placement</li>
+            <li>✅ Match perceived energy and focus</li>
+            <li>✅ Crossover-linked processing for realism</li>
+            <li>✅ Clean, intuitive XY interface</li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  
+
+  <!-- YouTube Embed Section -->
+  <section class="section has-background-light">
+    <div class="container has-text-centered video-embed">
+      <h2 class="title">Watch It in Action</h2>
+      <p class="subtitle is-size-6 mb-4">No-talking demo — brass, bongos, and space.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lv3Jimrhnzk?si=5oBpSlYSUXOrKye4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    </div>
+  </section>
+
+  <!-- Coming Soon Section -->
+  <section class="section coming-soon">
+    <div class="container">
+      <h2 class="title has-text-centered">Coming Soon from BruceJames</h2>
+      <div class="columns mt-5 is-multiline">
+        <div class="column is-one-third has-text-centered">
+          <img src="/deepperfection.png" alt="DeepPerfection" style="max-width: 80%;" />
+          <h3 class="mt-3">DeepPerfection</h3>
+          <p class="is-size-7">Take the guesswork out of your low end — and the danger out of your mix.</p>
+        </div>
+        <div class="column is-one-third has-text-centered">
+          <img src="/thumbelina.png" alt="Thumbelina" style="max-width: 80%;" />
+          <h3 class="mt-3">Thumbelina</h3>
+          <p class="is-size-7">Your sound’s timeline — bent, blurred, and brought to life in real time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer has-text-centered">
+    <p class="mb-2">
+      &copy; 2025 <strong>BruceJames</strong>. Handcrafted audio tools by Michael Bartlett.
+    </p>
+    <p class="is-size-7">
+      Need help or want to chat? <a href="mailto:support[at]brucejames.studio">support[at]brucejames.studio</a>
+    </p>
+  </footer>
+</body>
+</html>
