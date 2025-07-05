@@ -44,6 +44,39 @@
       border-radius: 8px;
       border: none;
     }
+    @media (max-width: 768px) {
+      .hero .title {
+        font-size: 2rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .buttons.is-centered {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .plugin-image {
+        max-width: 90%;
+      }
+
+      .video-embed iframe {
+        height: auto;
+        aspect-ratio: 16/9;
+      }
+
+      .columns {
+        flex-direction: column;
+      }
+
+      .column {
+        width: 100%;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -56,13 +89,16 @@
 
         <div class="buttons is-centered is-flex-direction-column">
           <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_3_Windows.zip"  class="button is-light is-medium is-fullwidth">
-            🎧 Download (Windows)
+            ⬇️ Download (macOS BETA)
           </a>
-          <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_1_macOS.zip"  class="button is-light is-medium is-fullwidth">
-            🎧 Download (macOS BETA only requires removing quarantine)
+          <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_1_macOS.zip" class="button is-light is-medium is-fullwidth">
+            ⬇️ Download (macOS BETA)
           </a>
+          <p class="is-size-7 has-text-grey mt-1">
+            Requires removing quarantine (see instructions)
+          </p>
           <a href="https://brucejames.gumroad.com/l/marco"  class="button is-primary is-medium is-fullwidth">
-            📎 Buy Marco
+            🛒 Buy Marco
           </a>
         </div>
 
