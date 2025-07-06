@@ -75,6 +75,15 @@
       .column {
         width: 100%;
       }
+      .mobile-shrink-text {
+        font-size: 1.25rem !important;  /* Or whatever looks balanced */
+      }
+
+      @media (max-width: 768px) {
+      .coming-soon-title {
+        font-size: 1.75rem !important;  /* Adjust as needed */
+      }
+    }
     }
 
   </style>
@@ -102,8 +111,8 @@
           </a>
         </div>
 
-        <p class="mt-4 is-size-1 has-text-grey-light">
-          Persistent <code>DemoMode</code> available: All features present, but will silence audio periodically.
+        <p class="mt-4 is-size-1 has-text-grey-light mobile-shrink-text">
+          Persistent <code>DemoMode</code> available:<br>All features present, but will silence audio periodically.
         </p>
       </div>
     </div>
@@ -146,7 +155,7 @@
   <!-- Coming Soon Section -->
   <section class="section coming-soon">
     <div class="container">
-      <h2 class="title has-text-centered">Coming Soon from BruceJames</h2>
+      <h2 class="title has-text-centered coming-soon-title">Coming Soon from BruceJames</h2>
       <div class="columns mt-5 is-multiline">
         <div class="column is-one-third has-text-centered">
           <img src="/deepperfection.png" alt="DeepPerfection" style="max-width: 80%;" />
