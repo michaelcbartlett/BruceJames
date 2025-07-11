@@ -12,7 +12,7 @@ export class LandingComponent {
   handleBuyMarcoClick() {
     if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
         (window as any).dataLayer.push({
-          event: 'buy_marco',
+          event: 'buy_marco_click',
           event_category: 'engagement',
           event_label: 'Buy Marco Button',
           value: 1
