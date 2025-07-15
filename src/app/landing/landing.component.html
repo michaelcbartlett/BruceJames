@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
   <style>
-    body {
+    body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, a, ul, li, code {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
     .plugin-image {
       max-width: 100%;
       border-radius: 12px;
@@ -94,23 +95,24 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">Marco is Here</h1>
-        <h2 class="subtitle">Push sounds back — with clarity, not compromise.</h2>
-
+        <h2 class="subtitle">
+          Launch Offer: <strong>$14.99</strong> until <strong>October 6, 2025</strong> — regular price: <s>$29</s>
+        </h2>
         <div class="buttons is-centered is-flex-direction-column">
-          <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_7_Windows.zip"  class="button is-light is-medium is-fullwidth">
-            ⬇️ Download Free Demo (Windows)
+          <a href="https://brucejames.gumroad.com/l/marco?wanted=true"  class="button is-light is-medium is-fullwidth" (click)="handleBuyMarcoClick()">
+            Buy Marco
           </a>
-          <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_7_macOS.zip" class="button is-light is-medium is-fullwidth">
-            ⬇️ Download Free Demo (macOS)
+          <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_7_Windows.zip"  class="button is-primary is-medium is-fullwidth" (click)="handleDownloadWindowsClick()">
+            Download (Windows)
           </a>
-          <a href="https://brucejames.gumroad.com/l/marco"  class="button is-primary is-medium is-fullwidth">
-            🛒 Buy Marco
+          <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_7_macOS.zip" class="button is-primary is-medium is-fullwidth"(click)="handleDownloadmacOSClick()">
+            Download (macOS BETA)
           </a>
         </div>
 
         <p class="mt-4 is-size-1 has-text-grey-light mobile-shrink-text">
           Persistent <code>DemoMode</code> available:<br>All features present, but will silence audio periodically.
-        </p>
+        </p>        
       </div>
     </div>
   </section>
@@ -164,6 +166,15 @@
           <h3 class="mt-3">Thumbelina</h3>
           <p class="is-size-7">Your sound’s timeline — bent, blurred, and brought to life in real time.</p>
         </div>
+        <div class="column is-one-third has-text-centered">
+          <img src="/slushBusCompressor.png" alt="SlushBusCompressor" style="max-width: 80%;" />
+          <h3 class="mt-3">SlushBusCompressor</h3>
+          <p class="is-size-7">
+            A happy accident that has led to a (as far as I know) never-before-seen type of compression.
+            This gives the most musical pump with the least amount of effort I've ever experienced.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
