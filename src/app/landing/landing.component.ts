@@ -39,7 +39,7 @@ export class LandingComponent {
       }
 
       setTimeout(() => {
-        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_9_Windows.zip';
+        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_10_Windows.zip';
       }, 300);
 
   }
@@ -57,7 +57,7 @@ export class LandingComponent {
       }
 
       setTimeout(() => {
-        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_9_macOS.zip';
+        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_10_macOS.zip';
       }, 300);
   }
 }
