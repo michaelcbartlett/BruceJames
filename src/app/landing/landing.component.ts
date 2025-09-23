@@ -61,6 +61,24 @@ export class LandingComponent {
 
   }
 
+  handleDownloadSlushBusWindowsClick() {
+        if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
+        (window as any).dataLayer.push({
+          event: 'dl_slushbus_windows_click',
+          event_category: 'engagement',
+          event_label: 'Download SlushBus Windows Button',
+          value: 1
+        });
+      } else {
+        console.warn('dataLayer is not defined');
+      }
+
+      setTimeout(() => {
+        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_v1_0_0_Windows.zip';
+      }, 300);
+
+  }
+
   handleDownloadmacOSClick() {
     if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
         (window as any).dataLayer.push({
