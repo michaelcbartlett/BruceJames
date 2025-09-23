@@ -66,7 +66,7 @@ p {
 
 .footer {
   background-color: $primary;
-  color: $background;
+  color: #aaaaaa;
   padding: 2rem;
   text-align: center;
 }
@@ -92,3 +92,56 @@ p {
   }
 }
 
+.product-card {
+  transition: transform .18s ease, box-shadow .18s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.16);
+  }
+}
+
+.title.shrunken-title {
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--bj-accent), #a8e0ff);
+    opacity: .9;
+  }
+}
+
+.footer.is-dark {
+  background: linear-gradient(135deg, #111, #1b1b1b);
+  color: #fff;
+  a { color: var(--bj-accent); &:hover { text-decoration: underline; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card, .button { transition: none !important; }
+}
+
+
+// styles.scss
+
+// Accent + dark theme vars
+:root {
+  --bj-dark: #1f1f1f;
+  --bj-dark-2: #2e2b2b;
+  --bj-accent: #6ad1ff;
+}
+
+// Buttons hover
+.button.is-primary:hover,
+.button.is-dark:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+.button { transition: transform .12s ease, filter .12s ease; }
