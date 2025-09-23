@@ -26,6 +26,23 @@ export class LandingComponent {
       }, 300);
   }
 
+  handleBuySlushBusClick() {
+    if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
+        (window as any).dataLayer.push({
+          event: 'buy_slushbus_click',
+          event_category: 'engagement',
+          event_label: 'Buy SlushBus Button',
+          value: 1
+        });
+      } else {
+        console.warn('dataLayer is not defined');
+      }
+
+      setTimeout(() => {
+        window.location.href = 'https://brucejames.gumroad.com/l/slushbus?wanted=true';
+      }, 300);
+  }
+
   handleDownloadWindowsClick() {
         if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
         (window as any).dataLayer.push({
