@@ -92,7 +92,7 @@ export class LandingComponent {
       }
 
       setTimeout(() => {
-        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_12_macOS.zip';
+        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_MacOS_V1_1_12.zip';
       }, 300);
   }
 }
