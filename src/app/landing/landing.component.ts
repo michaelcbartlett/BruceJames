@@ -1,98 +1,52 @@
-import { Component } from '@angular/core';
-
-declare function gtag(command: 'event', eventName: string, params?: { [key: string]: any }): void;
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-landing',
   imports: [],
   templateUrl: './landing.component.html',
-  styleUrl: './landing.component.scss'
+  styleUrl: './landing.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
-export class LandingComponent {
-  handleBuyMarcoClick() {
-    if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
-        (window as any).dataLayer.push({
-          event: 'buy_marco_click',
-          event_category: 'engagement',
-          event_label: 'Buy Marco Button',
-          value: 1
-        });
-      } else {
-        console.warn('dataLayer is not defined');
-      }
+export class LandingComponent implements OnInit {
 
-      setTimeout(() => {
-        window.location.href = 'https://brucejames.gumroad.com/l/marco?wanted=true';
-      }, 300);
+  supportEmail = 'support@brucejames.studio';
+
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+    @Inject(DOCUMENT) private doc: Document
+  ) {}
+
+  ngOnInit() {
+    this.titleService.setTitle('DeepPerfection by BruceJames');
+
+    this.metaService.updateTag({ name: 'description', content: 'Perfect phase correction with no effort. Take the guesswork out of your low end and feel the chest-thumping bass again. $49.99. Windows available now.' });
+
+    this.metaService.updateTag({ property: 'og:title', content: 'DeepPerfection by BruceJames' });
+    this.metaService.updateTag({ property: 'og:description', content: 'Perfect phase correction with no effort. Take the guesswork out of your low end and feel the chest-thumping bass again.' });
+
+    this.metaService.updateTag({ name: 'twitter:title', content: 'DeepPerfection by BruceJames' });
+    this.metaService.updateTag({ name: 'twitter:description', content: 'Perfect phase correction with no effort. Take the guesswork out of your low end and feel the chest-thumping bass again.' });
   }
 
-  handleBuySlushBusClick() {
-    if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
-        (window as any).dataLayer.push({
-          event: 'buy_slushbus_click',
-          event_category: 'engagement',
-          event_label: 'Buy SlushBus Button',
-          value: 1
-        });
-      } else {
-        console.warn('dataLayer is not defined');
-      }
-
-      setTimeout(() => {
-        window.location.href = 'https://brucejames.gumroad.com/l/slushbus?wanted=true';
-      }, 300);
+  private pushEvent(event: string, label: string) {
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event,
+        event_category: 'engagement',
+        event_label: label,
+        value: 1
+      });
+    }
   }
 
-  handleDownloadWindowsClick() {
-        if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
-        (window as any).dataLayer.push({
-          event: 'dl_marco_windows_click',
-          event_category: 'engagement',
-          event_label: 'Download Marco Windows Button',
-          value: 1
-        });
-      } else {
-        console.warn('dataLayer is not defined');
-      }
-
-      setTimeout(() => {
-        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_12_Windows.zip';
-      }, 300);
-
-  }
-
-  handleDownloadSlushBusWindowsClick() {
-        if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
-        (window as any).dataLayer.push({
-          event: 'dl_slushbus_windows_click',
-          event_category: 'engagement',
-          event_label: 'Download SlushBus Windows Button',
-          value: 1
-        });
-      } else {
-        console.warn('dataLayer is not defined');
-      }
-
-      setTimeout(() => {
-        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_v1_0_0_Windows.zip';
-      }, 300);
-
-  }
-
-  handleDownloadmacOSClick() {
-    if (typeof window !== 'undefined' && Array.isArray((window as any).dataLayer)) {
-        (window as any).dataLayer.push({
-          event: 'dl_marco_macos_click',
-          event_category: 'engagement',
-          event_label: 'Download Marco macOS Button',
-          value: 1
-        });
-      } else {
-        console.warn('dataLayer is not defined');
-      }
-
-      setTimeout(() => {
-        window.location.href = 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_MacOS_V1_1_12.zip';
-      }, 300);
-  }
+  handleBuyDeepPerfectionClick() { this.pushEvent('buy_deepperfection_click', 'Buy DeepPerfection Button'); }
+  handleBuyMarcoClick()          { this.pushEvent('buy_marco_click', 'Buy Marco Button'); }
+  handleBuySlushBusClick()       { this.pushEvent('buy_slushbus_click', 'Buy SlushBus Button'); }
+  handleDownloadWindowsClick()   { this.pushEvent('dl_marco_windows_click', 'Download Marco Windows Button'); }
+  handleDownloadmacOSClick()     { this.pushEvent('dl_marco_macos_click', 'Download Marco macOS Button'); }
+  handleDownloadSlushBusWindowsClick() { this.pushEvent('dl_slushbus_windows_click', 'Download SlushBus Windows Button'); }
+  handleDownloadSlushBusmacOSClick()   { this.pushEvent('dl_slushbus_macos_click', 'Download SlushBus macOS Button'); }
 }
