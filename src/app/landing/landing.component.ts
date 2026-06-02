@@ -42,7 +42,8 @@ export class LandingComponent implements OnInit {
     }
   }
 
-  handleBuyDeepPerfectionClick() { this.pushEvent('buy_deepperfection_click', 'Buy DeepPerfection Button'); }
+  handleBuyDeepPerfectionClick()              { this.pushEvent('buy_deepperfection_click', 'Buy DeepPerfection Button'); }
+  handleDownloadDeepPerfectionWindowsClick()  { this.pushEvent('dl_deepperfection_windows_click', 'Download DeepPerfection Windows Button'); }
   handleBuyMarcoClick()          { this.pushEvent('buy_marco_click', 'Buy Marco Button'); }
   handleBuySlushBusClick()       { this.pushEvent('buy_slushbus_click', 'Buy SlushBus Button'); }
   handleDownloadWindowsClick()   { this.pushEvent('dl_marco_windows_click', 'Download Marco Windows Button'); }
