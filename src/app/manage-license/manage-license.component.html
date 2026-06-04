@@ -1,0 +1,67 @@
+<section class="ml-page">
+  <div class="ml-inner">
+
+    <p class="bj-label">License Management</p>
+    <h1 class="bj-heading">Manage Your Activations</h1>
+    <p class="ml-sub">Enter your email and license key to view and manage which machines your license is activated on.</p>
+
+    <!-- KVR notice -->
+    <div class="ml-notice">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>Purchased via <strong>KVR</strong>? Please email <a href="mailto:support@brucejames.studio">support&#64;brucejames.studio</a> and we'll handle it for you.</span>
+    </div>
+
+    <!-- Lookup form -->
+    <div class="ml-card" *ngIf="!looked_up">
+      <div class="ml-field">
+        <label for="email">Email address</label>
+        <input id="email" type="email" [(ngModel)]="email" placeholder="you@example.com" (keyup.enter)="lookup()" />
+      </div>
+      <div class="ml-field">
+        <label for="key">License key</label>
+        <input id="key" type="text" [(ngModel)]="licenseKey" placeholder="XXXXXXXXXXXXXXXXXXXX" (keyup.enter)="lookup()" />
+      </div>
+      <div class="ml-error" *ngIf="error">{{ error }}</div>
+      <button class="btn-primary" (click)="lookup()" [disabled]="loading">
+        <span *ngIf="!loading">Look Up License</span>
+        <span *ngIf="loading">Looking up…</span>
+      </button>
+    </div>
+
+    <!-- Results -->
+    <div *ngIf="looked_up">
+      <div class="ml-result-header">
+        <div>
+          <span class="ml-product">{{ product }}</span>
+          <span class="ml-slots">{{ activations.length }} / {{ maxActivations }} slots used</span>
+        </div>
+        <button class="btn-ghost" (click)="reset()">← Back</button>
+      </div>
+
+      <div class="ml-success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="ml-error" *ngIf="error">{{ error }}</div>
+
+      <div *ngIf="activations.length === 0" class="ml-empty">
+        No active machines on this license.
+      </div>
+
+      <div class="ml-activation" *ngFor="let a of activations">
+        <div class="ml-activation-info">
+          <span class="ml-machine-name">{{ a.alias ?? 'Unknown machine' }}</span>
+          <span class="ml-machine-fp">{{ a.fingerprint }}</span>
+          <span class="ml-machine-date">Activated {{ a.activated_at }}</span>
+        </div>
+        <button class="btn-deactivate"
+                (click)="deactivate(a)"
+                [disabled]="deactivating === a.id">
+          {{ deactivating === a.id ? 'Removing…' : 'Deactivate' }}
+        </button>
+      </div>
+
+      <p class="ml-caveat">
+        Removing an activation frees the slot for a new machine.
+      </p>
+    </div>
+
+  </div>
+</section>
