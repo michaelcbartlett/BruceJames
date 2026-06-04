@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
@@ -9,7 +9,8 @@ import { DOCUMENT } from '@angular/common';
   styleUrl: './landing.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
+  private observer: IntersectionObserver | null = null;
 
   supportEmail = 'support@brucejames.studio';
 
@@ -29,7 +30,15 @@ export class LandingComponent implements OnInit {
 
     this.metaService.updateTag({ name: 'twitter:title', content: 'DeepPerfection by BruceJames' });
     this.metaService.updateTag({ name: 'twitter:description', content: 'Perfect phase correction with no effort. Take the guesswork out of your low end and feel the chest-thumping bass again.' });
+
+    this.observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); this.observer!.unobserve(e.target); } }),
+      { threshold: 0.1 }
+    );
+    this.doc.querySelectorAll('.reveal').forEach(el => this.observer!.observe(el));
   }
+
+  ngOnDestroy() { this.observer?.disconnect(); }
 
   private pushEvent(event: string, label: string) {
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
