@@ -68,10 +68,17 @@ a { text-decoration: none; }
   cursor: pointer;
   &:hover { opacity: 0.85; color: #000; }
 }
+.btn-buy-secondary {
+  background: transparent;
+  color: var(--bj-accent);
+  border: 2px solid rgba(106, 209, 255, 0.45);
+  &:hover { background: var(--bj-accent-dim); opacity: 1; color: var(--bj-accent); }
+}
 .dp-platform-note {
   font-size: 0.8rem;
   color: #555;
   margin-top: 1rem;
+  a { color: #555; text-decoration: underline; text-underline-offset: 3px; &:hover { color: #888; } }
 }
 .dp-hero-shot {
   max-width: 820px;
