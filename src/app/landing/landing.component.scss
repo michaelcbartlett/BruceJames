@@ -239,6 +239,23 @@ a { text-decoration: none; }
   }
 }
 
+// ── Scroll hint
+.dp-scroll-hint {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0 2rem;
+  animation: scroll-bounce 2s ease-in-out infinite;
+  svg {
+    width: 28px; height: 28px;
+    stroke: rgba(255,255,255,0.2); fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+}
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%       { transform: translateY(6px); opacity: 1; }
+}
+
 // ── Animations
 @keyframes hero-fade-up {
   from { opacity: 0; transform: translateY(18px); }

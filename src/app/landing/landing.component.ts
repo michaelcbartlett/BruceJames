@@ -23,13 +23,13 @@ export class LandingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.titleService.setTitle('DeepPerfection by BruceJames');
 
-    this.metaService.updateTag({ name: 'description', content: 'Perfect phase correction with no effort. Take the guesswork out of your low end and feel the chest-thumping bass again. $49.99. Windows available now.' });
+    this.metaService.updateTag({ name: 'description', content: 'Restore the signal you lost. Get the chest-hit back. DeepPerfection fixes low-end phase problems automatically. Free demo for Windows & macOS.' });
 
     this.metaService.updateTag({ property: 'og:title', content: 'DeepPerfection by BruceJames' });
-    this.metaService.updateTag({ property: 'og:description', content: 'Perfect phase correction with no effort. Take the guesswork out of your low end and feel the chest-thumping bass again.' });
+    this.metaService.updateTag({ property: 'og:description', content: 'Restore the signal you lost. Get the chest-hit back. Free demo for Windows & macOS.' });
 
     this.metaService.updateTag({ name: 'twitter:title', content: 'DeepPerfection by BruceJames' });
-    this.metaService.updateTag({ name: 'twitter:description', content: 'Perfect phase correction with no effort. Take the guesswork out of your low end and feel the chest-thumping bass again.' });
+    this.metaService.updateTag({ name: 'twitter:description', content: 'Restore the signal you lost. Get the chest-hit back. Free demo for Windows & macOS.' });
 
     this.observer = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); this.observer!.unobserve(e.target); } }),
