@@ -7,6 +7,26 @@
   --bj-border:     rgba(255, 255, 255, 0.07);
 }
 
+// ── Sale Banner
+.sale-banner {
+  background: #1a1000;
+  border-bottom: 1px solid rgba(255, 190, 50, 0.25);
+  color: #ffd166;
+  text-align: center;
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+}
+.sale-was {
+  text-decoration: line-through;
+  color: #666;
+  font-size: 0.85em;
+}
+.sale-now {
+  color: #ffd166;
+  font-weight: 700;
+}
+
 *, body, button, input, select, textarea,
 h1, h2, h3, h4, h5, h6, p, a, ul, li, code {
   font-family: 'Inter', 'Segoe UI', sans-serif;
