@@ -1,14 +1,12 @@
 // BruceJames Design System — global entry
 @use "sass:color";
+@use "bulma/bulma";
 
 // DS tokens (CSS custom properties)
 @import url('./design-system/tokens/fonts.css');
 @import url('./design-system/tokens/colors.css');
 @import url('./design-system/tokens/typography.css');
 @import url('./design-system/tokens/spacing.css');
-
-// Bulma (structural only — color overrides handled by DS tokens)
-@use "bulma/bulma";
 
 *, *::before, *::after { box-sizing: border-box; }
 
