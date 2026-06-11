@@ -107,4 +107,6 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   handleDownloadmacOSClick()                 { this.pushEvent('dl_marco_macos_click', 'Download Marco macOS Button'); }
   handleDownloadSlushBusWindowsClick()       { this.pushEvent('dl_slushbus_windows_click', 'Download SlushBus Windows Button'); }
   handleDownloadSlushBusmacOSClick()         { this.pushEvent('dl_slushbus_macos_click', 'Download SlushBus macOS Button'); }
+  handleCtaClick(label: string)              { this.pushEvent('cta_click', label); }
+  handleNewsletterSubmit()                   { this.pushEvent('newsletter_signup', 'Mailing List Signup Form'); }
 }

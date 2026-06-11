@@ -11,7 +11,7 @@
       <h1>Plugins that <span class="pop">should exist</span> but don&rsquo;t.</h1>
       <p class="lead">The weird, specific mixing tools you&rsquo;ve always wanted: the ones that either don&rsquo;t exist yet, or cost five times what I charge. Deep control, real diagnostics, no black boxes.</p>
       <div class="cta-row">
-        <a href="#plugins" class="btn btn-primary">Browse plugins</a>
+        <a href="#plugins" class="btn btn-primary" (click)="handleCtaClick('hero_browse_plugins')">Browse plugins</a>
         <a href="#how" class="btn btn-ghost">How phase works &rarr;</a>
       </div>
       <div class="trust">
@@ -64,9 +64,11 @@
           </div>
 
           <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.2.0.zip">Download Windows Demo</a>
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.2.0.zip"
+               (click)="handleDownloadDeepPerfectionWindowsClick()">Download Windows Demo</a>
             <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.2.0-mac.pkg">Download macOS Demo</a>
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.2.0-mac.pkg"
+               (click)="handleDownloadDeepPerfectionMacOSClick()">Download macOS Demo</a>
           </div>
         </div>
       </div>
@@ -95,9 +97,11 @@
           </div>
 
           <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_12_Windows.zip">Download Windows Demo</a>
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_v1_1_12_Windows.zip"
+               (click)="handleDownloadWindowsClick()">Download Windows Demo</a>
             <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_MacOS_V1_1_12.zip">Download macOS Demo</a>
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_MacOS_V1_1_12.zip"
+               (click)="handleDownloadmacOSClick()">Download macOS Demo</a>
           </div>
         </div>
       </div>
@@ -126,9 +130,11 @@
           </div>
 
           <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.1.zip">Download Windows Demo</a>
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.1.zip"
+               (click)="handleDownloadSlushBusWindowsClick()">Download Windows Demo</a>
             <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.1_mac.zip">Download macOS Demo</a>
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.1_mac.zip"
+               (click)="handleDownloadSlushBusmacOSClick()">Download macOS Demo</a>
           </div>
         </div>
       </div>
@@ -136,8 +142,6 @@
     </div>
   </div>
 </section>
-```
-
 
 <!-- PHASE EXPLAINER -->
 <section id="how" class="explain">
@@ -227,7 +231,7 @@
     <h2>Either it doesn&rsquo;t exist. <span class="pop">Or it costs 5&times; more.</span></h2>
     <p>No corporate gloss, no subscriptions, no boutique tax for an idea. Just deep, specific tools that show you exactly what they&rsquo;re doing, and let you control all of it.</p>
     <div class="cta-row" style="justify-content:center; margin-top:30px;">
-      <a href="#plugins" class="btn btn-primary">Start with a free demo</a>
+      <a href="#plugins" class="btn btn-primary" (click)="handleCtaClick('philosophy_free_demo')">Start with a free demo</a>
     </div>
   </div>
 </section>
@@ -245,7 +249,8 @@
         <span><b>Unsubscribe</b> any time</span>
       </div>
     </div>
-    <form class="mc-form" action="https://studio.us2.list-manage.com/subscribe/post?u=c2039f0329acccd4773731cdf&amp;id=bb2ee68f1f&amp;f_id=0062e4e3f0" method="post" target="_blank" novalidate>
+    <form class="mc-form" action="https://studio.us2.list-manage.com/subscribe/post?u=c2039f0329acccd4773731cdf&amp;id=bb2ee68f1f&amp;f_id=0062e4e3f0" method="post" target="_blank" novalidate
+          (submit)="handleNewsletterSubmit()">
       <label class="flbl" for="mce-EMAIL">Get the plugin list</label>
       <div class="mc-row">
         <input class="mc-input" type="email" name="EMAIL" id="mce-EMAIL" placeholder="you@email.com" required />
