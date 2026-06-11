@@ -1,0 +1,78 @@
+/* ============================================================
+   BruceJames — Spacing, radii, borders, shadows, texture
+   The craft is in the EDGES: thick ink outlines + hard offset
+   shadows (no blur) = cut-paper. Plus halftone + paper grain.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (4px base) ---- */
+  --space-0:   0;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-6:   32px;
+  --space-7:   48px;
+  --space-8:   64px;
+  --space-9:   96px;
+  --space-10:  128px;
+
+  /* ---- Radii (cut-paper = gently rounded, never pillowy) ---- */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   22px;
+  --radius-pill: 999px;
+
+  /* ---- Borders — the signature thick ink outline ---- */
+  --border-w:        2.5px;            /* default outline weight */
+  --border-w-thin:   2px;
+  --border-w-hair:   1px;
+  --border-ink:      var(--border-w) solid var(--line-ink);
+  --border-ink-thin: var(--border-w-thin) solid var(--line-ink);
+  --border-stitch:   var(--border-w) dashed var(--line-ink); /* "sewn" variant */
+
+  /* ---- Hard offset shadows (NO blur) = cut-paper lift ---- */
+  --shadow-pop-sm: 2px 2px 0 rgba(42, 33, 24, 0.22);
+  --shadow-pop:    4px 4px 0 rgba(42, 33, 24, 0.24);
+  --shadow-pop-lg: 6px 6px 0 rgba(42, 33, 24, 0.20);
+  --shadow-pop-xl: 9px 9px 0 rgba(42, 33, 24, 0.16);
+  /* Colored pop shadows for accent objects */
+  --shadow-pop-teal: 4px 4px 0 var(--bj-teal);
+  --shadow-pop-pink: 4px 4px 0 var(--bj-pink);
+  /* One soft shadow for floating overlays (dialogs, menus) only */
+  --shadow-soft:   0 14px 30px rgba(42, 33, 24, 0.16);
+
+  /* ---- Motion ---- */
+  --ease-pop:    cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */ /* slight overshoot */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);    /* @kind other */
+  --dur-fast:    0.12s;  /* @kind other */
+  --dur-base:    0.18s;  /* @kind other */
+  --dur-slow:    0.3s;   /* @kind other */
+
+  /* ---- Texture: halftone dot + paper grain (use as bg-image) ---- */
+  --halftone-ink:  radial-gradient(var(--bj-ink) 1px, transparent 1.5px);
+  --halftone-pink: radial-gradient(var(--bj-pink) 1px, transparent 1.5px);
+  --halftone-teal: radial-gradient(var(--bj-teal) 1px, transparent 1.5px);
+  --halftone-size: 7px 7px;
+  --grain:         radial-gradient(rgba(42,33,24,0.05) 0.7px, transparent 0.8px); /* @kind other */
+  --grain-size:    3px 3px;
+}
+
+/* ---- Texture utility classes ---- */
+.bj-grain { background-image: var(--grain); background-size: var(--grain-size); }
+.bj-halftone-overlay {
+  position: relative;
+}
+.bj-halftone-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--halftone-ink);
+  background-size: var(--halftone-size);
+  mix-blend-mode: multiply;
+  opacity: 0.12;
+}

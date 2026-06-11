@@ -1,0 +1,14 @@
+/* ============================================================
+   BruceJames — Webfonts
+   Loaded from Google Fonts. The brand uses three families:
+     · Bricolage Grotesque — display / wordmark / headings (chunky, quirky)
+     · Space Grotesk       — body & UI text (clean, technical, warm)
+     · Space Mono          — labels, data, plugin params, specs
+
+   NOTE (font substitution): the original site shipped Inter. The new
+   BruceJames brand deliberately moves OFF Inter (too generic) to the
+   above. All three are open-source Google Fonts. If you want self-hosted
+   binaries instead of the CDN, ask and we'll vendor the .woff2 files.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');

@@ -1,0 +1,68 @@
+/* ============================================================
+   BruceJames — Color tokens
+   "Riso Craft, warm" — pink + teal on warm paper, chalky riso ink.
+   Lineage: DeepPerfection's teal panel + magenta accents, softened
+   into a handmade two-ink print register.
+   ============================================================ */
+
+:root {
+  /* ---- Ground / paper (warm cream surfaces) ---- */
+  --bj-paper:        #f4ecdd;  /* primary page ground */
+  --bj-paper-2:      #ece1cd;  /* secondary surface / oat */
+  --bj-paper-3:      #e3d6bd;  /* deeper paper / wells */
+  --bj-paper-face:   #f3ecd8;  /* light face inside dark panels (meter bg) */
+
+  /* ---- Ink (warm near-black — text, the signature outline) ---- */
+  --bj-ink:          #2a2118;  /* outlines, headings, hard shadows */
+  --bj-ink-2:        #4a4233;  /* body text */
+  --bj-ink-soft:     #8a7f63;  /* muted labels, captions */
+
+  /* ---- Teal (the signature panel + cool ink) ---- */
+  --bj-teal:         #2c857a;  /* plugin panels, dark sections */
+  --bj-teal-deep:    #1f6f65;  /* pressed / deeper teal */
+  --bj-teal-tint:    #79c1b2;  /* soft teal — knobs, fills */
+  --bj-teal-wash:    #cfe6df;  /* faint teal tint background */
+
+  /* ---- Pink (the signature warm accent) ---- */
+  --bj-pink:         #e85f93;  /* primary accent, wordmark */
+  --bj-pink-deep:    #d4467e;  /* hover / pressed */
+  --bj-pink-tint:    #e489a8;  /* soft pink — knobs, fills */
+  --bj-pink-wash:    #f6dbe5;  /* faint pink tint background */
+
+  /* ---- Warm support inks ---- */
+  --bj-brass:        #e8b54a;  /* yellow/brass — knobs, highlights */
+  --bj-brass-deep:   #d49e2e;
+  --bj-mint:         #cfe6d4;  /* soft cool support */
+  --bj-clay:         #c25a36;  /* earthy orange/terracotta */
+  --bj-clay-deep:    #a84825;
+  --bj-cream:        #f3ecd8;  /* text on teal/dark */
+
+  /* ---- Status (kept in-palette, riso-soft) ---- */
+  --bj-good:         #4f9d6b;  /* success — muted green */
+  --bj-warn:         #e8b54a;  /* caution — brass */
+  --bj-bad:          #c25a36;  /* danger — clay */
+
+  /* ============================================================
+     Semantic aliases — reference these in components
+     ============================================================ */
+  --surface-page:    var(--bj-paper);
+  --surface-card:    var(--bj-paper);
+  --surface-sunken:  var(--bj-paper-2);
+  --surface-well:    var(--bj-paper-3);
+  --surface-panel:   var(--bj-teal);     /* "dark"/feature surface */
+  --surface-face:    var(--bj-paper-face);
+
+  --text-strong:     var(--bj-ink);
+  --text-body:       var(--bj-ink-2);
+  --text-muted:      var(--bj-ink-soft);
+  --text-on-panel:   var(--bj-cream);
+  --text-on-accent:  #ffffff;
+
+  --accent:          var(--bj-pink);     /* primary action */
+  --accent-hover:    var(--bj-pink-deep);
+  --accent-2:        var(--bj-teal);     /* secondary action */
+  --accent-2-hover:  var(--bj-teal-deep);
+
+  --line-ink:        var(--bj-ink);      /* the thick outline color */
+  --ring:            var(--bj-pink);     /* focus ring */
+}

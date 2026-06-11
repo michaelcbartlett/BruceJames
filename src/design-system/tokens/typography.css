@@ -1,0 +1,76 @@
+/* ============================================================
+   BruceJames — Typography tokens
+   Display: Bricolage Grotesque · Text: Space Grotesk · Mono: Space Mono
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', sans-serif;
+  --font-text:    'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, 'Courier New', monospace;
+
+  /* ---- Weights ---- */
+  --fw-regular:   400;  /* @kind font */
+  --fw-medium:    500;  /* @kind font */
+  --fw-semibold:  600;  /* @kind font */
+  --fw-bold:      700;  /* @kind font */
+  --fw-black:     800;  /* @kind font */ /* display only */
+
+  /* ---- Type scale (fluid-friendly base 16px) ---- */
+  --fs-display:   clamp(2.6rem, 5.5vw, 4.5rem); /* @kind font */ /* hero wordmark / big numbers */
+  --fs-h1:        clamp(2rem, 4vw, 3rem);       /* @kind font */
+  --fs-h2:        clamp(1.5rem, 2.6vw, 2.1rem); /* @kind font */
+  --fs-h3:        1.3rem;     /* @kind font */
+  --fs-lg:        1.125rem;   /* @kind font */
+  --fs-body:      1rem;       /* @kind font */
+  --fs-sm:        0.875rem;   /* @kind font */
+  --fs-xs:        0.75rem;    /* @kind font */
+  --fs-label:     0.6875rem;  /* @kind font */ /* uppercase mono micro-labels */
+
+  /* ---- Line heights ---- */
+  --lh-tight:     1.02;   /* @kind font */ /* display */
+  --lh-snug:      1.18;   /* @kind font */ /* headings */
+  --lh-normal:    1.55;   /* @kind font */ /* body */
+  --lh-loose:     1.7;    /* @kind font */
+
+  /* ---- Letter spacing ---- */
+  --ls-display:  -0.02em; /* @kind font */ /* tight on big Bricolage */
+  --ls-tight:    -0.01em; /* @kind font */
+  --ls-normal:    0;      /* @kind font */
+  --ls-label:     0.2em;  /* @kind font */ /* the mono micro-label spacing */
+  --ls-wide:      0.08em; /* @kind font */
+}
+
+/* ---- Recommended defaults (opt-in; consumers may override) ---- */
+.bj-display {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--text-strong);
+}
+.bj-h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-strong);
+}
+.bj-body {
+  font-family: var(--font-text);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-body);
+}
+/* The signature micro-label: mono, uppercase, wide-tracked */
+.bj-label {
+  font-family: var(--font-mono);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}

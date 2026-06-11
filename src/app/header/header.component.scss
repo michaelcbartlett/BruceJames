@@ -1,4 +1,28 @@
-.social-icons {
-    padding-top: 15%;
-    padding-right: 20%;
+.navbar {
+  background: var(--surface-panel);
+  border-bottom: var(--border-ink);
+  padding: 0 var(--space-5);
+
+  .navbar-brand a {
+    font-family: var(--font-display);
+    font-weight: var(--fw-black);
+    font-size: 1.15rem;
+    letter-spacing: var(--ls-tight);
+    color: var(--bj-pink);
+  }
+
+  .navbar-item,
+  .navbar-link {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--bj-cream);
+
+    &:hover {
+      background: transparent;
+      color: var(--bj-pink);
+    }
+  }
 }
