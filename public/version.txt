@@ -1,3 +1,5 @@
 Marco:1.1.12
 SlushBus:1.1.2
 DeepPerfection:1.2.0
+longDivision:1.0.0
+YouAreNotCrazy:1.0.0

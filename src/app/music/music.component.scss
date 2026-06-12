@@ -86,6 +86,12 @@
     text-transform: uppercase; padding: 8px 14px; border: 2px solid var(--bj-ink);
     border-radius: 999px; background: var(--bj-paper-2); color: var(--bj-ink);
   }
+  .member-link {
+    background: var(--bj-pink); color: #fff; text-decoration: none;
+    box-shadow: 3px 3px 0 rgba(42,33,24,0.2); transition: background .12s;
+    &:hover { background: var(--bj-teal); color: var(--bj-cream); }
+  }
+  .blog-link { color: var(--bj-pink); font-weight: 700; }
 
   // ── Footer
   .site-foot { background: var(--bj-ink); color: var(--bj-paper); border-top: 2.5px solid var(--bj-ink); }
