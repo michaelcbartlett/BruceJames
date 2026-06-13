@@ -110,6 +110,9 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   handleDownloadYouAreNotCrazyWindowsClick() { this.pushEvent('dl_youarenotcrazy_windows_click', 'Download YouAreNotCrazy Windows Button'); }
   handleDownloadYouAreNotCrazyMacOSClick()   { this.pushEvent('dl_youarenotcrazy_macos_click', 'Download YouAreNotCrazy macOS Button'); }
   handleNotifyLongDivisionClick()            { this.pushEvent('notify_longdivision_click', 'longDivision Get Notified Button'); }
+  handleBuyLongDivisionClick()               { this.pushEvent('buy_longdivision_click', 'longDivision Get It Button'); }
+  handleDownloadLongDivisionWindowsClick()   { this.pushEvent('dl_longdivision_windows_click', 'Download longDivision Windows Button'); }
+  handleDownloadLongDivisionMacOSClick()     { this.pushEvent('dl_longdivision_macos_click', 'Download longDivision macOS Button'); }
   handleCtaClick(label: string)              { this.pushEvent('cta_click', label); }
   handleNewsletterSubmit()                   { this.pushEvent('newsletter_signup', 'Mailing List Signup Form'); }
 }

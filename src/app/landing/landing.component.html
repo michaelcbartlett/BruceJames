@@ -43,6 +43,7 @@
       <!-- DeepPerfection -->
       <div class="card">
         <div class="card-shot">
+          <span class="soon-badge">New</span>
           <img src="/plugin-deepperfection.png" alt="DeepPerfection" />
         </div>
         <div class="card-body">
@@ -142,6 +143,7 @@
       <!-- YouAreNotCrazy -->
       <div class="card">
         <div class="card-shot shot-contain">
+          <span class="soon-badge">New</span>
           <img src="/plugin-youarenotcrazy.png" alt="YouAreNotCrazy" />
         </div>
         <div class="card-body">
@@ -172,10 +174,10 @@
         </div>
       </div>
 
-      <!-- longDivision (coming soon) -->
-      <div class="card coming-soon">
+      <!-- longDivision -->
+      <div class="card">
         <div class="card-shot">
-          <span class="soon-badge">Coming soon</span>
+          <span class="soon-badge">New</span>
           <img src="/plugin-longdivision.png" alt="longDivision" />
         </div>
         <div class="card-body">
@@ -185,15 +187,23 @@
 
           <div class="card-foot">
             <div class="price">
-              <span class="free-tag">In the works</span>
-              <small>beta opens to the list first</small>
+              <span class="was">usually $14.99</span>
+              Pay what you like <small>from $4.99</small>
             </div>
 
-            <a href="#list"
-               class="chip chip-ghost"
-               (click)="handleNotifyLongDivisionClick()">
-              Get notified
+            <a href="https://longdivision.brucejames.studio?wanted=true"
+               class="chip"
+               (click)="handleBuyLongDivisionClick()">
+              Get it
             </a>
+          </div>
+
+          <div class="demo-links">
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0.zip"
+               (click)="handleDownloadLongDivisionWindowsClick()">Download Windows Demo</a>
+            <br>
+            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip"
+               (click)="handleDownloadLongDivisionMacOSClick()">Download macOS Demo</a>
           </div>
         </div>
       </div>
