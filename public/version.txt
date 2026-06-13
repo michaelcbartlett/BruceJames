@@ -3,3 +3,6 @@ SlushBus:1.1.2
 DeepPerfection:1.2.0
 longDivision:1.0.0
 YouAreNotCrazy:1.0.0
+GreatWallOfSound:1.0.0
+Thumbelina:1.0.0
+DrumFill:1.0.0
