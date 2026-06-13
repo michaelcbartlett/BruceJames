@@ -1,0 +1,93 @@
+<section class="legal-page">
+  <div class="legal-inner">
+
+    <span class="legal-eyebrow">Legal</span>
+    <h1 class="legal-title">Privacy Policy</h1>
+    <p class="legal-updated">Last updated: June 12, 2026</p>
+
+    <p class="legal-lede">
+      The short version: we collect as little as possible, we never sell your data,
+      and analytics only runs if you say yes. Here are the details.
+    </p>
+
+    <h2>Who we are</h2>
+    <p>
+      brucejames.studio is operated by BruceJames, an independent audio plugin and music
+      project based in Raleigh, North Carolina, USA. For anything privacy related, email
+      <a [href]="'mailto:' + supportEmail">{{ supportEmail }}</a>.
+    </p>
+
+    <h2>Analytics (only with your consent)</h2>
+    <p>
+      If you accept the cookie banner, we load Google Tag Manager and Google Analytics to
+      see which pages get visited and roughly where visitors come from. This sets cookies
+      and processes your IP address and browser information. Google LLC (USA) processes
+      this data on our behalf. If you decline, or simply ignore the banner, none of this
+      loads and no analytics cookies are set.
+    </p>
+    <p>
+      You can change your mind at any time using the cookie settings at the bottom of this page.
+    </p>
+
+    <h2>Newsletter</h2>
+    <p>
+      If you join the plugin list, your email address is stored by Mailchimp (Intuit Inc., USA),
+      which we use to send the emails. We only use it to tell you about new plugins, betas,
+      and sales. Every email has an unsubscribe link, and unsubscribing removes you from the list.
+      We never share or sell the list.
+    </p>
+
+    <h2>Purchases</h2>
+    <p>
+      Plugins are sold through Gumroad (Gumroad, Inc., USA), which acts as the merchant of
+      record. Gumroad handles payment, billing details, and applicable taxes under its own
+      <a href="https://gumroad.com/privacy" target="_blank" rel="noopener">privacy policy</a>.
+      From Gumroad we receive your email address and order details so we can issue your
+      license key and provide support.
+    </p>
+
+    <h2>License management</h2>
+    <p>
+      When you activate a plugin or use the license manager on this site, we process your
+      email address, license key, and a machine fingerprint (a non-reversible identifier for
+      your computer, plus an optional name you give it). We use this to enforce activation
+      limits and let you manage your own activations. This data is kept for as long as your
+      license is active.
+    </p>
+
+    <h2>Hosting and server logs</h2>
+    <p>
+      This site is hosted on Vercel (Vercel Inc., USA). Like almost every web host, Vercel
+      keeps short-lived server logs that include IP addresses, used for security and to keep
+      the site running. Our license API is hosted at api.brucejames.studio and keeps similar logs.
+    </p>
+
+    <h2>Legal bases (for visitors in the EU/EEA and UK)</h2>
+    <p>
+      Analytics and the newsletter run on your consent (Art. 6(1)(a) GDPR), which you can
+      withdraw at any time. Purchases and license management are processed to fulfil our
+      contract with you (Art. 6(1)(b) GDPR). Server logs rely on our legitimate interest in
+      keeping the site secure (Art. 6(1)(f) GDPR). Data is processed in the USA; where GDPR
+      applies, our providers rely on safeguards such as the EU-US Data Privacy Framework or
+      standard contractual clauses.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      You can ask us what data we hold about you, ask us to correct or delete it, and withdraw
+      any consent you have given. EU/EEA and UK visitors also have the right to complain to
+      their local data protection authority. To exercise any of these, email
+      <a [href]="'mailto:' + supportEmail">{{ supportEmail }}</a> and we'll sort it out.
+    </p>
+
+    <h2>Cookie settings</h2>
+    <p>
+      Your current analytics choice: <strong>{{ analyticsConsent }}</strong>.
+    </p>
+    <button class="btn-ghost" (click)="resetConsent()">Reset cookie choice</button>
+    <p class="legal-fine">
+      Resetting reloads the page and shows the consent banner again.
+    </p>
+
+  </div>
+</section>

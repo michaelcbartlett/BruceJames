@@ -1,0 +1,81 @@
+.cb-banner {
+  position: fixed;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 1000;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--surface-card);
+  border: var(--border-ink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-pop-lg);
+  padding: var(--space-4) var(--space-5);
+}
+
+.cb-text {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-body);
+  line-height: var(--lh-normal);
+
+  a {
+    color: var(--bj-teal);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+  }
+}
+
+.cb-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.cb-accept {
+  background: var(--bj-pink);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: var(--border-ink);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  box-shadow: var(--shadow-pop-sm);
+  white-space: nowrap;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+
+  &:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-pop); }
+  &:active { transform: translate(2px, 2px); box-shadow: none; }
+}
+
+.cb-decline {
+  background: none;
+  border: var(--border-ink-thin);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+
+  &:hover { color: var(--text-strong); border-color: var(--bj-ink); }
+}
+
+@media (max-width: 520px) {
+  .cb-banner { flex-direction: column; align-items: stretch; text-align: center; }
+  .cb-actions { flex-direction: row; justify-content: center; }
+}

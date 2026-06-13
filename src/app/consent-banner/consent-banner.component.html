@@ -1,0 +1,10 @@
+<div class="cb-banner" *ngIf="visible" role="dialog" aria-label="Cookie consent">
+  <p class="cb-text">
+    We'd like to use one analytics cookie (Google Analytics) to see which pages get visited.
+    No ads, no selling data. <a href="/privacy">Privacy policy</a>
+  </p>
+  <div class="cb-actions">
+    <button class="cb-accept" (click)="accept()">Sounds fine</button>
+    <button class="cb-decline" (click)="decline()">No thanks</button>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+.legal-page {
+  min-height: 100vh;
+  padding: var(--space-9) var(--space-5);
+  background: var(--surface-page);
+  background-image: var(--grain);
+  background-size: var(--grain-size);
+}
+
+.legal-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.legal-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--bj-teal);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.legal-title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--text-strong);
+  margin: 0 0 var(--space-2);
+}
+
+.legal-updated {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--space-6);
+}
+
+.legal-lede {
+  font-size: var(--fs-body);
+  color: var(--text-body);
+  line-height: var(--lh-loose);
+  margin: 0 0 var(--space-6);
+  padding: var(--space-4);
+  background: var(--bj-teal-wash);
+  border: var(--border-ink-thin);
+  border-radius: var(--radius-md);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h3);
+  color: var(--text-strong);
+  margin: var(--space-7) 0 var(--space-3);
+}
+
+p {
+  font-size: var(--fs-body);
+  color: var(--text-body);
+  line-height: var(--lh-loose);
+  margin: 0 0 var(--space-4);
+}
+
+a {
+  color: var(--bj-teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.btn-ghost {
+  background: none;
+  border: var(--border-ink-thin);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+
+  &:hover { color: var(--text-strong); border-color: var(--bj-ink); }
+}
+
+.legal-fine {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-3);
+  letter-spacing: 0.02em;
+}
