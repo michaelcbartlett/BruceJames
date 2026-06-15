@@ -1,31 +1,60 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation, Inject } from '@angular/core';
+import { NgFor } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
-const BA_CONFIG = {
-  before: { meta: "Drummer's room mics · raw bus · −6.2 dB peak · phase OFF", color: "var(--bj-teal-tint)", seed: 7,  scale: 1 },
-  after:  { meta: "Drummer's room mics · corrected · −6.2 dB peak · phase ON",  color: "var(--bj-pink-tint)", seed: 42, scale: 1 },
-  diff:   { meta: "Difference · only the low end DeepPerfection put back",       color: "var(--bj-brass)",     seed: 88, scale: 0.42 },
-} as const;
+interface ComparisonTrack {
+  label: string;
+  src: string;
+}
+
+interface ComparisonSet {
+  plugin: string;
+  description: string;
+  tracks: ComparisonTrack[];
+}
 
 @Component({
   selector: 'app-landing',
-  imports: [],
+  imports: [NgFor],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   encapsulation: ViewEncapsulation.None
 })
 export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('baWave')     baWaveEl!: ElementRef<HTMLElement>;
-  @ViewChild('baMeta')     baMetaEl!: ElementRef<HTMLElement>;
+  @ViewChild('playerAudio') audioEl!: ElementRef<HTMLAudioElement>;
   @ViewChild('explainWave1') wave1!: ElementRef<HTMLElement>;
   @ViewChild('explainWave2') wave2!: ElementRef<HTMLElement>;
   @ViewChild('explainWave3') wave3!: ElementRef<HTMLElement>;
 
-  baMode: 'before' | 'after' | 'diff' = 'before';
+  readonly comparisons: ComparisonSet[] = [
+    {
+      plugin: 'DeepPerfection',
+      description: 'Five stems from the same session. Switch between them and hear exactly what DeepPerfection puts back.',
+      tracks: [
+        { label: 'Without DeepPerfection', src: '/deepPerfectionComparisons/without%20DeepPerfection.mp3' },
+        { label: 'With DeepPerfection',    src: '/deepPerfectionComparisons/With%20DeepPerfection.mp3' },
+        { label: "Null (what's added)",    src: '/deepPerfectionComparisons/DeepPerfection%20Null.mp3' },
+        { label: 'Just Drums',             src: '/deepPerfectionComparisons/just%20drums.mp3' },
+        { label: 'Just Instruments',       src: '/deepPerfectionComparisons/just%20inst.mp3' },
+      ],
+    },
+  ];
+
+  activeComparison = 0;
+  activeTrack = 0;
+  isPlaying = false;
+  progress = 0;
+  currentTimeStr = '0:00';
+  durationStr = '0:00';
   supportEmail = 'support@brucejames.studio';
 
+  private savedTime = 0;
   private observer: IntersectionObserver | null = null;
+
+  get currentTracks(): ComparisonTrack[] {
+    return this.comparisons[this.activeComparison].tracks;
+  }
 
   constructor(
     private titleService: Title,
@@ -41,9 +70,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.buildWave(this.baWaveEl.nativeElement, 64, BA_CONFIG.before.seed, 1, BA_CONFIG.before.color);
     this.buildExplainWaves();
-
     this.observer = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); this.observer!.unobserve(e.target); } }),
       { threshold: 0.1 }
@@ -51,31 +78,93 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     this.doc.querySelectorAll('.reveal').forEach(el => this.observer!.observe(el));
   }
 
-  ngOnDestroy() { this.observer?.disconnect(); }
-
-  setBA(mode: 'before' | 'after' | 'diff') {
-    this.baMode = mode;
-    const cfg = BA_CONFIG[mode];
-    this.baMetaEl.nativeElement.textContent = cfg.meta;
-    this.buildWave(this.baWaveEl.nativeElement, 64, cfg.seed, cfg.scale, cfg.color);
+  ngOnDestroy() {
+    this.observer?.disconnect();
+    this.audioEl?.nativeElement?.pause();
   }
 
-  togglePlay(e: Event) {
-    const btn = e.currentTarget as HTMLButtonElement;
-    btn.innerHTML = btn.innerHTML.includes('9654') ? '&#10074;&#10074;' : '&#9654;';
+  selectComparison(i: number) {
+    if (i === this.activeComparison) return;
+    const a = this.audioEl.nativeElement;
+    a.pause();
+    this.isPlaying = false;
+    this.activeComparison = i;
+    this.activeTrack = 0;
+    this.savedTime = 0;
+    this.progress = 0;
+    this.currentTimeStr = '0:00';
+    this.durationStr = '0:00';
+    a.removeAttribute('src');
+    a.load();
   }
 
-  private buildWave(el: HTMLElement, n: number, seed: number, scale: number, color: string) {
-    el.innerHTML = '';
-    let s = seed;
-    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
-    for (let i = 0; i < n; i++) {
-      const b = this.doc.createElement('i');
-      const env = Math.sin((i / n) * Math.PI);
-      b.style.height = Math.max(4, (8 + rnd() * 48 * (0.4 + env)) * scale) + '%';
-      b.style.background = color;
-      el.appendChild(b);
+  selectTrack(i: number) {
+    if (i === this.activeTrack && this.audioEl.nativeElement.src) return;
+    const a = this.audioEl.nativeElement;
+    this.savedTime = a.currentTime;
+    const wasPlaying = this.isPlaying;
+    this.activeTrack = i;
+
+    const onReady = () => {
+      const target = Math.min(this.savedTime, a.duration || 0);
+      if (target > 0) a.currentTime = target;
+      this.durationStr = this.fmtTime(a.duration);
+      if (wasPlaying) a.play().catch(() => {});
+    };
+
+    a.addEventListener('loadedmetadata', onReady, { once: true });
+    a.src = this.currentTracks[i].src;
+    a.load();
+  }
+
+  togglePlay() {
+    const a = this.audioEl.nativeElement;
+    if (!a.src) {
+      this.selectTrack(this.activeTrack);
+      return;
     }
+    if (this.isPlaying) {
+      a.pause();
+      this.isPlaying = false;
+    } else {
+      a.play().catch(() => {});
+      this.isPlaying = true;
+    }
+  }
+
+  onTimeUpdate() {
+    const a = this.audioEl.nativeElement;
+    this.progress = a.duration ? (a.currentTime / a.duration) * 100 : 0;
+    this.currentTimeStr = this.fmtTime(a.currentTime);
+  }
+
+  onPlaying() { this.isPlaying = true; }
+  onPause()   { this.isPlaying = false; }
+
+  onLoaded() {
+    this.durationStr = this.fmtTime(this.audioEl.nativeElement.duration);
+  }
+
+  onEnded() {
+    this.isPlaying = false;
+    this.progress = 0;
+    this.currentTimeStr = '0:00';
+    this.savedTime = 0;
+  }
+
+  seek(e: Event) {
+    const a = this.audioEl.nativeElement;
+    if (!a.src) { this.selectTrack(this.activeTrack); return; }
+    if (a.duration) {
+      const t = (+(e.target as HTMLInputElement).value / 100) * a.duration;
+      a.currentTime = t;
+      this.savedTime = t;
+    }
+  }
+
+  private fmtTime(s: number): string {
+    if (!s || isNaN(s)) return '0:00';
+    return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   }
 
   private buildExplainWaves() {
@@ -110,7 +199,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   handleDownloadYouAreNotCrazyWindowsClick() { this.pushEvent('dl_youarenotcrazy_windows_click', 'Download YouAreNotCrazy Windows Button'); }
   handleDownloadYouAreNotCrazyMacOSClick()   { this.pushEvent('dl_youarenotcrazy_macos_click', 'Download YouAreNotCrazy macOS Button'); }
   handleNotifyLongDivisionClick()            { this.pushEvent('notify_longdivision_click', 'longDivision Get Notified Button'); }
-  handleBuyLongDivisionClick()               { this.pushEvent('buy_longdivision_click', 'longDivision Get It Button'); }
+  handleBuyLongDivisionClick()              { this.pushEvent('buy_longdivision_click', 'longDivision Get It Button'); }
   handleDownloadLongDivisionWindowsClick()   { this.pushEvent('dl_longdivision_windows_click', 'Download longDivision Windows Button'); }
   handleDownloadLongDivisionMacOSClick()     { this.pushEvent('dl_longdivision_macos_click', 'Download longDivision macOS Button'); }
   handleBuySlurshClick()                     { this.pushEvent('buy_slursh_click', 'Buy Slursh Button'); }

@@ -26,6 +26,59 @@
   </div>
 </section>
 
+<!-- HEAR IT -->
+<section id="hear">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center; margin-left:auto; margin-right:auto;">
+      <div class="eyebrow">Hear it</div>
+      <h2>Before &amp; after.</h2>
+      <p style="margin-left:auto;margin-right:auto;">{{ comparisons[activeComparison].description }}</p>
+    </div>
+    <div class="compare-player">
+
+      <!-- Plugin tabs — only rendered when there are multiple comparisons -->
+      <div class="compare-plugins" [style.display]="comparisons.length > 1 ? 'flex' : 'none'">
+        <button class="compare-plugin-tab"
+                *ngFor="let c of comparisons; let i = index"
+                [class.active]="activeComparison === i"
+                (click)="selectComparison(i)">{{ c.plugin }}</button>
+      </div>
+
+      <!-- Track buttons -->
+      <div class="compare-tracks">
+        <button class="compare-track"
+                *ngFor="let t of currentTracks; let i = index"
+                [class.active]="activeTrack === i"
+                [attr.data-idx]="i"
+                (click)="selectTrack(i)">{{ t.label }}</button>
+      </div>
+
+      <!-- Transport -->
+      <div class="compare-display">
+        <button class="compare-play" (click)="togglePlay()" [attr.aria-label]="isPlaying ? 'Pause' : 'Play'">
+          {{ isPlaying ? '⏸' : '▶' }}
+        </button>
+        <div class="compare-seek-wrap">
+          <input class="compare-seek" type="range" min="0" max="100" [value]="progress" (input)="seek($event)" />
+        </div>
+        <div class="compare-time">{{ currentTimeStr }} / {{ durationStr }}</div>
+      </div>
+      <div class="compare-meta">
+        {{ currentTracks[activeTrack].label }}
+        &ensp;&middot;&ensp;
+        <a class="compare-source-link" href="https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll" target="_blank" rel="noopener">hear the full track &nearr;</a>
+      </div>
+
+      <audio #playerAudio
+             (timeupdate)="onTimeUpdate()"
+             (loadedmetadata)="onLoaded()"
+             (playing)="onPlaying()"
+             (pause)="onPause()"
+             (ended)="onEnded()"></audio>
+    </div>
+  </div>
+</section>
+
 <!-- PRODUCTS -->
 <section id="plugins">
   <div class="wrap">
@@ -270,28 +323,6 @@
   </div>
 </section>
 
-<!-- BEFORE / AFTER — hidden until audio is ready -->
-<!-- <section id="hear">
-  <div class="wrap">
-    <div class="sec-head" style="text-align:center; margin-left:auto; margin-right:auto;">
-      <div class="eyebrow">Hear it</div>
-      <h2>Before &amp; after.</h2>
-      <p style="margin-left:auto;margin-right:auto;">The sound is the sell. Flip between the raw mix and the corrected one, same gain, same everything, just phase fixed.</p>
-    </div>
-    <div class="ba-card">
-      <div class="ba-toggle">
-        <button [class.active]="baMode === 'before'" (click)="setBA('before')">Before</button>
-        <button [class.active]="baMode === 'after'" (click)="setBA('after')">After</button>
-        <button [class.active]="baMode === 'diff'" (click)="setBA('diff')" id="ba-diff-btn">Difference</button>
-      </div>
-      <div class="ba-display">
-        <button class="ba-play" aria-label="Play" (click)="togglePlay($event)">&#9654;</button>
-        <div class="ba-wave" #baWave></div>
-      </div>
-      <div class="ba-meta" #baMeta>Drummer&rsquo;s room mics &middot; raw bus &middot; &minus;6.2 dB peak</div>
-    </div>
-  </div>
-</section> -->
 
 <!-- REVIEWS -->
 <section id="reviews">
