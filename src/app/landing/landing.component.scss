@@ -127,6 +127,15 @@
     background: transparent; color: var(--bj-ink);
     &:hover { background: var(--bj-brass); color: var(--bj-ink); }
   }
+  .demo-links {
+    margin-top: 4px;
+    a {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+      color: var(--bj-teal-deep); text-decoration: underline; text-underline-offset: 2px;
+      line-height: 1.9;
+      &:hover { color: var(--bj-ink); }
+    }
+  }
 
   // ── Phase explainer
   .explain {
@@ -231,6 +240,12 @@
     display: flex; gap: 22px; margin-top: 22px; flex-wrap: wrap;
     font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.03em; color: rgba(255,255,255,0.92);
     b { color: var(--bj-brass); }
+  }
+  .news p.upcoming {
+    font-family: var(--font-mono); font-size: 12px; line-height: 1.6; letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.82); margin: 22px 0 0;
+    padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.18);
+    b { color: var(--bj-brass); letter-spacing: 0.06em; text-transform: uppercase; font-size: 11px; }
   }
   .mc-form {
     background: var(--bj-paper); border: 2.5px solid var(--bj-ink); border-radius: var(--radius-lg);
