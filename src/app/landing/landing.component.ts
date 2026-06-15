@@ -44,6 +44,17 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
     },
     {
+      plugin: 'longDivision',
+      description: 'Same drum loop, five widths. Hear the stereo field open up — and the LFO put it in motion.',
+      tracks: [
+        { label: 'Dry',                    src: '/longDivisionComparison/drums%20dry.mp3' },
+        { label: 'Width 1',                src: '/longDivisionComparison/width%20at%201.mp3' },
+        { label: 'Width 3',                src: '/longDivisionComparison/Width%20at%203.mp3' },
+        { label: 'Width 3 + LFO',          src: '/longDivisionComparison/Width%20at%203%20with%20LFO.mp3' },
+        { label: 'Width 3, Quiet Emphasis', src: '/longDivisionComparison/width%203%20quiet%20emphasis.mp3' },
+      ],
+    },
+    {
       plugin: 'Slursh',
       description: 'Same loop, five settings. Hear the drive and collapse stack up.',
       tracks: [
