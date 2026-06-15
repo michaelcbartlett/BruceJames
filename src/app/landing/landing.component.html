@@ -59,14 +59,14 @@
           {{ isPlaying ? '⏸' : '▶' }}
         </button>
         <div class="compare-seek-wrap">
-          <input class="compare-seek" type="range" min="0" max="100" [value]="progress" (input)="seek($event)" />
+          <input class="compare-seek" type="range" min="0" max="100" [value]="progress" (input)="seek($event)" (change)="onSeekEnd()" />
         </div>
         <div class="compare-time">{{ currentTimeStr }} / {{ durationStr }}</div>
       </div>
       <div class="compare-meta">
         {{ currentTracks[activeTrack].label }}
         &ensp;&middot;&ensp;
-        <a class="compare-source-link" href="https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll" target="_blank" rel="noopener">hear the full track &nearr;</a>
+        <a class="compare-source-link" href="https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll" target="_blank" rel="noopener" (click)="handleCompareFullTrackClick()">hear the full track &nearr;</a>
       </div>
 
       <audio #playerAudio

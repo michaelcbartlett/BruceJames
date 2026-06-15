@@ -96,6 +96,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     this.durationStr = '0:00';
     a.removeAttribute('src');
     a.load();
+    this.pushEvent('compare_plugin_switch', this.comparisons[i].plugin);
   }
 
   selectTrack(i: number) {
@@ -115,6 +116,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     a.addEventListener('loadedmetadata', onReady, { once: true });
     a.src = this.currentTracks[i].src;
     a.load();
+    this.pushEvent('compare_track_select', `${this.comparisons[this.activeComparison].plugin} — ${this.currentTracks[i].label}`);
   }
 
   togglePlay() {
@@ -126,9 +128,11 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isPlaying) {
       a.pause();
       this.isPlaying = false;
+      this.pushEvent('compare_pause', `${this.comparisons[this.activeComparison].plugin} — ${this.currentTracks[this.activeTrack].label}`);
     } else {
       a.play().catch(() => {});
       this.isPlaying = true;
+      this.pushEvent('compare_play', `${this.comparisons[this.activeComparison].plugin} — ${this.currentTracks[this.activeTrack].label}`);
     }
   }
 
@@ -160,6 +164,14 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
       a.currentTime = t;
       this.savedTime = t;
     }
+  }
+
+  onSeekEnd() {
+    this.pushEvent('compare_seek', `${this.comparisons[this.activeComparison].plugin} — ${this.currentTracks[this.activeTrack].label}`);
+  }
+
+  handleCompareFullTrackClick() {
+    this.pushEvent('compare_full_track_click', this.comparisons[this.activeComparison].plugin);
   }
 
   private fmtTime(s: number): string {
