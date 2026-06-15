@@ -47,11 +47,11 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
       plugin: 'Slursh',
       description: 'Same loop, five settings. Hear the drive and collapse stack up.',
       tracks: [
-        { label: 'No Slursh',                      src: '/slurshComparisons/No%20Slursh%20Added.mp3' },
-        { label: 'Full Drive',                      src: '/slurshComparisons/Full%20Slush.mp3' },
-        { label: 'Half Drive',                      src: '/slurshComparisons/Half%20Slush.mp3' },
-        { label: 'Full Drive + Collapse',           src: '/slurshComparisons/Full%20Slush%20plus%20COLLAPSE.mp3' },
-        { label: 'Little Drive + Little Collapse',  src: '/slurshComparisons/Little%20bit%20of%20Slush%20Little%20bit%20of%20Collapse.mp3' },
+        { label: 'No Slursh',                      src: '/SlurshComparisons/No%20Slursh%20Added.mp3' },
+        { label: 'Full Drive',                      src: '/SlurshComparisons/Full%20Slush.mp3' },
+        { label: 'Half Drive',                      src: '/SlurshComparisons/Half%20Slush.mp3' },
+        { label: 'Full Drive + Collapse',           src: '/SlurshComparisons/Full%20Slush%20plus%20COLLAPSE.mp3' },
+        { label: 'Little Drive + Little Collapse',  src: '/SlurshComparisons/Little%20bit%20of%20Slush%20Little%20bit%20of%20Collapse.mp3' },
       ],
     },
   ];
