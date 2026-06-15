@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation, Inject } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
@@ -12,11 +12,13 @@ interface ComparisonSet {
   plugin: string;
   description: string;
   tracks: ComparisonTrack[];
+  sourceUrl?: string;
+  sourceLabel?: string;
 }
 
 @Component({
   selector: 'app-landing',
-  imports: [NgFor],
+  imports: [NgFor, NgIf],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   encapsulation: ViewEncapsulation.None
@@ -31,6 +33,8 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       plugin: 'DeepPerfection',
       description: 'Five stems from the same session. Switch between them and hear exactly what DeepPerfection puts back.',
+      sourceUrl: 'https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll',
+      sourceLabel: 'hear the full track',
       tracks: [
         { label: 'Without DeepPerfection', src: '/deepPerfectionComparisons/without%20DeepPerfection.mp3' },
         { label: 'With DeepPerfection',    src: '/deepPerfectionComparisons/With%20DeepPerfection.mp3' },
@@ -133,6 +137,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   togglePlay() {
     const a = this.audioEl.nativeElement;
     if (!a.src) {
+      this.isPlaying = true;
       this.selectTrack(this.activeTrack);
       return;
     }

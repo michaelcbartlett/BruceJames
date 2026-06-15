@@ -9,7 +9,8 @@
       <p class="lead">The weird, specific mixing tools you&rsquo;ve always wanted: the ones that either don&rsquo;t exist yet, or cost five times what I charge. Deep control, real diagnostics, no black boxes.</p>
       <div class="cta-row">
         <a href="#plugins" class="btn btn-primary" (click)="handleCtaClick('hero_browse_plugins')">Browse plugins</a>
-        <a href="#how" class="btn btn-ghost">How phase works &rarr;</a>
+        <a href="#hear" class="btn btn-ghost" (click)="handleCtaClick('hero_hear_it')">Hear the difference &rarr;</a>
+        <a href="#how" class="btn btn-ghost" (click)="handleCtaClick('hero_how_phase_works')">How phase works &rarr;</a>
       </div>
       <div class="trust">
         <span><b>6</b> plugins, one free</span>
@@ -65,8 +66,13 @@
       </div>
       <div class="compare-meta">
         {{ currentTracks[activeTrack].label }}
-        &ensp;&middot;&ensp;
-        <a class="compare-source-link" href="https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll" target="_blank" rel="noopener" (click)="handleCompareFullTrackClick()">hear the full track &nearr;</a>
+        <ng-container *ngIf="comparisons[activeComparison].sourceUrl">
+          &ensp;&middot;&ensp;
+          <a class="compare-source-link"
+             [href]="comparisons[activeComparison].sourceUrl"
+             target="_blank" rel="noopener"
+             (click)="handleCompareFullTrackClick()">{{ comparisons[activeComparison].sourceLabel }} &nearr;</a>
+        </ng-container>
       </div>
 
       <audio #playerAudio
