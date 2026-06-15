@@ -1,3 +1,17 @@
+.promo-bar {
+  background: var(--bj-pink);
+  color: #fff;
+  border-bottom: 2.5px solid var(--bj-ink);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 9px 16px;
+  b { color: var(--bj-brass); }
+  a { color: #fff; text-decoration: underline; text-underline-offset: 2px; &:hover { color: var(--bj-brass); } }
+}
+
 .site {
   position: sticky;
   top: 0;

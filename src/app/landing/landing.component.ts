@@ -14,6 +14,10 @@ interface ComparisonSet {
   tracks: ComparisonTrack[];
   sourceUrl?: string;
   sourceLabel?: string;
+  downloadWin?: string;
+  downloadMac?: string;
+  buyUrl?: string;
+  price?: string;
 }
 
 @Component({
@@ -35,6 +39,10 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
       description: 'Five stems from the same session. Switch between them and hear exactly what DeepPerfection puts back.',
       sourceUrl: 'https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll',
       sourceLabel: 'hear the full track',
+      downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.2.1.zip',
+      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.2.1-mac.pkg',
+      buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
+      price: '$49.99',
       tracks: [
         { label: 'Without DeepPerfection', src: '/deepPerfectionComparisons/without%20DeepPerfection.mp3' },
         { label: 'With DeepPerfection',    src: '/deepPerfectionComparisons/With%20DeepPerfection.mp3' },
@@ -46,6 +54,10 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       plugin: 'longDivision',
       description: 'Same drum loop, five widths. Hear the stereo field open up — and the LFO put it in motion.',
+      downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0.zip',
+      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip',
+      buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
+      price: '$29.99',
       tracks: [
         { label: 'Dry',                    src: '/longDivisionComparison/drums%20dry.mp3' },
         { label: 'Width 1',                src: '/longDivisionComparison/width%20at%201.mp3' },
@@ -57,6 +69,10 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       plugin: 'Slursh',
       description: 'Same loop, five settings. Hear the drive and collapse stack up.',
+      downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0.zip',
+      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0_mac.zip',
+      buyUrl: 'https://brucejames.gumroad.com/l/slursh?wanted=true',
+      price: '$29.99',
       tracks: [
         { label: 'No Slursh',                      src: '/SlurshComparisons/No%20Slursh%20Added.mp3' },
         { label: 'Full Drive',                      src: '/SlurshComparisons/Full%20Slush.mp3' },
@@ -199,6 +215,14 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   handleCompareFullTrackClick() {
     this.pushEvent('compare_full_track_click', this.comparisons[this.activeComparison].plugin);
+  }
+
+  handleCompareDownloadClick(os: 'win' | 'mac') {
+    this.pushEvent(`compare_download_${os}`, this.comparisons[this.activeComparison].plugin);
+  }
+
+  handleCompareBuyClick() {
+    this.pushEvent('compare_buy_click', this.comparisons[this.activeComparison].plugin);
   }
 
   private fmtTime(s: number): string {

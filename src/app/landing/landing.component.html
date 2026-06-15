@@ -75,6 +75,14 @@
         </ng-container>
       </div>
 
+      <div class="compare-actions" *ngIf="comparisons[activeComparison].buyUrl">
+        <a class="compare-dl" [href]="comparisons[activeComparison].downloadWin" (click)="handleCompareDownloadClick('win')">Try Win</a>
+        <a class="compare-dl" [href]="comparisons[activeComparison].downloadMac" (click)="handleCompareDownloadClick('mac')">Try Mac</a>
+        <a class="compare-buy" [href]="comparisons[activeComparison].buyUrl" target="_blank" rel="noopener" (click)="handleCompareBuyClick()">
+          Buy &mdash; {{ comparisons[activeComparison].price }}
+        </a>
+      </div>
+
       <audio #playerAudio
              (timeupdate)="onTimeUpdate()"
              (loadedmetadata)="onLoaded()"
