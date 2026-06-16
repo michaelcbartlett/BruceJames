@@ -11,6 +11,8 @@ interface ComparisonTrack {
 interface ComparisonSet {
   plugin: string;
   description: string;
+  tag?: string;          // short "what it does" label, shown under the tab name
+  note?: string;         // small helper line shown above the player
   tracks: ComparisonTrack[];
   sourceUrl?: string;
   sourceLabel?: string;
@@ -55,6 +57,8 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       plugin: 'DeepPerfection',
       description: 'Five stems from the same session. Switch between them and hear exactly what DeepPerfection puts back.',
+      tag: 'Low end',
+      note: 'Good headphones or speakers required to hear the difference.',
       sourceUrl: 'https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll',
       sourceLabel: 'hear the full track',
       downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.2.2.zip',
@@ -72,6 +76,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       plugin: 'longDivision',
       description: 'Same drum loop, five widths. Hear the stereo field open up — and the LFO put it in motion.',
+      tag: 'Widening',
       downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0.zip',
       downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip',
       buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
@@ -87,6 +92,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       plugin: 'Slursh',
       description: 'Same loop, five settings. Hear the drive and collapse stack up.',
+      tag: 'Saturation',
       downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0.zip',
       downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0_mac.zip',
       buyUrl: 'https://brucejames.gumroad.com/l/slursh?wanted=true',

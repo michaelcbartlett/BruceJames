@@ -42,8 +42,16 @@
         <button class="compare-plugin-tab"
                 *ngFor="let c of comparisons; let i = index"
                 [class.active]="activeComparison === i"
-                (click)="selectComparison(i)">{{ c.plugin }}</button>
+                (click)="selectComparison(i)">
+          <span class="compare-plugin-name">{{ c.plugin }}</span>
+          <span class="compare-plugin-tag" *ngIf="c.tag">{{ c.tag }}</span>
+        </button>
       </div>
+
+      <!-- Small helper note for the active comparison -->
+      <p class="compare-note" *ngIf="comparisons[activeComparison].note">
+        {{ comparisons[activeComparison].note }}
+      </p>
 
       <!-- Track buttons -->
       <div class="compare-tracks">
