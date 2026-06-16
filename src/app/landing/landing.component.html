@@ -8,8 +8,8 @@
       <h1>Plugins that <span class="pop">should exist</span> but don&rsquo;t.</h1>
       <p class="lead">The weird, specific mixing tools you&rsquo;ve always wanted: the ones that either don&rsquo;t exist yet, or cost five times what I charge. Deep control, real diagnostics, no black boxes.</p>
       <div class="cta-row">
-        <a href="#plugins" class="btn btn-primary" (click)="handleCtaClick('hero_browse_plugins')">Browse plugins</a>
-        <a href="#hear" class="btn btn-ghost" (click)="handleCtaClick('hero_hear_it')">Hear the difference &rarr;</a>
+        <a href="#hear" class="btn btn-primary" (click)="handleCtaClick('hero_hear_it')">Hear the difference &rarr;</a>
+        <a href="#plugins" class="btn btn-ghost" (click)="handleCtaClick('hero_browse_plugins')">Browse plugins</a>
         <a href="#how" class="btn btn-ghost" (click)="handleCtaClick('hero_how_phase_works')">How phase works &rarr;</a>
       </div>
       <div class="trust">
@@ -78,7 +78,7 @@
       <div class="compare-actions" *ngIf="comparisons[activeComparison].buyUrl">
         <a class="compare-dl" [href]="comparisons[activeComparison].downloadWin" (click)="handleCompareDownloadClick('win')">Try Win</a>
         <a class="compare-dl" [href]="comparisons[activeComparison].downloadMac" (click)="handleCompareDownloadClick('mac')">Try Mac</a>
-        <a class="compare-buy" [href]="comparisons[activeComparison].buyUrl" target="_blank" rel="noopener" (click)="handleCompareBuyClick()">
+        <a class="compare-buy" [href]="buyHref(comparisons[activeComparison].buyUrl, comparisons[activeComparison].plugin.toLowerCase())" target="_blank" rel="noopener" (click)="handleCompareBuyClick()">
           Buy &mdash; {{ comparisons[activeComparison].price }}
         </a>
       </div>
@@ -104,200 +104,48 @@
 
     <div class="products">
 
-      <!-- DeepPerfection -->
-      <div class="card">
-        <div class="card-shot">
-          <span class="soon-badge">New</span>
-          <img src="/plugin-deepperfection.png" alt="DeepPerfection" />
+      <div class="card" *ngFor="let p of products">
+        <div class="card-shot" [class.shot-contain]="p.imgContain">
+          <span class="soon-badge" *ngIf="p.badge">{{ p.badge }}</span>
+          <img [src]="p.img" [alt]="p.name" />
         </div>
         <div class="card-body">
-          <div class="card-cat">Phase / Masking</div>
-          <h3>DeepPerfection</h3>
-          <p>Phase correction that just works, doesn't miss, and doesn't ruin your audio.  It's as simple as that.  It may sound too good to be true.  Just try it.</p>
+          <div class="card-cat">{{ p.category }}</div>
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.blurb }}</p>
 
-          <div class="card-foot">
+          <div class="card-cta">
             <div class="price">
-              $49.99
+              <ng-container *ngIf="!p.free">
+                {{ p.price }}<small>one-time &middot; free updates</small>
+              </ng-container>
+              <ng-container *ngIf="p.free">
+                <span class="free-tag">Free</span><small>{{ p.freeNote }}</small>
+              </ng-container>
             </div>
 
-            <a href="https://brucejames.gumroad.com/l/deepperfection?wanted=true"
-               class="chip"
-               (click)="handleBuyDeepPerfectionClick()">
-              Get it
+            <!-- Primary action: the demo, matched to the visitor's OS -->
+            <a class="btn-demo"
+               [href]="demoUrl(p, primaryOS)"
+               (click)="trackDemo(p, primaryOS)">
+              <span class="btn-demo-main">{{ p.free ? 'Download free' : 'Download free demo' }}</span>
+              <span class="btn-demo-os">{{ osLabel(primaryOS) }}</span>
             </a>
-          </div>
 
-          <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.2.2.zip"
-               (click)="handleDownloadDeepPerfectionWindowsClick()">Download Windows Demo</a>
-            <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.2.2-mac.pkg"
-               (click)="handleDownloadDeepPerfectionMacOSClick()">Download macOS Demo</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Marco -->
-      <div class="card">
-        <div class="card-shot">
-          <img src="/plugin-marco.png" alt="Marco" />
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Stereo / Space</div>
-          <h3>Marco</h3>
-          <p>Place anything in the stereo field by hand. An XY space for width, depth and focus that feels real.</p>
-
-          <div class="card-foot">
-            <div class="price">
-              $29.99
+            <div class="cta-sub">
+              <span class="nag" *ngIf="!p.free">Full plugin. Just nags.</span>
+              <a class="other-os"
+                 [href]="demoUrl(p, otherOS)"
+                 (click)="trackDemo(p, otherOS)">on {{ osLabel(otherOS) }}?</a>
             </div>
 
-            <a href="https://plugins.brucejames.studio?wanted=true"
-               class="chip"
-               (click)="handleBuyMarcoClick()">
-              Get it
+            <!-- Secondary: buy. People convert from the demo, so this stays quiet. -->
+            <a class="buy-line" *ngIf="!p.free"
+               [href]="buyHref(p.buyUrl, p.slug)"
+               target="_blank" rel="noopener"
+               (click)="trackBuy(p)">
+              Buy {{ p.price }} &rarr;
             </a>
-          </div>
-
-          <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_1.1.14.zip"
-               (click)="handleDownloadWindowsClick()">Download Windows Demo</a>
-            <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_1.1.14_mac.zip"
-               (click)="handleDownloadmacOSClick()">Download macOS Demo</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- SlushBus -->
-      <div class="card">
-        <div class="card-shot">
-          <img src="/plugin-slushbus.png" alt="SlushBus" />
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Dynamics / Glue</div>
-          <h3>SlushBus</h3>
-          <p>Bus glue with movement and more control than anything in its class. Dozens of parameters and live diagnostics that add tension and release.</p>
-
-          <div class="card-foot">
-            <div class="price">
-              $14.99
-            </div>
-
-            <a href="https://brucejames.gumroad.com/l/slushbus?wanted=true"
-               class="chip"
-               (click)="handleBuySlushBusClick()">
-              Get it
-            </a>
-          </div>
-
-          <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.2.zip"
-               (click)="handleDownloadSlushBusWindowsClick()">Download Windows Demo</a>
-            <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.2_mac.zip"
-               (click)="handleDownloadSlushBusmacOSClick()">Download macOS Demo</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- YouAreNotCrazy -->
-      <div class="card">
-        <div class="card-shot shot-contain">
-          <span class="soon-badge">New</span>
-          <img src="/plugin-youarenotcrazy.png" alt="YouAreNotCrazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Utility / Diagnostics</div>
-          <h3>YouAreNotCrazy</h3>
-          <p>Something in your mix feels early? Late? Off? This measures the actual timing offset in milliseconds and shows you. Because you are not crazy, and now you can prove it.</p>
-
-          <div class="card-foot">
-            <div class="price">
-              <span class="free-tag">Free</span>
-              <small>no demo nag, no account</small>
-            </div>
-
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0.zip"
-               class="chip"
-               (click)="handleDownloadYouAreNotCrazyWindowsClick()">
-              Download
-            </a>
-          </div>
-
-          <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0.zip"
-               (click)="handleDownloadYouAreNotCrazyWindowsClick()">Download Windows, free forever</a>
-            <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0_mac.zip"
-               (click)="handleDownloadYouAreNotCrazyMacOSClick()">Download macOS, free forever</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- longDivision -->
-      <div class="card">
-        <div class="card-shot">
-          <span class="soon-badge">New</span>
-          <img src="/plugin-longdivision.png" alt="longDivision" />
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Stereo / Width</div>
-          <h3>longDivision</h3>
-          <p>A stereo widener that splits the spectrum into bands and widens only the correlation range you choose. Target the loud or the quiet, shape it with an LFO and envelopes, keep the rest untouched.</p>
-
-          <div class="card-foot">
-            <div class="price">
-              $29.99
-            </div>
-
-            <a href="https://brucejames.gumroad.com/l/longDivision?wanted=true"
-               class="chip"
-               (click)="handleBuyLongDivisionClick()">
-              Get it
-            </a>
-          </div>
-
-          <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0.zip"
-               (click)="handleDownloadLongDivisionWindowsClick()">Download Windows Demo</a>
-            <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip"
-               (click)="handleDownloadLongDivisionMacOSClick()">Download macOS Demo</a>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Slursh -->
-      <div class="card">
-        <div class="card-shot">
-          <span class="soon-badge">New</span>
-          <img src="/plugin-slursh.png" alt="Slursh" />
-        </div>
-        <div class="card-body">
-          <div class="card-cat">Saturator / Dynamics</div>
-          <h3>Slursh</h3>
-          <p>A clipper based on the depump section of SlushBus, plus a collapse section to make this plugin FEEL insane.</p>
-
-          <div class="card-foot">
-            <div class="price">
-              $29.99
-            </div>
-
-            <a href="https://brucejames.gumroad.com/l/slursh?wanted=true"
-               class="chip"
-               (click)="handleBuySlurshClick()">
-              Get it
-            </a>
-          </div>
-
-          <div class="demo-links">
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0.zip"
-               (click)="handleDownloadSlurshWindowsClick()">Download Windows Demo</a>
-            <br>
-            <a href="https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0_mac.zip"
-               (click)="handleDownloadSlurshMacOSClick()">Download macOS Demo</a>
           </div>
         </div>
       </div>

@@ -20,6 +20,24 @@ interface ComparisonSet {
   price?: string;
 }
 
+type OS = 'win' | 'mac';
+
+interface Product {
+  slug: string;        // matches GA event names: buy_<slug>_click, dl_<slug>_<os>_click
+  name: string;
+  category: string;
+  img: string;
+  imgContain?: boolean;
+  badge?: string;
+  blurb: string;
+  free?: boolean;
+  freeNote?: string;
+  price?: string;
+  buyUrl?: string;
+  demoWin: string;
+  demoMac: string;
+}
+
 @Component({
   selector: 'app-landing',
   imports: [NgFor, NgIf],
@@ -83,6 +101,65 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
+  // Source of truth for the catalog cards. Order = display order.
+  readonly products: Product[] = [
+    {
+      slug: 'deepperfection', name: 'DeepPerfection', category: 'Phase / Masking',
+      img: '/plugin-deepperfection.png', badge: 'New',
+      blurb: "Phase correction that just works, doesn't miss, and doesn't ruin your audio. It's as simple as that. It may sound too good to be true. Just try it.",
+      price: '$49.99', buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
+      demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.2.2.zip',
+      demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.2.2-mac.pkg',
+    },
+    {
+      slug: 'marco', name: 'Marco', category: 'Stereo / Space',
+      img: '/plugin-marco.png',
+      blurb: 'Place anything in the stereo field by hand. An XY space for width, depth and focus that feels real.',
+      price: '$29.99', buyUrl: 'https://plugins.brucejames.studio?wanted=true',
+      demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_1.1.14.zip',
+      demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_1.1.14_mac.zip',
+    },
+    {
+      slug: 'slushbus', name: 'SlushBus', category: 'Dynamics / Glue',
+      img: '/plugin-slushbus.png',
+      blurb: 'Bus glue with movement and more control than anything in its class. Dozens of parameters and live diagnostics that add tension and release.',
+      price: '$14.99', buyUrl: 'https://brucejames.gumroad.com/l/slushbus?wanted=true',
+      demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.2.zip',
+      demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.2_mac.zip',
+    },
+    {
+      slug: 'youarenotcrazy', name: 'YouAreNotCrazy', category: 'Utility / Diagnostics',
+      img: '/plugin-youarenotcrazy.png', imgContain: true, badge: 'New',
+      blurb: 'Something in your mix feels early? Late? Off? This measures the actual timing offset in milliseconds and shows you. Because you are not crazy, and now you can prove it.',
+      free: true, freeNote: 'no demo nag, no account',
+      demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0.zip',
+      demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0_mac.zip',
+    },
+    {
+      slug: 'longdivision', name: 'longDivision', category: 'Stereo / Width',
+      img: '/plugin-longdivision.png', badge: 'New',
+      blurb: 'A stereo widener that splits the spectrum into bands and widens only the correlation range you choose. Target the loud or the quiet, shape it with an LFO and envelopes, keep the rest untouched.',
+      price: '$29.99', buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
+      demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0.zip',
+      demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip',
+    },
+    {
+      slug: 'slursh', name: 'Slursh', category: 'Saturator / Dynamics',
+      img: '/plugin-slursh.png', badge: 'New',
+      blurb: 'A clipper based on the depump section of SlushBus, plus a collapse section to make this plugin FEEL insane.',
+      price: '$29.99', buyUrl: 'https://brucejames.gumroad.com/l/slursh?wanted=true',
+      demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0.zip',
+      demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0_mac.zip',
+    },
+  ];
+
+  // Best guess at the visitor's OS so we can lead with the right demo download.
+  // Stays 'win' during prerender (no navigator); corrected on the client in ngOnInit.
+  detectedOS: OS = 'win';
+
+  // Bump per pricing era so Gumroad attributes sales to the right campaign.
+  private readonly utmCampaign = 'site_2026';
+
   activeComparison = 0;
   activeTrack = 0;
   isPlaying = false;
@@ -109,6 +186,33 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     this.metaService.updateTag({ name: 'description', content: 'Deep, specific audio plugins for mixing engineers. Phase correction, spatial placement, dynamic movement. VST3 · AU · CLAP — Windows & macOS.' });
     this.metaService.updateTag({ property: 'og:title', content: 'BruceJames — Plugins that should exist but don\'t' });
     this.metaService.updateTag({ name: 'twitter:title', content: 'BruceJames — Plugins that should exist but don\'t' });
+
+    if (typeof navigator !== 'undefined') {
+      const ua = ((navigator as any).userAgentData?.platform || navigator.platform || navigator.userAgent || '').toLowerCase();
+      this.detectedOS = ua.includes('mac') ? 'mac' : 'win';
+    }
+  }
+
+  get primaryOS(): OS { return this.detectedOS; }
+  get otherOS(): OS { return this.detectedOS === 'mac' ? 'win' : 'mac'; }
+
+  osLabel(os: OS): string { return os === 'mac' ? 'macOS' : 'Windows'; }
+
+  demoUrl(p: Product, os: OS): string { return os === 'mac' ? p.demoMac : p.demoWin; }
+
+  // Append UTM tags so Gumroad attributes the sale to the site/campaign/plugin.
+  buyHref(url: string | undefined, content: string): string {
+    if (!url) return '#';
+    const sep = url.includes('?') ? '&' : '?';
+    return `${url}${sep}utm_source=brucejames_site&utm_medium=plugin_card&utm_campaign=${this.utmCampaign}&utm_content=${content}`;
+  }
+
+  trackDemo(p: Product, os: OS) {
+    this.pushEvent(`dl_${p.slug}_${os === 'mac' ? 'macos' : 'windows'}_click`, `${p.name} demo (${this.osLabel(os)})`);
+  }
+
+  trackBuy(p: Product) {
+    this.pushEvent(`buy_${p.slug}_click`, `${p.name} buy`);
   }
 
   ngAfterViewInit() {
@@ -250,24 +354,6 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  handleBuyDeepPerfectionClick()             { this.pushEvent('buy_deepperfection_click', 'Buy DeepPerfection Button'); }
-  handleDownloadDeepPerfectionWindowsClick() { this.pushEvent('dl_deepperfection_windows_click', 'Download DeepPerfection Windows Button'); }
-  handleDownloadDeepPerfectionMacOSClick()   { this.pushEvent('dl_deepperfection_macos_click', 'Download DeepPerfection macOS Button'); }
-  handleBuyMarcoClick()                      { this.pushEvent('buy_marco_click', 'Buy Marco Button'); }
-  handleBuySlushBusClick()                   { this.pushEvent('buy_slushbus_click', 'Buy SlushBus Button'); }
-  handleDownloadWindowsClick()               { this.pushEvent('dl_marco_windows_click', 'Download Marco Windows Button'); }
-  handleDownloadmacOSClick()                 { this.pushEvent('dl_marco_macos_click', 'Download Marco macOS Button'); }
-  handleDownloadSlushBusWindowsClick()       { this.pushEvent('dl_slushbus_windows_click', 'Download SlushBus Windows Button'); }
-  handleDownloadSlushBusmacOSClick()         { this.pushEvent('dl_slushbus_macos_click', 'Download SlushBus macOS Button'); }
-  handleDownloadYouAreNotCrazyWindowsClick() { this.pushEvent('dl_youarenotcrazy_windows_click', 'Download YouAreNotCrazy Windows Button'); }
-  handleDownloadYouAreNotCrazyMacOSClick()   { this.pushEvent('dl_youarenotcrazy_macos_click', 'Download YouAreNotCrazy macOS Button'); }
-  handleNotifyLongDivisionClick()            { this.pushEvent('notify_longdivision_click', 'longDivision Get Notified Button'); }
-  handleBuyLongDivisionClick()              { this.pushEvent('buy_longdivision_click', 'longDivision Get It Button'); }
-  handleDownloadLongDivisionWindowsClick()   { this.pushEvent('dl_longdivision_windows_click', 'Download longDivision Windows Button'); }
-  handleDownloadLongDivisionMacOSClick()     { this.pushEvent('dl_longdivision_macos_click', 'Download longDivision macOS Button'); }
-  handleBuySlurshClick()                     { this.pushEvent('buy_slursh_click', 'Buy Slursh Button'); }
-  handleDownloadSlurshWindowsClick()         { this.pushEvent('dl_slursh_windows_click', 'Download Slursh Windows Button'); }
-  handleDownloadSlurshMacOSClick()           { this.pushEvent('dl_slursh_macos_click', 'Download Slursh macOS Button'); }
   handleCtaClick(label: string)              { this.pushEvent('cta_click', label); }
   handleNewsletterSubmit()                   { this.pushEvent('newsletter_signup', 'Mailing List Signup Form'); }
 }
