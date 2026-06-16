@@ -93,3 +93,7 @@ media/
 *.tmp
 *.~lock.*
 *.orig
+
+# --- Local tooling state (this is the website machine; keep these local) ---
+.vs/
+.claude/
