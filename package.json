@@ -19,6 +19,8 @@
     "@angular/router": "^19.2.0",
     "@fortawesome/angular-fontawesome": "^1.0.0",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "bulma": "^1.0.4",
     "bulma-social": "^2.1.0",
     "rxjs": "~7.8.0",
