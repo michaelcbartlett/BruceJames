@@ -40,7 +40,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
       sourceUrl: 'https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll',
       sourceLabel: 'hear the full track',
       downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.2.2.zip',
-      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.2.1-mac.pkg',
+      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.2.2-mac.pkg',
       buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
       price: '$49.99',
       tracks: [
