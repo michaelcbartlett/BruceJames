@@ -1,0 +1,87 @@
+<div class="bj-merch">
+
+  <!-- HERO -->
+  <section class="mh-hero">
+    <div class="wrap">
+      <div class="eyebrow">Numbered merch</div>
+      <h1>Wear your number.</h1>
+      <p class="lead">
+        Every BruceJames customer has a permanent number, set by the order of your
+        first purchase. №&nbsp;00001 was first. Buy a piece and yours prints on it,
+        small, like a serial on a good box. It never changes, and it only goes up.
+      </p>
+    </div>
+  </section>
+
+  <!-- NUMBER CHECKER -->
+  <section class="mh-check">
+    <div class="wrap">
+      <div class="check-card">
+        <div class="check-copy">
+          <div class="eyebrow">Find yours</div>
+          <h2>What’s my number?</h2>
+          <p>Enter the email you bought with. Already a customer? You’ll see your real number. Not yet? You’ll see the one you’d get today.</p>
+        </div>
+
+        <div class="check-form" *ngIf="!checked">
+          <input class="check-input" type="email" [(ngModel)]="email"
+                 placeholder="you@email.com" (keyup.enter)="checkNumber()" />
+          <button class="check-btn" (click)="checkNumber()" [disabled]="loading">
+            {{ loading ? 'Checking…' : 'Check my number' }}
+          </button>
+        </div>
+        <div class="check-error" *ngIf="error">{{ error }}</div>
+
+        <!-- Result -->
+        <div class="check-result" *ngIf="checked && result" [class.is-member]="result.status === 'member'">
+          <div class="result-badge">{{ fmt(result.number) }}</div>
+
+          <div class="result-copy" *ngIf="result.status === 'member'">
+            <strong>You’re a founding customer.</strong>
+            <span>That’s your number, permanently. It prints on anything you buy.</span>
+          </div>
+          <div class="result-copy" *ngIf="result.status === 'prospect'">
+            <strong>You’d be {{ fmt(result.number) }} today.</strong>
+            <span>You’re not on the list yet. Buy anything and this number is locked to you forever, and it climbs with every new customer.</span>
+          </div>
+
+          <button class="check-again" (click)="reset()">Check another email</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="mh-products">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">The pieces</div>
+        <h2>Three ways to wear it.</h2>
+        <p>Riso-craft prints on heavyweight blanks. The number is the detail you find later.</p>
+      </div>
+
+      <div class="products">
+        <div class="card" *ngFor="let p of items">
+          <div class="card-shot">
+            <img *ngIf="!brokenImg.has(p.name)" [src]="p.img" [alt]="p.name" (error)="imgError(p.name)" />
+            <span *ngIf="brokenImg.has(p.name)" class="shot-placeholder">{{ p.name }}</span>
+          </div>
+          <div class="card-body">
+            <div class="card-placement">{{ p.placement }}</div>
+            <h3>{{ p.name }}</h3>
+            <p>{{ p.tagline }}</p>
+            <div class="card-cta">
+              <span class="price">{{ p.price }}</span>
+              <a class="btn-buy" [href]="p.buyUrl" target="_blank" rel="noopener">Buy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="mh-fineprint">
+        Retroactive. Permanent. Yours. Every number is the sequence of your first paid purchase. Forever.
+      </p>
+    </div>
+  </section>
+
+</div>

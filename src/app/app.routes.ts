@@ -4,9 +4,11 @@ import { ManageLicenseComponent } from './manage-license/manage-license.componen
 import { MusicComponent } from './music/music.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
+import { MerchComponent } from './merch/merch.component';
 
 export const routes: Routes = [
     { path: '',             component: LandingComponent },
+    { path: 'merch',        component: MerchComponent, title: 'Numbered Merch | BruceJames' },
     { path: 'manage-license', component: ManageLicenseComponent },
     { path: 'music',        component: MusicComponent },
     { path: 'privacy',      component: PrivacyComponent, title: 'Privacy Policy | BruceJames' },
