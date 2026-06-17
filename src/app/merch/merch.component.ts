@@ -65,7 +65,7 @@ export class MerchComponent {
     //  img: '/merch-workshop-hoodie.png',
     //},
     {
-      name: 'Serial Numbered Pint Glass',
+      name: 'Customer Numbered Pint Glass',
       tagline: 'A shaker pint glass printed with your permanent BruceJames customer number.',
       placement: 'Number below logo',
       price: '$19.45',
