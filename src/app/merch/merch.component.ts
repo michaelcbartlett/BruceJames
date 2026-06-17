@@ -40,29 +40,37 @@ export class MerchComponent {
 
   // Prices and buy links are placeholders until the Gumroad merch listings exist.
   items: MerchItem[] = [
+    //{
+    //  name: 'Serial Tee',
+    //  tagline: 'Quiet on the body. Your number lives on the sleeve like a maker’s mark.',
+    //  placement: 'Number on the right sleeve',
+    //  price: '$34',
+    //  buyUrl: '#',
+    //  img: '/merch-serial-tee.png',
+    //},
+    //{
+    //  name: 'Maker’s Mark Tee',
+    //  tagline: 'Bold two-ink graphic on the back. Your number stamped at the back neck.',
+    //  placement: 'Number at the back neck',
+    //  price: '$34',
+    //  buyUrl: '#',
+    //  img: '/merch-makers-mark-tee.png',
+    //},
+    //{
+    //  name: 'Workshop Hoodie',
+    //  tagline: 'Heavyweight and minimal. Your number sits on the cuff like a toolmark.',
+    //  placement: 'Number on the left cuff',
+    //  price: '$58',
+    //  buyUrl: '#',
+    //  img: '/merch-workshop-hoodie.png',
+    //},
     {
-      name: 'Serial Tee',
-      tagline: 'Quiet on the body. Your number lives on the sleeve like a maker’s mark.',
-      placement: 'Number on the right sleeve',
-      price: '$34',
-      buyUrl: '#',
-      img: '/merch-serial-tee.png',
-    },
-    {
-      name: 'Maker’s Mark Tee',
-      tagline: 'Bold two-ink graphic on the back. Your number stamped at the back neck.',
-      placement: 'Number at the back neck',
-      price: '$34',
-      buyUrl: '#',
-      img: '/merch-makers-mark-tee.png',
-    },
-    {
-      name: 'Workshop Hoodie',
-      tagline: 'Heavyweight and minimal. Your number sits on the cuff like a toolmark.',
-      placement: 'Number on the left cuff',
-      price: '$58',
-      buyUrl: '#',
-      img: '/merch-workshop-hoodie.png',
+      name: 'Serial Numbered Pint Glass',
+      tagline: 'A shaker pint glass printed with your permanent BruceJames customer number.',
+      placement: 'Number below logo',
+      price: '$19.45',
+      buyUrl: 'https://brucejames.gumroad.com/l/pintglass',
+      img: '/shaker-pint-glass.png',
     },
   ];
 
