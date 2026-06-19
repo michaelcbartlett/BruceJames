@@ -1,6 +1,6 @@
 Marco:1.1.15
 SlushBus:1.1.4
-DeepPerfection:1.2.2
+DeepPerfection:1.3.0
 longDivision:1.0.0
 YouAreNotCrazy:1.0.0
 GreatWallOfSound:1.0.0
