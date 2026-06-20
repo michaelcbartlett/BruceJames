@@ -1,4 +1,4 @@
-// BruceJames Design System — global entry
+// BruceJames Design System · global entry
 @use "sass:color";
 @use "bulma/bulma";
 
@@ -7,6 +7,9 @@
 @import url('./design-system/tokens/colors.css');
 @import url('./design-system/tokens/typography.css');
 @import url('./design-system/tokens/spacing.css');
+
+// DS components
+@import url('./design-system/components/downloads.css');
 
 *, *::before, *::after { box-sizing: border-box; }
 

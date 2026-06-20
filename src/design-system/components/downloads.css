@@ -1,0 +1,281 @@
+/* ============================================================
+   BruceJames · Downloads hub + product deep-dive pages
+   Conversion goal: every visitor downloads & installs a free demo
+   (or saves the link to finish on desktop). Built on the existing
+   design tokens (tokens/*.css). Every selector is scoped under
+   .dl-page so it can't collide with the global header/footer or
+   the landing page (which also use .wrap, .site, .promo, .btn).
+   ============================================================ */
+
+.dl-page {
+  background: var(--bj-paper);
+  color: var(--text-body);
+  font-family: var(--font-text);
+  background-image: var(--grain);
+  background-size: var(--grain-size);
+}
+.dl-page a { color: inherit; text-decoration: none; }
+.dl-page img { display: block; max-width: 100%; }
+
+.dl-page .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+.dl-page .mono { font-family: var(--font-mono); }
+.dl-page .eyebrow {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--bj-teal); font-weight: 700;
+}
+
+/* ---------- "Free demo is the full plugin" promo bar ---------- */
+.dl-page .promo {
+  background: var(--bj-teal); color: var(--bj-cream);
+  border-bottom: 2.5px solid var(--bj-ink);
+  font-family: var(--font-mono); font-size: 12.5px; font-weight: 700;
+  letter-spacing: 0.04em; text-align: center; padding: 9px 16px;
+}
+.dl-page .promo b { color: var(--bj-brass); }
+
+/* ---------- Header ---------- */
+.dl-page header.site {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(244, 236, 221, 0.88); backdrop-filter: blur(8px);
+  border-bottom: 2.5px solid var(--bj-ink);
+}
+.dl-page .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 18px; }
+.dl-page .brand {
+  font-family: var(--font-display); font-weight: 800; font-size: 25px;
+  letter-spacing: -0.02em; color: var(--bj-pink); text-shadow: 2px 2px 0 var(--bj-teal);
+}
+.dl-page .nav-links { display: flex; align-items: center; gap: 26px; }
+.dl-page .nav-links a {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--bj-ink);
+}
+.dl-page .nav-links a:hover { color: var(--bj-pink); }
+.dl-page .nav-links a.active { color: var(--bj-pink); }
+
+/* ---------- Buttons ---------- */
+.dl-page .btn {
+  font-family: var(--font-mono); font-size: 14px; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase; padding: 13px 22px; border-radius: 999px;
+  border: 2.5px solid var(--bj-ink); cursor: pointer; display: inline-flex;
+  align-items: center; justify-content: center; gap: 10px; line-height: 1;
+  transition: transform .12s var(--ease-out), box-shadow .12s var(--ease-out), background .12s;
+}
+.dl-page .btn svg { width: 17px; height: 17px; flex: none; }
+/* primary = DOWNLOAD THE DEMO (the action we want most) */
+.dl-page .btn-dl { background: var(--bj-pink); color: #fff; box-shadow: 4px 4px 0 rgba(42, 33, 24, 0.26); }
+.dl-page .btn-dl:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 rgba(42, 33, 24, 0.26); background: var(--bj-pink-deep); }
+.dl-page .btn-dl:active { transform: translate(4px, 4px); box-shadow: 0 0 0 rgba(42, 33, 24, 0.26); }
+/* secondary = the other OS */
+.dl-page .btn-alt { background: var(--bj-paper); color: var(--bj-ink); box-shadow: 3px 3px 0 rgba(42, 33, 24, 0.18); }
+.dl-page .btn-alt:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 rgba(42, 33, 24, 0.18); background: var(--bj-paper-2); }
+.dl-page .btn-alt:active { transform: translate(3px, 3px); box-shadow: 0 0 0 rgba(42, 33, 24, 0.18); }
+/* tertiary = buy (kept quiet on purpose) */
+.dl-page .btn-ghost { background: transparent; color: var(--bj-ink); border-color: transparent; padding: 13px 8px; }
+.dl-page .btn-ghost:hover { color: var(--bj-pink); }
+.dl-page .btn-sm { padding: 10px 16px; font-size: 12.5px; }
+.dl-page .btn-block { width: 100%; }
+
+/* ---------- Mobile "save for desktop" banner ---------- */
+.dl-page .handoff {
+  background: var(--bj-brass);
+  border-bottom: 2.5px solid var(--bj-ink);
+}
+.dl-page .handoff .wrap { display: flex; align-items: center; gap: 18px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; }
+.dl-page .handoff-txt { flex: 1; min-width: 240px; }
+.dl-page .handoff-txt b { font-family: var(--font-display); font-weight: 700; color: var(--bj-ink); font-size: 17px; display: block; }
+.dl-page .handoff-txt span { font-size: 13.5px; color: var(--bj-ink); }
+.dl-page .handoff-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.dl-page .handoff .btn-alt { background: var(--bj-paper); }
+
+/* ---------- Hero (hub + product) ---------- */
+.dl-page .hero { padding: 64px 0 30px; }
+.dl-page .hero h1 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem); line-height: 1.03; letter-spacing: -0.025em;
+  color: var(--bj-ink); margin: 16px 0 0; text-wrap: balance;
+}
+.dl-page .hero h1 .pop { color: var(--bj-pink); text-shadow: 3px 3px 0 var(--bj-teal); }
+.dl-page .hero .lead { font-size: 19px; line-height: 1.55; color: var(--text-body); max-width: 34em; margin: 22px 0 0; }
+.dl-page .hero .lead b { color: var(--bj-ink); }
+
+/* trust row */
+.dl-page .trust { display: flex; gap: 24px; margin-top: 26px; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.03em; color: var(--text-muted); }
+.dl-page .trust b { color: var(--bj-ink); }
+.dl-page .trust .ok { color: var(--bj-good); }
+
+/* breadcrumb */
+.dl-page .crumb { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-muted); padding-top: 26px; }
+.dl-page .crumb a:hover { color: var(--bj-pink); }
+.dl-page .crumb span { color: var(--bj-ink); }
+
+/* ---------- "How it works" install strip ---------- */
+.dl-page .howto { padding: 8px 0 40px; }
+.dl-page .howto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.dl-page .howstep {
+  background: var(--bj-paper); border: 2.5px solid var(--bj-ink); border-radius: var(--radius-lg);
+  box-shadow: 4px 4px 0 rgba(42, 33, 24, 0.14); padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start;
+}
+.dl-page .howstep .n {
+  font-family: var(--font-display); font-weight: 800; font-size: 26px; color: var(--bj-pink);
+  line-height: 1; flex: none; width: 34px;
+}
+.dl-page .howstep h4 { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--bj-ink); margin: 2px 0 5px; }
+.dl-page .howstep p { font-size: 13.5px; line-height: 1.5; color: var(--text-body); margin: 0; }
+
+/* ---------- Downloads list (hub) ---------- */
+.dl-page .dl-list { display: flex; flex-direction: column; gap: 22px; padding-bottom: 20px; }
+.dl-page .dl-row {
+  display: grid; grid-template-columns: 300px 1fr; gap: 0;
+  background: var(--bj-paper); border: 2.5px solid var(--bj-ink); border-radius: var(--radius-xl);
+  box-shadow: 6px 6px 0 rgba(42, 33, 24, 0.16); overflow: hidden;
+  transition: transform .16s var(--ease-out), box-shadow .16s var(--ease-out);
+}
+.dl-page .dl-row:hover { transform: translate(-2px, -2px); box-shadow: 9px 9px 0 rgba(42, 33, 24, 0.18); }
+.dl-page .dl-shot { background: var(--bj-ink); border-right: 2.5px solid var(--bj-ink); overflow: hidden; position: relative; min-height: 200px; }
+.dl-page .dl-shot img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.dl-page .dl-shot a { position: absolute; inset: 0; z-index: 1; }
+/* screen-mock used inside a hub shot cell (YouAreNotCrazy) */
+.dl-page .dl-shot .screen-mock { aspect-ratio: auto; height: 100%; border: none; border-radius: 0; box-shadow: none; padding: 28px; }
+.dl-page .dl-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--bj-brass); color: var(--bj-ink); border: 2px solid var(--bj-ink);
+  padding: 4px 9px; box-shadow: 2px 2px 0 rgba(42, 33, 24, 0.3);
+}
+.dl-page .dl-badge.free { background: var(--bj-good); color: #fff; }
+.dl-page .dl-body { padding: 24px 26px; display: flex; flex-direction: column; gap: 12px; }
+.dl-page .dl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.dl-page .dl-cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bj-teal); font-weight: 700; }
+.dl-page .dl-name { font-family: var(--font-display); font-weight: 800; font-size: 29px; color: var(--bj-ink); margin: 4px 0 0; letter-spacing: -0.015em; }
+.dl-page .dl-name a:hover { color: var(--bj-pink); }
+.dl-page .dl-price { font-family: var(--font-mono); font-weight: 700; font-size: 15px; color: var(--text-muted); white-space: nowrap; }
+.dl-page .dl-price b { color: var(--bj-ink); }
+.dl-page .dl-price .buy { border-bottom: 1.5px solid var(--bj-pink); color: var(--bj-ink); }
+.dl-page .dl-price .buy:hover { color: var(--bj-pink); }
+.dl-page .dl-price .free { color: var(--bj-good); }
+.dl-page .dl-blurb { font-size: 15px; line-height: 1.5; color: var(--text-body); margin: 0; max-width: 52em; }
+.dl-page .dl-fmt { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.04em; color: var(--text-muted); }
+.dl-page .dl-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 4px; position: relative; z-index: 2; }
+.dl-page .dl-actions .spacer { flex: 1; }
+.dl-page .deep { font-family: var(--font-mono); font-size: 12.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--bj-teal); display: inline-flex; align-items: center; gap: 6px; }
+.dl-page .deep:hover { color: var(--bj-pink); }
+
+/* ---------- Product page hero art ---------- */
+.dl-page .p-hero { padding: 22px 0 40px; }
+.dl-page .p-hero-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 44px; align-items: center; }
+.dl-page .p-cat { display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--bj-cream); background: var(--bj-teal); border: 2px solid var(--bj-ink);
+  padding: 5px 11px; border-radius: 999px; box-shadow: 2px 2px 0 rgba(42, 33, 24, 0.2); }
+.dl-page .p-hero h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 5vw, 4rem);
+  line-height: 1.0; letter-spacing: -0.03em; color: var(--bj-ink); margin: 16px 0 0; }
+.dl-page .p-tag { font-size: 19px; line-height: 1.5; color: var(--text-body); margin: 18px 0 0; max-width: 26em; }
+.dl-page .p-cta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 26px; }
+.dl-page .p-buyline { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted); margin-top: 14px; letter-spacing: 0.02em; }
+.dl-page .p-buyline a { color: var(--bj-ink); border-bottom: 1.5px solid var(--bj-pink); font-weight: 700; }
+.dl-page .p-buyline a:hover { color: var(--bj-pink); }
+
+.dl-page .shot-frame {
+  border: 2.5px solid var(--bj-ink); border-radius: var(--radius-lg);
+  box-shadow: 9px 9px 0 var(--bj-teal); overflow: hidden; background: var(--bj-ink);
+}
+.dl-page .shot-frame img { width: 100%; }
+.dl-page .shot-cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); text-align: center; margin-top: 12px; }
+
+/* placeholder "screen" for products with no screenshot */
+.dl-page .screen-mock {
+  border: 2.5px solid var(--bj-ink); border-radius: var(--radius-lg); box-shadow: 9px 9px 0 var(--bj-pink);
+  background: var(--bj-teal); color: var(--bj-cream); padding: 40px; aspect-ratio: 16/10;
+  display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;
+}
+.dl-page .screen-mock::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1.5px); background-size: 9px 9px; opacity: 0.07; }
+.dl-page .screen-mock .lbl { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bj-brass); position: relative; z-index: 1; }
+.dl-page .screen-mock .readout { font-family: var(--font-mono); font-weight: 700; font-size: clamp(2.6rem, 7vw, 5rem); color: var(--bj-cream); line-height: 1; margin: 14px 0 6px; position: relative; z-index: 1; }
+.dl-page .screen-mock .sub { font-size: 14px; color: rgba(243, 236, 216, 0.82); position: relative; z-index: 1; }
+
+/* ---------- Generic section ---------- */
+.dl-page section.block { padding: 56px 0; border-top: 2.5px solid var(--bj-ink); }
+.dl-page section.block.teal { background: var(--bj-teal); color: var(--bj-cream); position: relative; }
+.dl-page section.block.teal::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1.5px); background-size: 9px 9px; opacity: 0.06; }
+.dl-page section.block.teal .eyebrow { color: var(--bj-brass); }
+.dl-page section.block.teal h2, .dl-page section.block.teal h3 { color: var(--bj-cream); }
+.dl-page .sec-head { max-width: 42em; margin-bottom: 34px; position: relative; z-index: 1; }
+.dl-page .sec-head h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  line-height: 1.05; letter-spacing: -0.02em; color: var(--bj-ink); margin: 10px 0 0; }
+.dl-page .sec-head p { font-size: 17px; line-height: 1.55; color: var(--text-body); margin: 14px 0 0; }
+.dl-page section.block.teal .sec-head p { color: rgba(243, 236, 216, 0.84); }
+
+.dl-page .prose { max-width: 40em; position: relative; z-index: 1; }
+.dl-page .prose p { font-size: 17px; line-height: 1.62; color: var(--text-body); margin: 0 0 16px; }
+.dl-page .prose strong { color: var(--bj-ink); font-weight: 700; }
+.dl-page section.block.teal .prose p { color: rgba(243, 236, 216, 0.88); }
+.dl-page section.block.teal .prose strong { color: var(--bj-cream); }
+
+/* ---------- Control annotation grid (the "understand what it does" part) ---------- */
+.dl-page .ctrl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; position: relative; z-index: 1; }
+.dl-page .ctrl {
+  background: var(--bj-paper); border: 2.5px solid var(--bj-ink); border-radius: var(--radius-md);
+  box-shadow: 4px 4px 0 rgba(42, 33, 24, 0.12); padding: 18px 20px;
+}
+.dl-page section.block.teal .ctrl { background: rgba(244, 236, 221, 0.07); border-color: rgba(244, 236, 221, 0.34); box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15); }
+.dl-page .ctrl .k { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--bj-teal); }
+.dl-page section.block.teal .ctrl .k { color: var(--bj-brass); }
+.dl-page .ctrl h4 { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--bj-ink); margin: 6px 0 6px; }
+.dl-page section.block.teal .ctrl h4 { color: var(--bj-cream); }
+.dl-page .ctrl p { font-size: 14.5px; line-height: 1.52; color: var(--text-body); margin: 0; }
+.dl-page section.block.teal .ctrl p { color: rgba(243, 236, 216, 0.82); }
+
+/* ---------- Spec strip ---------- */
+.dl-page .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 2.5px solid var(--bj-ink);
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: 5px 5px 0 rgba(42, 33, 24, 0.14); background: var(--bj-paper); }
+.dl-page .spec { padding: 20px 22px; border-right: 2.5px solid var(--bj-ink); }
+.dl-page .spec:last-child { border-right: none; }
+.dl-page .spec .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.dl-page .spec .v { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--bj-ink); margin-top: 6px; }
+
+/* ---------- Big download CTA band ---------- */
+.dl-page .cta-band { background: var(--bj-pink); border-top: 2.5px solid var(--bj-ink); border-bottom: 2.5px solid var(--bj-ink);
+  color: #fff; position: relative; }
+.dl-page .cta-band::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1.5px); background-size: 9px 9px; opacity: 0.08; }
+.dl-page .cta-band .wrap { padding: 52px 28px; text-align: center; position: relative; z-index: 1; }
+.dl-page .cta-band h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  line-height: 1.06; letter-spacing: -0.02em; color: #fff; margin: 0; }
+.dl-page .cta-band p { font-size: 16px; color: rgba(255, 255, 255, 0.92); margin: 14px auto 0; max-width: 30em; }
+.dl-page .cta-band .p-cta { justify-content: center; margin-top: 26px; }
+.dl-page .cta-band .btn-dl { background: var(--bj-paper); color: var(--bj-ink); }
+.dl-page .cta-band .btn-dl:hover { background: #fff; }
+.dl-page .cta-band .btn-alt { background: transparent; color: #fff; box-shadow: 4px 4px 0 rgba(42, 33, 24, 0.4); }
+.dl-page .cta-band .btn-alt:hover { background: rgba(255, 255, 255, 0.12); }
+.dl-page .cta-band .fine { font-family: var(--font-mono); font-size: 12px; color: rgba(255, 255, 255, 0.85); margin-top: 18px; letter-spacing: 0.02em; }
+.dl-page .cta-band .fine a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.6); }
+
+/* ---------- Footer ---------- */
+.dl-page footer.site { background: var(--bj-ink); color: var(--bj-paper); }
+.dl-page .foot { display: flex; align-items: center; justify-content: space-between; padding: 38px 0; flex-wrap: wrap; gap: 18px; }
+.dl-page .foot .brand { color: var(--bj-pink); text-shadow: 2px 2px 0 var(--bj-teal); }
+.dl-page .foot-links { display: flex; gap: 22px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+.dl-page .foot-links a { color: var(--bj-paper); opacity: 0.8; }
+.dl-page .foot-links a:hover { opacity: 1; color: var(--bj-brass); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .dl-page .howto-grid { grid-template-columns: 1fr; }
+  .dl-page .dl-row { grid-template-columns: 1fr; }
+  .dl-page .dl-shot { min-height: 180px; border-right: none; border-bottom: 2.5px solid var(--bj-ink); }
+  .dl-page .p-hero-grid { grid-template-columns: 1fr; gap: 30px; }
+  .dl-page .ctrl-grid { grid-template-columns: 1fr; }
+  .dl-page .specs { grid-template-columns: 1fr 1fr; }
+  .dl-page .spec:nth-child(2) { border-right: none; }
+  .dl-page .spec:nth-child(1), .dl-page .spec:nth-child(2) { border-bottom: 2.5px solid var(--bj-ink); }
+  .dl-page .nav-links a:not(.nav-cta) { display: none; }
+}
+@media (max-width: 560px) {
+  .dl-page .specs { grid-template-columns: 1fr; }
+  .dl-page .spec { border-right: none; border-bottom: 2.5px solid var(--bj-ink); }
+  .dl-page .spec:last-child { border-bottom: none; }
+  .dl-page .btn { width: 100%; }
+  .dl-page .dl-actions .spacer { display: none; }
+}

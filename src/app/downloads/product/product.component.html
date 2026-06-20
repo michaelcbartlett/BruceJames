@@ -1,0 +1,157 @@
+@if (product && deep) {
+<div class="dl-page">
+
+  <div class="promo" [innerHTML]="promo"></div>
+
+  <header class="site">
+    <div class="wrap nav">
+      <a href="/" class="brand">BruceJames</a>
+      <nav class="nav-links">
+        <a href="/#plugins">Plugins</a>
+        <a routerLink="/downloads">Downloads</a>
+        <a href="/#how">How phase works</a>
+        <a routerLink="/music">Music</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap crumb"><a routerLink="/downloads">Downloads</a> / <span>{{ product.name }}</span></div>
+
+  <!-- HERO -->
+  <section class="p-hero">
+    <div class="wrap p-hero-grid">
+      <div>
+        <span class="p-cat">{{ product.category }}</span>
+        <h1>{{ product.name }}</h1>
+        <p class="p-tag">{{ deep.heroTagline }}</p>
+        <div class="p-cta">
+          <a class="btn btn-dl" [href]="demoUrl(primaryOS)" download (click)="trackDemo(primaryOS)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+            <span>{{ demoLabel(primaryOS) }}</span>
+          </a>
+          @if (hasOtherOS) {
+            <a class="btn btn-alt" [href]="demoUrl(otherOS)" download (click)="trackDemo(otherOS)">{{ osLabel(otherOS) }}</a>
+          }
+        </div>
+        @if (product.free) {
+          <div class="p-buyline">{{ deep.buyLineFree }}</div>
+        } @else {
+          <div class="p-buyline">Full version, free. It just drops to silence now and then until you buy. Sold on it?
+            <a [href]="buyHref(product.buyUrl, 'deepdive_hero')" target="_blank" rel="noopener" (click)="trackBuy()">Buy {{ product.name }} · {{ product.price }}</a>
+          </div>
+        }
+      </div>
+      <div>
+        @if (deep.useMock && deep.mock) {
+          <div class="screen-mock">
+            <div class="lbl">{{ deep.mock.lbl }}</div>
+            <div class="readout">{{ deep.mock.readout }}<span style="font-size:0.32em">{{ deep.mock.readoutUnit }}</span></div>
+            <div class="sub">{{ deep.mock.sub }}</div>
+          </div>
+        } @else {
+          <div class="shot-frame"><img [src]="product.img" [alt]="deep.imgAlt" /></div>
+        }
+        <div class="shot-cap">{{ deep.shotCaption }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT DOES -->
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">What it actually does</div>
+        <h2>{{ deep.whatHeading }}</h2>
+      </div>
+      <div class="prose">
+        @for (para of deep.whatParagraphs; track $index) {
+          <p [innerHTML]="para"></p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- THE INTERFACE -->
+  <section class="block teal">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">{{ deep.controlsEyebrow }}</div>
+        <h2>The interface, explained.</h2>
+        @if (deep.controlsIntro) { <p>{{ deep.controlsIntro }}</p> }
+      </div>
+      <div class="ctrl-grid">
+        @for (c of deep.controls; track c.k) {
+          <div class="ctrl">
+            <div class="k">{{ c.k }}</div>
+            <h4>{{ c.h4 }}</h4>
+            <p>{{ c.p }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HEAR IT -->
+  @if (deep.hear) {
+    <section class="block">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow">Hear it</div>
+          <h2>{{ deep.hear.heading }}</h2>
+          <p>{{ deep.hear.intro }}</p>
+        </div>
+        @if (deep.hear.youtubeUrl) {
+          <a class="btn btn-alt" [href]="deep.hear.youtubeUrl" target="_blank" rel="noopener" (click)="trackHearFullTrack()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 4 14 8-14 8V4z"/></svg> {{ deep.hear.youtubeLabel }}
+          </a>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- SPECS -->
+  <section class="block">
+    <div class="wrap">
+      <div class="specs">
+        <div class="spec"><div class="k">Formats</div><div class="v">{{ deep.formats }}</div></div>
+        <div class="spec"><div class="k">Systems</div><div class="v">{{ deep.systems }}</div></div>
+        <div class="spec"><div class="k">Version</div><div class="v">{{ deep.version }}</div></div>
+        <div class="spec"><div class="k">Price</div><div class="v">{{ deep.specPrice }}</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>{{ deep.ctaHeading }}</h2>
+      <p>{{ deep.ctaSub }}</p>
+      <div class="p-cta">
+        <a class="btn btn-dl" [href]="demoUrl(primaryOS)" download (click)="trackDemo(primaryOS)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+          <span>{{ demoLabel(primaryOS) }}</span>
+        </a>
+        @if (hasOtherOS) {
+          <a class="btn btn-alt" [href]="demoUrl(otherOS)" download (click)="trackDemo(otherOS)">{{ osLabel(otherOS) }}</a>
+        }
+      </div>
+      <div class="fine">{{ deep.ctaFine }} · <a routerLink="/downloads">all downloads</a></div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="wrap foot">
+      <div>
+        <div class="brand">BruceJames</div>
+        <div class="mono" style="font-size:12px; opacity:0.7; margin-top:8px;">Plugins &amp; music · brucejames.studio</div>
+      </div>
+      <div class="foot-links">
+        <a routerLink="/downloads">Downloads</a>
+        <a routerLink="/manage-license">Manage license</a>
+        <a href="mailto:support@brucejames.studio">Support</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+}

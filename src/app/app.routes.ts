@@ -5,9 +5,13 @@ import { MusicComponent } from './music/music.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
 import { MerchComponent } from './merch/merch.component';
+import { DownloadsComponent } from './downloads/downloads.component';
+import { ProductComponent } from './downloads/product/product.component';
 
 export const routes: Routes = [
     { path: '',             component: LandingComponent },
+    { path: 'downloads',    component: DownloadsComponent, title: 'Download the demos | BruceJames' },
+    { path: 'downloads/:slug', component: ProductComponent },
     { path: 'merch',        component: MerchComponent, title: 'Numbered Merch | BruceJames' },
     { path: 'manage-license', component: ManageLicenseComponent },
     { path: 'music',        component: MusicComponent },

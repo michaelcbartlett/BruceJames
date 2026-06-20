@@ -1,0 +1,167 @@
+<div class="dl-page">
+
+  <div class="promo" [innerHTML]="promo"></div>
+
+  <!-- Mobile / tablet: can't install a desktop plugin here. Send it to a desktop. -->
+  @if (isMobile) {
+    <div class="handoff">
+      <div class="wrap">
+        <div class="handoff-txt">
+          <b>On your phone? Plugins install on a desktop.</b>
+          <span>Send yourself the download link so it's waiting when you sit down at your DAW.</span>
+        </div>
+        <div class="handoff-actions">
+          <a class="btn btn-alt btn-sm" [href]="emailHref">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> Email it to me
+          </a>
+          <button type="button" class="btn btn-alt btn-sm" (click)="copyLink()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            {{ copied ? 'Copied!' : 'Copy this page link' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <header class="site">
+    <div class="wrap nav">
+      <a href="/" class="brand">BruceJames</a>
+      <nav class="nav-links">
+        <a href="/#plugins">Plugins</a>
+        <a routerLink="/downloads" class="active">Downloads</a>
+        <a href="/#how">How phase works</a>
+        <a routerLink="/music">Music</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Free demos · VST3 · AU · CLAP · Win + Mac</div>
+      <h1>Download a demo. <span class="pop">It's the whole plugin.</span></h1>
+      <p class="lead">No crippled features, no time bomb, no account. Every demo is the full plugin; it just drops to silence for a moment every so often until you buy. Install it, drop it on a real mix, and hear it for yourself. <b>Most people who buy decide within a day of installing.</b></p>
+      <div class="trust">
+        <span class="ok">✓ No signup</span>
+        <span class="ok">✓ No card</span>
+        <span><b>VST3 · AU · CLAP</b></span>
+        <span><b>Windows + macOS</b></span>
+        <span><b>6</b> plugins</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="howto">
+    <div class="wrap howto-grid">
+      <div class="howstep">
+        <div class="n">1</div>
+        <div>
+          <h4>Download</h4>
+          <p>Grab the demo for your OS below. One zip, nothing to sign up for.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="n">2</div>
+        <div>
+          <h4>Drop it in</h4>
+          <p>Unzip and copy the VST3 / CLAP (or AU on Mac) into your plugins folder. Rescan in your DAW.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="n">3</div>
+        <div>
+          <h4>Use it on a real mix</h4>
+          <p>Put it on a bus in a session you actually care about. That's where it makes sense in about a minute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD LIST -->
+  <section>
+    <div class="wrap">
+      <div class="dl-list">
+        @for (p of products; track p.slug) {
+          @let d = dd(p.slug);
+          <article class="dl-row">
+            <div class="dl-shot">
+              @if (d.hubBadge) {
+                <span class="dl-badge" [class.free]="d.hubBadgeFree">{{ d.hubBadge }}</span>
+              }
+              <a [routerLink]="['/downloads', p.slug]" [attr.aria-label]="p.name + ' deep dive'"></a>
+              @if (d.useMock && d.mock) {
+                <div class="screen-mock">
+                  <div class="lbl">{{ d.mock.lbl }}</div>
+                  <div class="readout">{{ d.mock.readout }}<span style="font-size:0.4em">{{ d.mock.readoutUnit }}</span></div>
+                  <div class="sub">You weren't imagining it.</div>
+                </div>
+              } @else {
+                <img [src]="p.img" [alt]="p.name + ' plugin interface'" />
+              }
+            </div>
+            <div class="dl-body">
+              <div class="dl-head">
+                <div>
+                  <div class="dl-cat">{{ p.category }}</div>
+                  <h2 class="dl-name"><a [routerLink]="['/downloads', p.slug]">{{ p.name }}</a></h2>
+                </div>
+                <div class="dl-price">
+                  @if (p.free) {
+                    <span class="free">Free</span> · no limits
+                  } @else {
+                    <b>{{ p.price }}</b> · or
+                    <a class="buy" [href]="buyHref(p.buyUrl, 'hub_card')" target="_blank" rel="noopener" (click)="trackBuy(p)">buy</a>
+                  }
+                </div>
+              </div>
+              <p class="dl-blurb">{{ p.blurb }}</p>
+              <div class="dl-actions">
+                <a class="btn btn-dl" [href]="demoUrl(p, primaryOS)" download (click)="trackDemo(p, primaryOS)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+                  <span>{{ demoLabel(p, primaryOS) }}</span>
+                </a>
+                @if (hasOtherOS(p)) {
+                  <a class="btn btn-alt btn-sm" [href]="demoUrl(p, otherOS)" download (click)="trackDemo(p, otherOS)">{{ osLabel(otherOS) }}</a>
+                }
+                <span class="spacer"></span>
+                <a class="deep" [routerLink]="['/downloads', p.slug]">See what it does →</a>
+              </div>
+              <div class="dl-fmt mono">{{ d.dlFmt }}</div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG CTA -->
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Start with whichever one solves your problem today.</h2>
+      <p>Every one is free to run in full. The fastest way to know if a plugin is for you is to put it on the mix that's bugging you right now.</p>
+      <div class="p-cta">
+        <button type="button" class="btn btn-dl" (click)="scrollTop()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg> Back to the demos
+        </button>
+      </div>
+      <div class="fine">Windows &amp; macOS · VST3 · AU · CLAP · no account, no card</div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="wrap foot">
+      <div>
+        <div class="brand">BruceJames</div>
+        <div class="mono" style="font-size:12px; opacity:0.7; margin-top:8px;">Plugins &amp; music · brucejames.studio</div>
+      </div>
+      <div class="foot-links">
+        <a href="/#plugins">Plugins</a>
+        <a routerLink="/downloads">Downloads</a>
+        <a routerLink="/manage-license">Manage license</a>
+        <a href="mailto:support@brucejames.studio">Support</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
