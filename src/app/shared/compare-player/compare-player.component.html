@@ -1,0 +1,40 @@
+<div class="compare-player">
+
+  <!-- Track buttons -->
+  <div class="compare-tracks">
+    <button class="compare-track"
+            *ngFor="let t of tracks; let i = index"
+            [class.active]="activeTrack === i"
+            [attr.data-idx]="i"
+            (click)="selectTrack(i)">{{ t.label }}</button>
+  </div>
+
+  <!-- Transport -->
+  <div class="compare-display">
+    <button class="compare-play" (click)="togglePlay()" [attr.aria-label]="isPlaying ? 'Pause' : 'Play'">
+      {{ isPlaying ? '⏸' : '▶' }}
+    </button>
+    <div class="compare-seek-wrap">
+      <input class="compare-seek" type="range" min="0" max="100" [value]="progress" (input)="seek($event)" (change)="onSeekEnd()" />
+    </div>
+    <div class="compare-time">{{ currentTimeStr }} / {{ durationStr }}</div>
+  </div>
+
+  <div class="compare-meta">
+    {{ tracks[activeTrack].label }}
+    <ng-container *ngIf="comparison.sourceUrl">
+      &ensp;&middot;&ensp;
+      <a class="compare-source-link"
+         [href]="comparison.sourceUrl"
+         target="_blank" rel="noopener"
+         (click)="trackSourceClick()">{{ comparison.sourceLabel }} &nearr;</a>
+    </ng-container>
+  </div>
+
+  <audio #playerAudio
+         (timeupdate)="onTimeUpdate()"
+         (loadedmetadata)="onLoaded()"
+         (playing)="onPlaying()"
+         (pause)="onPause()"
+         (ended)="onEnded()"></audio>
+</div>

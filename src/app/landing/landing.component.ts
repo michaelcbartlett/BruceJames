@@ -3,26 +3,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
-import { Product, PRODUCTS, BUNDLE } from '../shared/plugin-catalog';
-
-interface ComparisonTrack {
-  label: string;
-  src: string;
-}
-
-interface ComparisonSet {
-  plugin: string;
-  description: string;
-  tag?: string;          // short "what it does" label, shown under the tab name
-  note?: string;         // small helper line shown above the player
-  tracks: ComparisonTrack[];
-  sourceUrl?: string;
-  sourceLabel?: string;
-  downloadWin?: string;
-  downloadMac?: string;
-  buyUrl?: string;
-  price?: string;
-}
+import { Product, PRODUCTS, BUNDLE, COMPARISONS, ComparisonSet, ComparisonTrack } from '../shared/plugin-catalog';
 
 type OS = 'win' | 'mac';
 
@@ -39,59 +20,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('explainWave2') wave2!: ElementRef<HTMLElement>;
   @ViewChild('explainWave3') wave3!: ElementRef<HTMLElement>;
 
-  readonly comparisons: ComparisonSet[] = [
-    {
-      plugin: 'DeepPerfection',
-      description: 'Five stems from the same session. Switch between them and hear exactly what DeepPerfection puts back.',
-      tag: 'Low end',
-      note: 'Good headphones or speakers required to hear the difference.',
-      sourceUrl: 'https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll',
-      sourceLabel: 'hear the full track',
-      downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.3.0.zip',
-      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.3.0-mac.pkg',
-      buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
-      price: '$49.99',
-      tracks: [
-        { label: 'Without DeepPerfection', src: '/deepPerfectionComparisons/without%20DeepPerfection.mp3' },
-        { label: 'With DeepPerfection',    src: '/deepPerfectionComparisons/With%20DeepPerfection.mp3' },
-        { label: "Null (what's added)",    src: '/deepPerfectionComparisons/DeepPerfection%20Null.mp3' },
-        { label: 'Just Drums',             src: '/deepPerfectionComparisons/just%20drums.mp3' },
-        { label: 'Just Instruments',       src: '/deepPerfectionComparisons/just%20inst.mp3' },
-      ],
-    },
-    {
-      plugin: 'longDivision',
-      description: 'Same drum loop, five widths. Hear the stereo field open up — and the LFO put it in motion.',
-      tag: 'Widening',
-      downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0.zip',
-      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip',
-      buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
-      price: '$29.99',
-      tracks: [
-        { label: 'Dry',                    src: '/longDivisionComparison/drums%20dry.mp3' },
-        { label: 'Width 1',                src: '/longDivisionComparison/width%20at%201.mp3' },
-        { label: 'Width 3',                src: '/longDivisionComparison/Width%20at%203.mp3' },
-        { label: 'Width 3 + LFO',          src: '/longDivisionComparison/Width%20at%203%20with%20LFO.mp3' },
-        { label: 'Width 3, Quiet Emphasis', src: '/longDivisionComparison/width%203%20quiet%20emphasis.mp3' },
-      ],
-    },
-    {
-      plugin: 'Slursh',
-      description: 'Same loop, five settings. Hear the drive and collapse stack up.',
-      tag: 'Saturation',
-      downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0.zip',
-      downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0_mac.zip',
-      buyUrl: 'https://brucejames.gumroad.com/l/slursh?wanted=true',
-      price: '$29.99',
-      tracks: [
-        { label: 'No Slursh',                      src: '/SlurshComparisons/No%20Slursh%20Added.mp3' },
-        { label: 'Full Drive',                      src: '/SlurshComparisons/Full%20Slush.mp3' },
-        { label: 'Half Drive',                      src: '/SlurshComparisons/Half%20Slush.mp3' },
-        { label: 'Full Drive + Collapse',           src: '/SlurshComparisons/Full%20Slush%20plus%20COLLAPSE.mp3' },
-        { label: 'Little Drive + Little Collapse',  src: '/SlurshComparisons/Little%20bit%20of%20Slush%20Little%20bit%20of%20Collapse.mp3' },
-      ],
-    },
-  ];
+  readonly comparisons: ComparisonSet[] = COMPARISONS;
 
   // Source of truth for the catalog cards lives in shared/plugin-catalog.ts so
   // the downloads pages bind to the exact same prices / URLs. Order = display order.

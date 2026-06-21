@@ -1,19 +1,21 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { getProduct, DEEP_DIVES, DEFAULT_PROMO, Product, DeepDive } from '../../shared/plugin-catalog';
+import { getProduct, getComparison, DEEP_DIVES, DEFAULT_PROMO, Product, DeepDive, ComparisonSet } from '../../shared/plugin-catalog';
 import { OS, detectOS, osLabel, pushEvent, buyHref } from '../../shared/site-utils';
+import { ComparePlayerComponent } from '../../shared/compare-player/compare-player.component';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ComparePlayerComponent],
   templateUrl: './product.component.html',
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductComponent implements OnInit {
   product!: Product;
   deep!: DeepDive;
+  comparison?: ComparisonSet;
   readonly promoDefault = DEFAULT_PROMO;
 
   detectedOS: OS = 'win';
@@ -40,6 +42,7 @@ export class ProductComponent implements OnInit {
 
     this.product = product;
     this.deep = deep;
+    this.comparison = getComparison(slug);
     this.detectedOS = detectOS();
 
     this.titleService.setTitle(deep.title);

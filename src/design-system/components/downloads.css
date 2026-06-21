@@ -263,6 +263,9 @@
 .dl-page .cta-band .fine { font-family: var(--font-mono); font-size: 12px; color: rgba(255, 255, 255, 0.85); margin-top: 18px; letter-spacing: 0.02em; }
 .dl-page .cta-band .fine a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.6); }
 
+/* ---------- "Hear it" full-track link below the player ---------- */
+.dl-page .hear-fulltrack { margin-top: 22px; }
+
 /* ---------- Everything bundle band ---------- */
 .dl-page .bundle-band { padding: 30px 0 8px; }
 .dl-page .bundle-card {

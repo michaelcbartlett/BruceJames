@@ -100,10 +100,15 @@
           <h2>{{ deep.hear.heading }}</h2>
           <p>{{ deep.hear.intro }}</p>
         </div>
+        @if (comparison) {
+          <app-compare-player [comparison]="comparison" />
+        }
         @if (deep.hear.youtubeUrl) {
-          <a class="btn btn-alt" [href]="deep.hear.youtubeUrl" target="_blank" rel="noopener" (click)="trackHearFullTrack()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 4 14 8-14 8V4z"/></svg> {{ deep.hear.youtubeLabel }}
-          </a>
+          <div class="hear-fulltrack">
+            <a class="btn btn-alt" [href]="deep.hear.youtubeUrl" target="_blank" rel="noopener" (click)="trackHearFullTrack()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 4 14 8-14 8V4z"/></svg> {{ deep.hear.youtubeLabel }}
+            </a>
+          </div>
         }
       </div>
     </section>
