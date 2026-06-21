@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { PRODUCTS, DEEP_DIVES, DEFAULT_PROMO, Product, DeepDive } from '../shared/plugin-catalog';
+import { PRODUCTS, DEEP_DIVES, DEFAULT_PROMO, BUNDLE, Product, DeepDive } from '../shared/plugin-catalog';
 import { OS, detectOS, osLabel, isHandoffDevice, pushEvent, buyHref } from '../shared/site-utils';
 
 @Component({
@@ -13,6 +13,7 @@ import { OS, detectOS, osLabel, isHandoffDevice, pushEvent, buyHref } from '../s
 })
 export class DownloadsComponent implements OnInit {
   readonly products = PRODUCTS;
+  readonly bundle = BUNDLE;
   readonly promo = DEFAULT_PROMO;
 
   detectedOS: OS = 'win';
@@ -60,6 +61,10 @@ export class DownloadsComponent implements OnInit {
 
   trackBuy(p: Product): void {
     pushEvent(`buy_${p.slug}_click`, `${p.name} buy`);
+  }
+
+  trackBundle(): void {
+    pushEvent('buy_everything_click', 'Everything bundle');
   }
 
   copyLink(): void {

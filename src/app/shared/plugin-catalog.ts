@@ -77,6 +77,30 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+// ---- The Everything Bundle (the whole catalog, one price) ----
+
+export interface Bundle {
+  name: string;
+  price: string;        // bundle price
+  retail: string;       // sum of buying every plugin separately
+  saving: string;       // headline saving vs retail
+  buyUrl: string;
+  tagline: string;
+  blurb: string;
+  includes: string[];   // plugin names, in catalog order (free ones noted)
+}
+
+export const BUNDLE: Bundle = {
+  name: 'The Everything Bundle',
+  price: '$99',
+  retail: '$154.95',
+  saving: '$55',
+  buyUrl: 'https://brucejames.gumroad.com/l/everything?wanted=true',
+  tagline: 'Every BruceJames plugin. One price. Roughly the cost of two.',
+  blurb: 'The whole catalog for $99. Buy them one at a time and it\'s $154.95, so really it\'s DeepPerfection and Marco, and the rest comes along for the ride. Full plugins, free updates for life, and every new release I add later drops your price even lower.',
+  includes: ['DeepPerfection', 'Marco', 'longDivision', 'Slursh', 'SlushBus', 'YouAreNotCrazy (free)'],
+};
+
 // ---- Deep-dive long-form content (not part of the catalog basics) ----
 
 export interface ControlCard {

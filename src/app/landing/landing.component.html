@@ -159,6 +159,28 @@
       </a>
 
     </div>
+
+    <!-- EVERYTHING BUNDLE -->
+    <div class="bundle-card">
+      <div class="bundle-main">
+        <div class="card-cat">Best value</div>
+        <h3>{{ bundle.name }}</h3>
+        <p class="bundle-tag">{{ bundle.tagline }}</p>
+        <p class="bundle-blurb">{{ bundle.blurb }}</p>
+        <ul class="bundle-list">
+          <li *ngFor="let name of bundle.includes">{{ name }}</li>
+        </ul>
+      </div>
+      <div class="bundle-buy">
+        <div class="bundle-price">{{ bundle.price }}</div>
+        <div class="bundle-retail">{{ bundle.retail }} separately &middot; save {{ bundle.saving }}</div>
+        <a class="btn btn-primary"
+           [href]="buyHref(bundle.buyUrl, 'landing_bundle')"
+           target="_blank" rel="noopener"
+           (click)="trackBundle()">Get the bundle &rarr;</a>
+        <div class="bundle-fine">Full plugins &middot; free updates for life &middot; try every one free first</div>
+      </div>
+    </div>
   </div>
 </section>
 

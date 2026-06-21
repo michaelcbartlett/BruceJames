@@ -100,6 +100,33 @@
     </div>
   </section>
 
+  <!-- EVERYTHING BUNDLE -->
+  <section class="bundle-band">
+    <div class="wrap">
+      <div class="bundle-card">
+        <div class="bundle-main">
+          <div class="eyebrow">Best value</div>
+          <h2>{{ bundle.name }}</h2>
+          <p class="bundle-tag">{{ bundle.tagline }}</p>
+          <p class="bundle-blurb">{{ bundle.blurb }}</p>
+          <ul class="bundle-list">
+            @for (name of bundle.includes; track name) {
+              <li>{{ name }}</li>
+            }
+          </ul>
+        </div>
+        <div class="bundle-buy">
+          <div class="bundle-price"><b>{{ bundle.price }}</b></div>
+          <div class="bundle-retail">{{ bundle.retail }} bought separately · save {{ bundle.saving }}</div>
+          <a class="btn btn-dl" [href]="buyHref(bundle.buyUrl, 'hub_bundle')" target="_blank" rel="noopener" (click)="trackBundle()">
+            Get the bundle
+          </a>
+          <div class="bundle-fine">Full plugins · free updates for life · try every one free first</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- BIG CTA -->
   <section class="cta-band">
     <div class="wrap">

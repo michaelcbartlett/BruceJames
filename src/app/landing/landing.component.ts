@@ -3,7 +3,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
-import { Product, PRODUCTS } from '../shared/plugin-catalog';
+import { Product, PRODUCTS, BUNDLE } from '../shared/plugin-catalog';
 
 interface ComparisonTrack {
   label: string;
@@ -96,6 +96,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   // Source of truth for the catalog cards lives in shared/plugin-catalog.ts so
   // the downloads pages bind to the exact same prices / URLs. Order = display order.
   readonly products: Product[] = PRODUCTS;
+  readonly bundle = BUNDLE;
 
   // Best guess at the visitor's OS so we can lead with the right demo download.
   // Stays 'win' during prerender (no navigator); corrected on the client in ngOnInit.
@@ -157,6 +158,10 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   trackBuy(p: Product) {
     this.pushEvent(`buy_${p.slug}_click`, `${p.name} buy`);
+  }
+
+  trackBundle() {
+    this.pushEvent('buy_everything_click', 'Everything bundle');
   }
 
   ngAfterViewInit() {
