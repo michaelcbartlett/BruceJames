@@ -112,7 +112,7 @@
 
     <div class="products">
 
-      <div class="card" *ngFor="let p of products">
+      <a class="card" *ngFor="let p of products" [routerLink]="['/downloads', p.slug]">
         <div class="card-shot" [class.shot-contain]="p.imgContain">
           <span class="soon-badge" *ngIf="p.badge">{{ p.badge }}</span>
           <img [src]="p.img" [alt]="p.name" />
@@ -135,7 +135,7 @@
             <!-- Primary action: the demo, matched to the visitor's OS -->
             <a class="btn-demo"
                [href]="demoUrl(p, primaryOS)"
-               (click)="trackDemo(p, primaryOS)">
+               (click)="trackDemo(p, primaryOS); $event.stopPropagation()">
               <span class="btn-demo-main">{{ p.free ? 'Download free' : 'Download free demo' }}</span>
               <span class="btn-demo-os">{{ osLabel(primaryOS) }}</span>
             </a>
@@ -144,19 +144,19 @@
               <span class="nag" *ngIf="!p.free">Full plugin. Just nags.</span>
               <a class="other-os"
                  [href]="demoUrl(p, otherOS)"
-                 (click)="trackDemo(p, otherOS)">on {{ osLabel(otherOS) }}?</a>
+                 (click)="trackDemo(p, otherOS); $event.stopPropagation()">on {{ osLabel(otherOS) }}?</a>
             </div>
 
             <!-- Secondary: buy. People convert from the demo, so this stays quiet. -->
             <a class="buy-line" *ngIf="!p.free"
                [href]="buyHref(p.buyUrl, p.slug)"
                target="_blank" rel="noopener"
-               (click)="trackBuy(p)">
+               (click)="trackBuy(p); $event.stopPropagation()">
               Buy {{ p.price }} &rarr;
             </a>
           </div>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>

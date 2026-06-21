@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation, Inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Product, PRODUCTS } from '../shared/plugin-catalog';
@@ -27,7 +28,7 @@ type OS = 'win' | 'mac';
 
 @Component({
   selector: 'app-landing',
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, RouterLink],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   encapsulation: ViewEncapsulation.None

@@ -52,6 +52,17 @@
 .dl-page .nav-links a:hover { color: var(--bj-pink); }
 .dl-page .nav-links a.active { color: var(--bj-pink); }
 
+/* ---------- Simple page intro ---------- */
+.dl-page .dl-intro { padding: 40px 0 12px; }
+.dl-page .dl-page-title {
+  font-family: var(--font-display); font-weight: 800; font-size: 38px;
+  letter-spacing: -0.02em; color: var(--bj-ink); margin: 0 0 10px;
+}
+.dl-page .dl-page-sub {
+  font-family: var(--font-mono); font-size: 13px; color: var(--text-body);
+  opacity: 0.7; margin: 0;
+}
+
 /* ---------- Buttons ---------- */
 .dl-page .btn {
   font-family: var(--font-mono); font-size: 14px; font-weight: 700; letter-spacing: 0.05em;

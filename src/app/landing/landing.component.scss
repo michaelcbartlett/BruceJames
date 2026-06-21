@@ -81,6 +81,7 @@
   .card {
     background: var(--bj-paper); border: 2.5px solid var(--bj-ink); border-radius: var(--radius-lg);
     box-shadow: 6px 6px 0 rgba(42,33,24,0.18); overflow: hidden; display: flex; flex-direction: column;
+    text-decoration: none; color: inherit; cursor: pointer;
     transition: transform .16s var(--ease-out), box-shadow .16s var(--ease-out);
     &:hover { transform: translate(-2px,-2px); box-shadow: 9px 9px 0 rgba(42,33,24,0.2); }
   }
