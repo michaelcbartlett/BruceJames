@@ -10,6 +10,9 @@
   padding: 9px 16px;
   b { color: var(--bj-brass); }
   a { color: #fff; text-decoration: underline; text-underline-offset: 2px; &:hover { color: var(--bj-brass); } }
+  .promo-sep { opacity: 0.6; margin: 0 6px; text-decoration: none; }
+  .promo-bundle b { color: #fff; }
+  .promo-bundle:hover b { color: var(--bj-brass); }
 }
 
 .site {
