@@ -126,6 +126,26 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  @if (deep.faq && deep.faq.length) {
+    <section class="block">
+      <div class="wrap">
+        <div class="sec-head">
+          <div class="eyebrow">Questions</div>
+          <h2>{{ product.name }}, answered.</h2>
+        </div>
+        <div class="faq">
+          @for (item of deep.faq; track item.q) {
+            <details class="faq-item">
+              <summary>{{ item.q }}</summary>
+              <p>{{ item.a }}</p>
+            </details>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
   <!-- CTA -->
   <section class="cta-band">
     <div class="wrap">

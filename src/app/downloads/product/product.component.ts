@@ -95,12 +95,31 @@ export class ProductComponent implements OnInit {
         availability: 'https://schema.org/InStock',
       },
     };
-    const id = 'product-jsonld';
+    this.injectJsonLd('product-jsonld', ld);
+
+    // FAQPage JSON-LD — what answer engines (ChatGPT, Perplexity, Google AI
+    // Overviews) extract to quote your plugin's answers directly.
+    if (deep.faq?.length) {
+      this.injectJsonLd('faq-jsonld', {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: deep.faq.map(f => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      });
+    } else {
+      this.doc.getElementById('faq-jsonld')?.remove();
+    }
+  }
+
+  private injectJsonLd(id: string, data: unknown): void {
     this.doc.getElementById(id)?.remove();
     const script = this.doc.createElement('script');
     script.id = id;
     script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(ld);
+    script.textContent = JSON.stringify(data);
     this.doc.head.appendChild(script);
   }
 

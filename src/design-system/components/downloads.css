@@ -266,6 +266,28 @@
 /* ---------- "Hear it" full-track link below the player ---------- */
 .dl-page .hear-fulltrack { margin-top: 22px; }
 
+/* ---------- FAQ (also emitted as FAQPage structured data) ---------- */
+.dl-page .faq { max-width: 760px; }
+.dl-page .faq-item {
+  border: 2.5px solid var(--bj-ink); border-radius: var(--radius-md);
+  background: var(--bj-paper); box-shadow: 4px 4px 0 rgba(42, 33, 24, 0.12);
+  margin-bottom: 14px; overflow: hidden;
+}
+.dl-page .faq-item summary {
+  cursor: pointer; list-style: none; padding: 16px 20px;
+  font-family: var(--font-display); font-weight: 700; font-size: 17px;
+  color: var(--bj-ink); display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.dl-page .faq-item summary::-webkit-details-marker { display: none; }
+.dl-page .faq-item summary::after {
+  content: "+"; font-family: var(--font-mono); font-weight: 700; font-size: 22px;
+  color: var(--bj-teal); flex: none; transition: transform .15s var(--ease-out);
+}
+.dl-page .faq-item[open] summary::after { content: "\2212"; }
+.dl-page .faq-item p {
+  margin: 0; padding: 0 20px 18px; font-size: 15px; line-height: 1.55; color: var(--text-body);
+}
+
 /* ---------- Everything bundle band ---------- */
 .dl-page .bundle-band { padding: 30px 0 8px; }
 .dl-page .bundle-card {

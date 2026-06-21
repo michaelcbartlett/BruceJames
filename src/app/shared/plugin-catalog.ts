@@ -201,6 +201,13 @@ export interface HearBlock {
   youtubeLabel?: string;
 }
 
+// Q&A shown on the deep dive + emitted as FAQPage JSON-LD. Written plainly so
+// answer engines (ChatGPT, Perplexity, Google AI Overviews) can extract them.
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
 export interface DeepDive {
   // <head>
   title: string;
@@ -226,6 +233,8 @@ export interface DeepDive {
   controls: ControlCard[];
   // optional "hear it"
   hear?: HearBlock;
+  // optional FAQ (rendered + emitted as FAQPage structured data)
+  faq?: FaqItem[];
   // specs strip
   version: string;
   formats: string;
@@ -269,6 +278,12 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       youtubeLabel: 'Hear the full track',
     },
     version: '1.3.0', formats: 'VST3 · AU · CLAP', systems: 'Windows + macOS', specPrice: '$49.99 · free demo',
+    faq: [
+      { q: 'What formats and systems does DeepPerfection support?', a: 'VST3, AU and CLAP, on both Windows and macOS.' },
+      { q: 'Does DeepPerfection add latency or shift my timing?', a: 'No. It additively rebuilds the cancelled low end with no timing shifts, no pitch warping and zero added artifacts.' },
+      { q: 'How do I set it up?', a: 'Route the masking source — usually your kick — into DeepPerfection\'s sidechain once. The analyzer draws the collision in real time and a live restore % shows how much low end it\'s putting back.' },
+      { q: 'Is the free demo limited?', a: 'No. The demo is the complete plugin — it just drops to silence briefly now and then until you buy it. No feature locks, no account, no card.' },
+    ],
     ctaHeading: 'Put it on the mix that\'s thinning out right now.',
     ctaSub: 'The whole plugin, free. Most people who buy decide within a day of installing, because they can hear it.',
     ctaFine: 'VST3 · AU · CLAP · no account, no card',
@@ -298,6 +313,12 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       { k: 'In / Out meters', h4: 'Watch the gain', p: 'Input and output meters keep you honest about level through the whole chain.' },
     ],
     version: '1.1.15', formats: 'VST3 · AU · CLAP', systems: 'Windows + macOS', specPrice: '$29.99 · free demo',
+    faq: [
+      { q: 'What formats and systems does Marco support?', a: 'VST3, AU and CLAP, on both Windows and macOS.' },
+      { q: 'Will widening with Marco break mono compatibility?', a: 'No. A built-in crossover keeps the lows centered while the top half opens up, and Match Energy holds perceived loudness steady as you widen.' },
+      { q: 'Where should I use Marco?', a: 'On groups and buses, to place a source in the stereo field by hand — drag across the XY pad to set its position, width and focus.' },
+      { q: 'Is the free demo limited?', a: 'No. The demo is the complete plugin — it just drops to silence briefly now and then until you buy it. No account, no card.' },
+    ],
     ctaHeading: 'Drop it on a group and move something.',
     ctaSub: 'The whole plugin, free. The fastest way to get it is to place one source by hand. It clicks immediately.',
     ctaFine: 'VST3 · AU · CLAP · no account, no card',
@@ -327,6 +348,12 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       { k: 'Modes + Reference scope', h4: 'See what it\'s doing', p: 'Fraction / Constant / Dual / Quadratic change the threshold behavior; the scope draws the result live so nothing is hidden.' },
     ],
     version: '1.1.4', formats: 'VST3 · AU · CLAP', systems: 'Windows + macOS', specPrice: '$14.99 · free demo',
+    faq: [
+      { q: 'What formats and systems does SlushBus support?', a: 'VST3, AU and CLAP, on both Windows and macOS.' },
+      { q: 'How is SlushBus different from a normal bus compressor?', a: 'It can lift the quiet as well as pull the loud down, and adds DePump, Swell, transient-aware detection, four threshold modes and a live reference scope — more control than anything in its class.' },
+      { q: 'How much does it cost?', a: 'SlushBus is $14.99, a one-time purchase with free updates. The free demo is the full plugin.' },
+      { q: 'Is the free demo limited?', a: 'No. The demo is the complete plugin — it just drops to silence briefly now and then until you buy it. No account, no card.' },
+    ],
     ctaHeading: 'Put it across your drum or mix bus.',
     ctaSub: 'The whole plugin, free. Watch the scope move and you\'ll understand it faster than any manual could explain.',
     ctaFine: 'VST3 · AU · CLAP · no account, no card',
@@ -359,6 +386,12 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       { k: 'Free forever', h4: 'No catch, no account', p: 'Nothing to unlock, nothing to expire. The only BruceJames plugin that never asks you for anything.' },
     ],
     version: '1.0.0', formats: 'VST3 · AU · CLAP', systems: 'Windows + macOS', specPrice: 'Free forever',
+    faq: [
+      { q: 'Is YouAreNotCrazy really free?', a: 'Yes — free forever, no catch, no account, no card. It never nags.' },
+      { q: 'What does YouAreNotCrazy do?', a: 'It measures the actual timing offset between two signals in milliseconds and tells you which one is early and which is late, so you can nudge by exactly that amount.' },
+      { q: 'How do I use it?', a: 'Patch in the two signals you\'re comparing, read the offset in milliseconds, then slide the track by that number. No guessing.' },
+      { q: 'What formats and systems does it support?', a: 'VST3, AU and CLAP, on both Windows and macOS.' },
+    ],
     ctaHeading: 'Grab it. There\'s literally no catch.',
     ctaSub: 'Free, full, no account, no catch. Install it once and stop second-guessing your ears.',
     ctaFine: 'VST3 · AU · CLAP · free forever',
@@ -393,6 +426,12 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       intro: 'From dry to Width 3 with the LFO moving, hear the field open up while the lows stay locked. “Massively impressed. More control than anything I\'ve used, and staying in phase while widening is super easy.” (TheSweetSpot, Gearspace).',
     },
     version: '1.0.0', formats: 'VST3 · AU · CLAP', systems: 'Windows + macOS', specPrice: '$29.99 · free demo',
+    faq: [
+      { q: 'What formats and systems does longDivision support?', a: 'VST3, AU and CLAP, on both Windows and macOS.' },
+      { q: 'Does longDivision stay mono-compatible?', a: 'Yes, by design. Null it against the dry signal and the bands you didn\'t target cancel to silence.' },
+      { q: 'What makes it different from a normal stereo widener?', a: 'It splits the spectrum by correlation and widens only the band you target — loud or quiet material — and can put that widening in motion with an LFO and envelopes.' },
+      { q: 'Is the free demo limited?', a: 'No. The demo is the complete plugin — it just drops to silence briefly now and then until you buy it. No account, no card.' },
+    ],
     ctaHeading: 'Widen a synth or drum bus without losing the mono.',
     ctaSub: 'The whole plugin, free. Point it at the loud band, add a little LFO, and check the correlation map.',
     ctaFine: 'VST3 · AU · CLAP · no account, no card',
@@ -427,6 +466,12 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       intro: 'From no Slursh to full drive plus collapse, hear the drive and the duck stack up. A little of each goes a long way; all the way up goes somewhere else entirely.',
     },
     version: '1.0.0', formats: 'VST3 · AU · CLAP', systems: 'Windows + macOS', specPrice: '$29.99 · free demo',
+    faq: [
+      { q: 'What formats and systems does Slursh support?', a: 'VST3, AU and CLAP, on both Windows and macOS.' },
+      { q: 'What is the Collapse stage?', a: 'It ducks the lows and highs independently, each with its own attack and release, so you can crush the top while the low end stays planted — or the reverse.' },
+      { q: 'Where does Slursh shine?', a: 'On a drum bus. Drive the Slush saturation section and engage Collapse for an aggressive, dynamic character that stops being subtle.' },
+      { q: 'Is the free demo limited?', a: 'No. The demo is the complete plugin — it just drops to silence briefly now and then until you buy it. No account, no card.' },
+    ],
     ctaHeading: 'Throw it on a drum bus and turn it up.',
     ctaSub: 'The whole plugin, free. Drive the Slush section, engage Collapse, and feel the difference in one bar.',
     ctaFine: 'VST3 · AU · CLAP · no account, no card',
