@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { PRODUCTS, DEEP_DIVES, DEFAULT_PROMO, BUNDLE, Product, DeepDive } from '../shared/plugin-catalog';
-import { OS, detectOS, osLabel, isHandoffDevice, pushEvent, buyHref } from '../shared/site-utils';
+import { OS, detectOS, osLabel, gaOS, isHandoffDevice, pushEvent, buyHref, osDemoUrl, resolvePrimaryOS, otherOSes } from '../shared/site-utils';
 
 @Component({
   selector: 'app-downloads',
@@ -43,20 +43,20 @@ export class DownloadsComponent implements OnInit {
 
   dd(slug: string): DeepDive { return DEEP_DIVES[slug]; }
 
-  get primaryOS(): OS { return this.detectedOS; }
-  get otherOS(): OS { return this.detectedOS === 'mac' ? 'win' : 'mac'; }
   osLabel = osLabel;
   buyHref = buyHref;
 
-  demoUrl(p: Product, os: OS): string { return os === 'mac' ? p.demoMac : p.demoWin; }
-  hasOtherOS(p: Product): boolean { return p.demoWin !== p.demoMac; }
+  primaryOS(p: Product): OS { return resolvePrimaryOS(this.detectedOS, p); }
+  otherOSes(p: Product): OS[] { return otherOSes(this.detectedOS, p); }
+
+  demoUrl(p: Product, os: OS): string { return osDemoUrl(p, os) ?? p.demoWin; }
 
   demoLabel(p: Product, os: OS): string {
     return `${p.free ? 'Download free' : 'Download demo'} · ${osLabel(os)}`;
   }
 
   trackDemo(p: Product, os: OS): void {
-    pushEvent(`dl_${p.slug}_${os === 'mac' ? 'macos' : 'windows'}_click`, `${p.name} demo (${osLabel(os)})`);
+    pushEvent(`dl_${p.slug}_${gaOS(os)}_click`, `${p.name} demo (${osLabel(os)})`);
   }
 
   trackBuy(p: Product): void {

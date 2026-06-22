@@ -82,12 +82,12 @@
               </div>
               <p class="dl-blurb">{{ p.blurb }}</p>
               <div class="dl-actions">
-                <a class="btn btn-dl" [href]="demoUrl(p, primaryOS)" download (click)="trackDemo(p, primaryOS)">
+                <a class="btn btn-dl" [href]="demoUrl(p, primaryOS(p))" download (click)="trackDemo(p, primaryOS(p))">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
-                  <span>{{ demoLabel(p, primaryOS) }}</span>
+                  <span>{{ demoLabel(p, primaryOS(p)) }}</span>
                 </a>
-                @if (hasOtherOS(p)) {
-                  <a class="btn btn-alt btn-sm" [href]="demoUrl(p, otherOS)" download (click)="trackDemo(p, otherOS)">{{ osLabel(otherOS) }}</a>
+                @for (os of otherOSes(p); track os) {
+                  <a class="btn btn-alt btn-sm" [href]="demoUrl(p, os)" download (click)="trackDemo(p, os)">{{ osLabel(os) }}</a>
                 }
                 <span class="spacer"></span>
                 <a class="deep" [routerLink]="['/downloads', p.slug]">See what it does →</a>

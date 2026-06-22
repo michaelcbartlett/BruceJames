@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { getProduct, getComparison, DEEP_DIVES, DEFAULT_PROMO, Product, DeepDive, ComparisonSet } from '../../shared/plugin-catalog';
-import { OS, detectOS, osLabel, pushEvent, buyHref } from '../../shared/site-utils';
+import { OS, detectOS, osLabel, gaOS, pushEvent, buyHref, osDemoUrl, resolvePrimaryOS, otherOSes } from '../../shared/site-utils';
 import { ComparePlayerComponent } from '../../shared/compare-player/compare-player.component';
 
 @Component({
@@ -125,18 +125,17 @@ export class ProductComponent implements OnInit {
 
   get promo(): string { return this.deep.promo ?? this.promoDefault; }
 
-  get primaryOS(): OS { return this.detectedOS; }
-  get otherOS(): OS { return this.detectedOS === 'mac' ? 'win' : 'mac'; }
+  get primaryOS(): OS { return resolvePrimaryOS(this.detectedOS, this.product); }
+  get otherOSes(): OS[] { return otherOSes(this.detectedOS, this.product); }
 
-  demoUrl(os: OS): string { return os === 'mac' ? this.product.demoMac : this.product.demoWin; }
-  get hasOtherOS(): boolean { return this.product.demoWin !== this.product.demoMac; }
+  demoUrl(os: OS): string { return osDemoUrl(this.product, os) ?? this.product.demoWin; }
 
   demoLabel(os: OS): string {
     return `${this.product.free ? 'Download free' : 'Download demo'} · ${osLabel(os)}`;
   }
 
   trackDemo(os: OS): void {
-    pushEvent(`dl_${this.product.slug}_${os === 'mac' ? 'macos' : 'windows'}_click`, `${this.product.name} demo (${osLabel(os)})`);
+    pushEvent(`dl_${this.product.slug}_${gaOS(os)}_click`, `${this.product.name} demo (${osLabel(os)})`);
   }
 
   trackBuy(): void {

@@ -23,6 +23,7 @@ export interface Product {
   buyUrl?: string;
   demoWin: string;
   demoMac: string;
+  demoLinux?: string;   // optional: only some plugins ship a Linux build
 }
 
 // Source of truth for the catalog cards. Order = display order.
@@ -34,6 +35,7 @@ export const PRODUCTS: Product[] = [
     price: '$49.99', buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.3.0.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.3.0-mac.pkg',
+    demoLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.4.0-linux.zip',
   },
   {
     slug: 'marco', name: 'Marco', category: 'Stereo / Space',
@@ -121,6 +123,7 @@ export interface ComparisonSet {
   sourceLabel?: string;
   downloadWin?: string;
   downloadMac?: string;
+  downloadLinux?: string;
   buyUrl?: string;
   price?: string;
 }
@@ -136,6 +139,7 @@ export const COMPARISONS: ComparisonSet[] = [
     sourceLabel: 'hear the full track',
     downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_1.3.0.zip',
     downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.3.0-mac.pkg',
+    downloadLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-1.4.0-linux.zip',
     buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
     price: '$49.99',
     tracks: [
@@ -277,9 +281,9 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       youtubeUrl: 'https://youtu.be/HeBwRGEeUCs?si=eHYd5mzpg2BISHll',
       youtubeLabel: 'Hear the full track',
     },
-    version: '1.3.0', formats: 'VST3 · AU · CLAP', systems: 'Windows + macOS', specPrice: '$49.99 · free demo',
+    version: '1.3.0', formats: 'VST3 · AU · CLAP', systems: 'Windows · macOS · Linux', specPrice: '$49.99 · free demo',
     faq: [
-      { q: 'What formats and systems does DeepPerfection support?', a: 'VST3, AU and CLAP, on both Windows and macOS.' },
+      { q: 'What formats and systems does DeepPerfection support?', a: 'VST3, AU and CLAP, on Windows, macOS and Linux.' },
       { q: 'Does DeepPerfection add latency or shift my timing?', a: 'No. It additively rebuilds the cancelled low end with no timing shifts, no pitch warping and zero added artifacts.' },
       { q: 'How do I set it up?', a: 'Route the masking source — usually your kick — into DeepPerfection\'s sidechain once. The analyzer draws the collision in real time and a live restore % shows how much low end it\'s putting back.' },
       { q: 'Is the free demo limited?', a: 'No. The demo is the complete plugin — it just drops to silence briefly now and then until you buy it. No feature locks, no account, no card.' },

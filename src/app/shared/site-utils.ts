@@ -2,18 +2,69 @@
 // OS detection + analytics mirror the original inline logic in LandingComponent
 // so download/buy events land in the same GA dataLayer funnel.
 
-export type OS = 'win' | 'mac';
+import type { Product } from './plugin-catalog';
+
+export type OS = 'win' | 'mac' | 'linux';
+
+// Display order for the "other OS" buttons.
+const OS_ORDER: OS[] = ['win', 'mac', 'linux'];
 
 // Best guess at the visitor's OS so we can lead with the right demo download.
 // Returns 'win' during prerender (no navigator); corrected on the client.
 export function detectOS(): OS {
   if (typeof navigator === 'undefined') return 'win';
   const ua = ((navigator as any).userAgentData?.platform || navigator.platform || navigator.userAgent || '').toLowerCase();
-  return ua.includes('mac') ? 'mac' : 'win';
+  if (ua.includes('mac')) return 'mac';
+  // "android" UAs also contain "linux"; those are handled by the handoff banner,
+  // but exclude them so a phone never leads with the desktop Linux build.
+  if (ua.includes('linux') && !ua.includes('android')) return 'linux';
+  return 'win';
 }
 
 export function osLabel(os: OS): string {
-  return os === 'mac' ? 'macOS' : 'Windows';
+  if (os === 'mac') return 'macOS';
+  if (os === 'linux') return 'Linux';
+  return 'Windows';
+}
+
+// GA event suffix, kept stable: buy_<slug>_click, dl_<slug>_<os>_click.
+export function gaOS(os: OS): string {
+  if (os === 'mac') return 'macos';
+  if (os === 'linux') return 'linux';
+  return 'windows';
+}
+
+// The demo download URL for a given OS, or undefined if there's no build.
+export function osDemoUrl(p: Product, os: OS): string | undefined {
+  if (os === 'mac') return p.demoMac;
+  if (os === 'linux') return p.demoLinux;
+  return p.demoWin;
+}
+
+// The OSes this product actually ships a build for, in display order.
+// Deduped by URL so free utilities that reuse one file across Win/Mac
+// (e.g. YouAreNotCrazy) only surface a single button.
+export function availableOSes(p: Product): OS[] {
+  const seen = new Set<string>();
+  const out: OS[] = [];
+  for (const os of OS_ORDER) {
+    const url = osDemoUrl(p, os);
+    if (url && !seen.has(url)) { seen.add(url); out.push(os); }
+  }
+  return out;
+}
+
+// Lead with the visitor's OS when there's a build for it, else fall back to
+// the first available (Windows) so a Linux visitor never downloads a Win build.
+export function resolvePrimaryOS(detected: OS, p: Product): OS {
+  const avail = availableOSes(p);
+  return avail.includes(detected) ? detected : (avail[0] ?? 'win');
+}
+
+// The remaining OSes to offer as smaller secondary buttons.
+export function otherOSes(detected: OS, p: Product): OS[] {
+  const primary = resolvePrimaryOS(detected, p);
+  return availableOSes(p).filter(os => os !== primary);
 }
 
 // True on phones / small touch screens, where a desktop plugin can't be installed.

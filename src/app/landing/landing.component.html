@@ -86,6 +86,7 @@
       <div class="compare-actions" *ngIf="comparisons[activeComparison].buyUrl">
         <a class="compare-dl" [href]="comparisons[activeComparison].downloadWin" (click)="handleCompareDownloadClick('win')">Try Win</a>
         <a class="compare-dl" [href]="comparisons[activeComparison].downloadMac" (click)="handleCompareDownloadClick('mac')">Try Mac</a>
+        <a class="compare-dl" *ngIf="comparisons[activeComparison].downloadLinux" [href]="comparisons[activeComparison].downloadLinux" (click)="handleCompareDownloadClick('linux')">Try Linux</a>
         <a class="compare-buy" [href]="buyHref(comparisons[activeComparison].buyUrl, comparisons[activeComparison].plugin.toLowerCase())" target="_blank" rel="noopener" (click)="handleCompareBuyClick()">
           Buy &mdash; {{ comparisons[activeComparison].price }}
         </a>
@@ -134,17 +135,17 @@
 
             <!-- Primary action: the demo, matched to the visitor's OS -->
             <a class="btn-demo"
-               [href]="demoUrl(p, primaryOS)"
-               (click)="trackDemo(p, primaryOS); $event.stopPropagation()">
+               [href]="demoUrl(p, primaryOS(p))"
+               (click)="trackDemo(p, primaryOS(p)); $event.stopPropagation()">
               <span class="btn-demo-main">{{ p.free ? 'Download free' : 'Download free demo' }}</span>
-              <span class="btn-demo-os">{{ osLabel(primaryOS) }}</span>
+              <span class="btn-demo-os">{{ osLabel(primaryOS(p)) }}</span>
             </a>
 
             <div class="cta-sub">
               <span class="nag" *ngIf="!p.free">Full plugin. Just nags.</span>
-              <a class="other-os"
-                 [href]="demoUrl(p, otherOS)"
-                 (click)="trackDemo(p, otherOS); $event.stopPropagation()">on {{ osLabel(otherOS) }}?</a>
+              <a class="other-os" *ngFor="let os of otherOSes(p)"
+                 [href]="demoUrl(p, os)"
+                 (click)="trackDemo(p, os); $event.stopPropagation()">on {{ osLabel(os) }}?</a>
             </div>
 
             <!-- Secondary: buy. People convert from the demo, so this stays quiet. -->

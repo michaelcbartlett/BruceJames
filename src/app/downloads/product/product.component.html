@@ -29,8 +29,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
             <span>{{ demoLabel(primaryOS) }}</span>
           </a>
-          @if (hasOtherOS) {
-            <a class="btn btn-alt" [href]="demoUrl(otherOS)" download (click)="trackDemo(otherOS)">{{ osLabel(otherOS) }}</a>
+          @for (os of otherOSes; track os) {
+            <a class="btn btn-alt" [href]="demoUrl(os)" download (click)="trackDemo(os)">{{ osLabel(os) }}</a>
           }
         </div>
         @if (product.free) {
@@ -156,8 +156,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
           <span>{{ demoLabel(primaryOS) }}</span>
         </a>
-        @if (hasOtherOS) {
-          <a class="btn btn-alt" [href]="demoUrl(otherOS)" download (click)="trackDemo(otherOS)">{{ osLabel(otherOS) }}</a>
+        @for (os of otherOSes; track os) {
+          <a class="btn btn-alt" [href]="demoUrl(os)" download (click)="trackDemo(os)">{{ osLabel(os) }}</a>
         }
       </div>
       <div class="fine">{{ deep.ctaFine }} · <a routerLink="/downloads">all downloads</a></div>

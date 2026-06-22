@@ -4,8 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Product, PRODUCTS, BUNDLE, COMPARISONS, ComparisonSet, ComparisonTrack } from '../shared/plugin-catalog';
-
-type OS = 'win' | 'mac';
+import { OS, detectOS, osLabel, gaOS, osDemoUrl, resolvePrimaryOS, otherOSes } from '../shared/site-utils';
 
 @Component({
   selector: 'app-landing',
@@ -61,18 +60,15 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     this.metaService.updateTag({ property: 'og:title', content: 'BruceJames — Plugins that should exist but don\'t' });
     this.metaService.updateTag({ name: 'twitter:title', content: 'BruceJames — Plugins that should exist but don\'t' });
 
-    if (typeof navigator !== 'undefined') {
-      const ua = ((navigator as any).userAgentData?.platform || navigator.platform || navigator.userAgent || '').toLowerCase();
-      this.detectedOS = ua.includes('mac') ? 'mac' : 'win';
-    }
+    this.detectedOS = detectOS();
   }
 
-  get primaryOS(): OS { return this.detectedOS; }
-  get otherOS(): OS { return this.detectedOS === 'mac' ? 'win' : 'mac'; }
+  osLabel = osLabel;
 
-  osLabel(os: OS): string { return os === 'mac' ? 'macOS' : 'Windows'; }
+  primaryOS(p: Product): OS { return resolvePrimaryOS(this.detectedOS, p); }
+  otherOSes(p: Product): OS[] { return otherOSes(this.detectedOS, p); }
 
-  demoUrl(p: Product, os: OS): string { return os === 'mac' ? p.demoMac : p.demoWin; }
+  demoUrl(p: Product, os: OS): string { return osDemoUrl(p, os) ?? p.demoWin; }
 
   // Append UTM tags so Gumroad attributes the sale to the site/campaign/plugin.
   buyHref(url: string | undefined, content: string): string {
@@ -82,7 +78,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   trackDemo(p: Product, os: OS) {
-    this.pushEvent(`dl_${p.slug}_${os === 'mac' ? 'macos' : 'windows'}_click`, `${p.name} demo (${this.osLabel(os)})`);
+    this.pushEvent(`dl_${p.slug}_${gaOS(os)}_click`, `${p.name} demo (${this.osLabel(os)})`);
   }
 
   trackBuy(p: Product) {
@@ -199,7 +195,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pushEvent('compare_full_track_click', this.comparisons[this.activeComparison].plugin);
   }
 
-  handleCompareDownloadClick(os: 'win' | 'mac') {
+  handleCompareDownloadClick(os: OS) {
     this.pushEvent(`compare_download_${os}`, this.comparisons[this.activeComparison].plugin);
   }
 
