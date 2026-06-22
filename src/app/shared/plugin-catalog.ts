@@ -59,7 +59,7 @@ export const PRODUCTS: Product[] = [
     blurb: 'Something in your mix feels early? Late? Off? This measures the actual timing offset in milliseconds and shows you. Because you are not crazy, and now you can prove it.',
     free: true, freeNote: 'no demo nag, no account',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0.zip',
-    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0.zip',
+    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/YouAreNotCrazy_1.0.0_mac.zip',
   },
   {
     slug: 'longdivision', name: 'longDivision', category: 'Stereo / Width',
