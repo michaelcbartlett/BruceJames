@@ -184,6 +184,33 @@ export const COMPARISONS: ComparisonSet[] = [
       { label: 'Little Drive + Little Collapse',  src: '/SlurshComparisons/Little%20bit%20of%20Slush%20Little%20bit%20of%20Collapse.mp3' },
     ],
   },
+  {
+    slug: 'slushbus',
+    plugin: 'SlushBus',
+    description: 'A 2 track with SlushBus applied in strong and subtle amount.',
+    downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4.zip',
+    downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4_mac.zip',
+    buyUrl: 'https://brucejames.gumroad.com/l/slushbus?wanted=true',
+    price: '$14.99',
+    tracks: [
+      {
+        label: 'No SlushBus',
+        src: '/SlushBusComparisons/no%20slushbus.mp3'
+      },
+      {
+        label: 'Subtle',
+        src: '/SlushBusComparisons/Subtle%20slushbus.mp3'
+      },
+      {
+        label: 'Null',
+        src: '/SlushBusComparisons/null%20slushbus.mp3'
+      },
+      {
+        label: 'Max',
+        src: '/SlushBusComparisons/max%20slushbus.mp3'
+      }
+      ],
+  },
 ];
 
 export function getComparison(slug: string): ComparisonSet | undefined {
