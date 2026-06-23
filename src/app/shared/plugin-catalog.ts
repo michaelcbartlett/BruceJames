@@ -186,6 +186,7 @@ export const COMPARISONS: ComparisonSet[] = [
   },
   {
     slug: 'slushbus',
+    tag: 'Tension',
     plugin: 'SlushBus',
     description: 'A 2 track with SlushBus applied in strong and subtle amount.',
     downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4.zip',
