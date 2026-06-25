@@ -67,7 +67,7 @@ export const PRODUCTS: Product[] = [
     blurb: 'A stereo widener that splits the spectrum into bands and widens only the correlation range you choose. Target the loud or the quiet, shape it with an LFO and envelopes, keep the rest untouched.',
     price: '$29.99', buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1.zip',
-    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip',
+    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1_mac.zip',
   },
   {
     slug: 'slursh', name: 'Slursh', category: 'Saturator / Dynamics',
@@ -156,7 +156,7 @@ export const COMPARISONS: ComparisonSet[] = [
     description: 'Same drum loop, five widths. Hear the stereo field open up — and the LFO put it in motion.',
     tag: 'Widening',
     downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1.zip',
-    downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.0_mac.zip',
+    downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1_mac.zip',
     buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
     price: '$29.99',
     tracks: [
