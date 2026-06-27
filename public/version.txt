@@ -7,5 +7,6 @@ GreatWallOfSound:1.0.0
 Thumbelina:1.0.0
 DrumFill:1.0.0
 ButterKnife:1.0.0
+TargetPractice:1.0.0
 msg:All Plugins On Sale Until 7/16/26 Code: 6G1I78Y
 link:https://brucejames.studio
