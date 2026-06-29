@@ -488,8 +488,8 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
     whatHeading: 'It corrects the spectral balance without touching what\'s working.',
     whatParagraphs: [
       'Most EQs ask you to guess. Planar shows you a <strong>target shape</strong> against your actual spectrum and corrects toward it band by band, so you\'re making decisions with data instead of instinct.',
-      'The correction is <strong>phase-coherent</strong> and runs with full dynamics control — threshold, knee, transient handling — so it responds to the music rather than static-equalizing the whole mix. A dynamics section lets you set how aggressively it chases the target and how fast it reacts.',
-      'PC Early Access is live now. Mac build coming soon.',
+      'The correction is <strong>phase-coherent</strong> and runs with full dynamics control: threshold, knee, transient handling: so it responds to the music rather than static-equalizing the whole mix. A dynamics section lets you set how aggressively it chases the target and how fast it reacts.',
+      'PC Early Access is live now. Mac and Linux builds coming soon.',
     ],
     controlsEyebrow: 'Every section, in plain language',
     controlsIntro: 'The analyzer is the center of the plugin. Everything else shapes how it corrects.',
