@@ -83,24 +83,38 @@ export function pushEvent(event: string, label: string): void {
   }
 }
 
+// Fire-and-forget POST that survives the navigation a download/buy link starts.
+// Clicking an <a download> or target=_blank link makes the browser abort the
+// page's in-flight fetches (NS_BINDING_ABORTED in Firefox), so a plain fetch
+// never lands. sendBeacon is built for exactly this and sends a "simple" request
+// (text/plain, no CORS preflight). Django's json.loads(request.body) parses the
+// body regardless of content type. Fall back to keepalive fetch where sendBeacon
+// is unavailable (older Safari).
+function beacon(url: string, payload: object): void {
+  if (typeof navigator === 'undefined') return;
+  const body = JSON.stringify(payload);
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(url, new Blob([body], { type: 'text/plain' }));
+    return;
+  }
+  if (typeof fetch !== 'undefined') {
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body,
+      keepalive: true,
+    }).catch(() => {});
+  }
+}
+
 // Fire-and-forget download click counter. No PII — slug + OS only.
 export function recordDownloadClick(slug: string, os: OS): void {
-  if (typeof fetch === 'undefined') return;
-  fetch('https://api.brucejames.studio/api/download-click/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ slug, os }),
-  }).catch(() => {});
+  beacon('https://api.brucejames.studio/api/download-click/', { slug, os });
 }
 
 // Fire-and-forget buy click counter. No PII — slug only.
 export function recordBuyClick(slug: string): void {
-  if (typeof fetch === 'undefined') return;
-  fetch('https://api.brucejames.studio/api/buy-click/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ slug }),
-  }).catch(() => {});
+  beacon('https://api.brucejames.studio/api/buy-click/', { slug });
 }
 
 // Bump per pricing era so Gumroad attributes sales to the right campaign.
