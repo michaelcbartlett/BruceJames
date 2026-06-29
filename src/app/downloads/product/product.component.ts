@@ -3,7 +3,8 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { getProduct, getComparison, DEEP_DIVES, DEFAULT_PROMO, Product, DeepDive, ComparisonSet } from '../../shared/plugin-catalog';
-import { OS, detectOS, osLabel, gaOS, pushEvent, buyHref, osDemoUrl, resolvePrimaryOS, otherOSes } from '../../shared/site-utils';
+import { OS, detectOS, osLabel, gaOS, pushEvent, buyHref, osDemoUrl, resolvePrimaryOS, otherOSes, recordDownloadClick, recordBuyClick } from '../../shared/site-utils';
+import { TrafficSourceService } from '../../shared/traffic-source.service';
 import { ComparePlayerComponent } from '../../shared/compare-player/compare-player.component';
 
 @Component({
@@ -21,7 +22,10 @@ export class ProductComponent implements OnInit {
 
   detectedOS: OS = 'win';
   osLabel = osLabel;
-  buyHref = buyHref;
+
+  buyHref(url: string | undefined, content: string): string {
+    return buyHref(url, content, this.trafficSource.source, this.trafficSource.medium);
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +33,7 @@ export class ProductComponent implements OnInit {
     private titleService: Title,
     private metaService: Meta,
     @Inject(DOCUMENT) private doc: Document,
+    private trafficSource: TrafficSourceService,
   ) {}
 
   ngOnInit(): void {
@@ -136,10 +141,12 @@ export class ProductComponent implements OnInit {
 
   trackDemo(os: OS): void {
     pushEvent(`dl_${this.product.slug}_${gaOS(os)}_click`, `${this.product.name} demo (${osLabel(os)})`);
+    recordDownloadClick(this.product.slug, os);
   }
 
   trackBuy(): void {
     pushEvent(`buy_${this.product.slug}_click`, `${this.product.name} buy`);
+    recordBuyClick(this.product.slug);
   }
 
   trackHearFullTrack(): void {

@@ -4,7 +4,8 @@ import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Product, PRODUCTS, BUNDLE, COMPARISONS, ComparisonSet, ComparisonTrack } from '../shared/plugin-catalog';
-import { OS, detectOS, osLabel, gaOS, osDemoUrl, resolvePrimaryOS, otherOSes } from '../shared/site-utils';
+import { OS, detectOS, osLabel, gaOS, osDemoUrl, resolvePrimaryOS, otherOSes, buyHref, recordDownloadClick, recordBuyClick } from '../shared/site-utils';
+import { TrafficSourceService } from '../shared/traffic-source.service';
 
 @Component({
   selector: 'app-landing',
@@ -30,9 +31,6 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   // Stays 'win' during prerender (no navigator); corrected on the client in ngOnInit.
   detectedOS: OS = 'win';
 
-  // Bump per pricing era so Gumroad attributes sales to the right campaign.
-  private readonly utmCampaign = 'site_2026';
-
   activeComparison = 0;
   activeTrack = 0;
   isPlaying = false;
@@ -51,7 +49,8 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private titleService: Title,
     private metaService: Meta,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    private trafficSource: TrafficSourceService,
   ) {}
 
   ngOnInit() {
@@ -70,23 +69,23 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   demoUrl(p: Product, os: OS): string { return osDemoUrl(p, os) ?? p.demoWin; }
 
-  // Append UTM tags so Gumroad attributes the sale to the site/campaign/plugin.
   buyHref(url: string | undefined, content: string): string {
-    if (!url) return '#';
-    const sep = url.includes('?') ? '&' : '?';
-    return `${url}${sep}utm_source=brucejames_site&utm_medium=plugin_card&utm_campaign=${this.utmCampaign}&utm_content=${content}`;
+    return buyHref(url, content, this.trafficSource.source, this.trafficSource.medium);
   }
 
   trackDemo(p: Product, os: OS) {
     this.pushEvent(`dl_${p.slug}_${gaOS(os)}_click`, `${p.name} demo (${this.osLabel(os)})`);
+    recordDownloadClick(p.slug, os);
   }
 
   trackBuy(p: Product) {
     this.pushEvent(`buy_${p.slug}_click`, `${p.name} buy`);
+    recordBuyClick(p.slug);
   }
 
   trackBundle() {
     this.pushEvent('buy_everything_click', 'Everything bundle');
+    recordBuyClick('everything');
   }
 
   ngAfterViewInit() {

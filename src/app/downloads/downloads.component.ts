@@ -2,7 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { PRODUCTS, DEEP_DIVES, DEFAULT_PROMO, BUNDLE, Product, DeepDive } from '../shared/plugin-catalog';
-import { OS, detectOS, osLabel, gaOS, isHandoffDevice, pushEvent, buyHref, osDemoUrl, resolvePrimaryOS, otherOSes } from '../shared/site-utils';
+import { OS, detectOS, osLabel, gaOS, isHandoffDevice, pushEvent, buyHref, osDemoUrl, resolvePrimaryOS, otherOSes, recordDownloadClick, recordBuyClick } from '../shared/site-utils';
+import { TrafficSourceService } from '../shared/traffic-source.service';
 
 @Component({
   selector: 'app-downloads',
@@ -22,7 +23,11 @@ export class DownloadsComponent implements OnInit {
   emailHref = '#';
   pageUrl = 'https://brucejames.studio/downloads';
 
-  constructor(private titleService: Title, private metaService: Meta) {}
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+    private trafficSource: TrafficSourceService,
+  ) {}
 
   ngOnInit(): void {
     this.titleService.setTitle('Download the demos · BruceJames');
@@ -44,7 +49,10 @@ export class DownloadsComponent implements OnInit {
   dd(slug: string): DeepDive { return DEEP_DIVES[slug]; }
 
   osLabel = osLabel;
-  buyHref = buyHref;
+
+  buyHref(url: string | undefined, content: string): string {
+    return buyHref(url, content, this.trafficSource.source, this.trafficSource.medium);
+  }
 
   primaryOS(p: Product): OS { return resolvePrimaryOS(this.detectedOS, p); }
   otherOSes(p: Product): OS[] { return otherOSes(this.detectedOS, p); }
@@ -57,14 +65,17 @@ export class DownloadsComponent implements OnInit {
 
   trackDemo(p: Product, os: OS): void {
     pushEvent(`dl_${p.slug}_${gaOS(os)}_click`, `${p.name} demo (${osLabel(os)})`);
+    recordDownloadClick(p.slug, os);
   }
 
   trackBuy(p: Product): void {
     pushEvent(`buy_${p.slug}_click`, `${p.name} buy`);
+    recordBuyClick(p.slug);
   }
 
   trackBundle(): void {
     pushEvent('buy_everything_click', 'Everything bundle');
+    recordBuyClick('everything');
   }
 
   copyLink(): void {

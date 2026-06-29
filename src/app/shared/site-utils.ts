@@ -83,12 +83,39 @@ export function pushEvent(event: string, label: string): void {
   }
 }
 
+// Fire-and-forget download click counter. No PII — slug + OS only.
+export function recordDownloadClick(slug: string, os: OS): void {
+  if (typeof fetch === 'undefined') return;
+  fetch('https://api.brucejames.studio/api/download-click/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ slug, os }),
+  }).catch(() => {});
+}
+
+// Fire-and-forget buy click counter. No PII — slug only.
+export function recordBuyClick(slug: string): void {
+  if (typeof fetch === 'undefined') return;
+  fetch('https://api.brucejames.studio/api/buy-click/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ slug }),
+  }).catch(() => {});
+}
+
 // Bump per pricing era so Gumroad attributes sales to the right campaign.
 const UTM_CAMPAIGN = 'site_2026';
 
-// Append UTM tags so Gumroad attributes the sale to the site/campaign/plugin.
-export function buyHref(url: string | undefined, content: string): string {
+// Append UTM tags so Gumroad attributes the sale to the correct traffic source.
+// source/medium come from TrafficSourceService; fall back to site-internal values
+// so existing call sites that haven't been updated still produce valid UTMs.
+export function buyHref(
+  url: string | undefined,
+  content: string,
+  source = 'brucejames_site',
+  medium = 'plugin_card',
+): string {
   if (!url) return '#';
   const sep = url.includes('?') ? '&' : '?';
-  return `${url}${sep}utm_source=brucejames_site&utm_medium=plugin_card&utm_campaign=${UTM_CAMPAIGN}&utm_content=${content}`;
+  return `${url}${sep}utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${UTM_CAMPAIGN}&utm_content=${content}`;
 }
