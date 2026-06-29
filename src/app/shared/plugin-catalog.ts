@@ -22,7 +22,7 @@ export interface Product {
   price?: string;
   buyUrl?: string;
   demoWin: string;
-  demoMac: string;
+  demoMac?: string;     // optional: not all builds ship for macOS yet
   demoLinux?: string;   // optional: only some plugins ship a Linux build
 }
 
@@ -68,6 +68,13 @@ export const PRODUCTS: Product[] = [
     price: '$29.99', buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1_mac.zip',
+  },
+  {
+    slug: 'planar', name: 'Planar', category: 'EQ / Spectral Balance',
+    img: '/plugin-planar.png', badge: 'PC Early Access',
+    blurb: 'Spectral balance correction that reads your mix against a target shape and corrects it in real time. Phase-coherent, band-by-band, with full dynamics control.',
+    price: 'Coming soon',
+    demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Planar_1.0.0.zip',
   },
   {
     slug: 'slursh', name: 'Slursh', category: 'Saturator / Dynamics',
@@ -467,6 +474,37 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
     ctaHeading: 'Widen a synth or drum bus without losing the mono.',
     ctaSub: 'The whole plugin, free. Point it at the loud band, add a little LFO, and check the correlation map.',
     ctaFine: 'VST3 · AU · CLAP · no account, no card',
+  },
+
+  planar: {
+    title: 'Planar: spectral balance correction · BruceJames',
+    metaDescription: 'Planar reads your mix against a target spectral shape and corrects it in real time. Phase-coherent, band-by-band. PC early access now available.',
+    hubBadge: 'PC Early Access',
+    dlFmt: 'v1.0.0 · VST3 · CLAP · Windows',
+    promo: '<b>PC Early Access</b> — Windows build ready for testing. Mac coming soon.',
+    heroTagline: 'Spectral balance correction that reads your mix against a target shape and corrects it in real time.',
+    shotCaption: 'The full interface · spectral analyzer + dynamics section',
+    imgAlt: 'Planar plugin interface showing spectral balance analyzer and correction controls',
+    whatHeading: 'It corrects the spectral balance without touching what\'s working.',
+    whatParagraphs: [
+      'Most EQs ask you to guess. Planar shows you a <strong>target shape</strong> against your actual spectrum and corrects toward it band by band, so you\'re making decisions with data instead of instinct.',
+      'The correction is <strong>phase-coherent</strong> and runs with full dynamics control — threshold, knee, transient handling — so it responds to the music rather than static-equalizing the whole mix. A dynamics section lets you set how aggressively it chases the target and how fast it reacts.',
+      'PC Early Access is live now. Mac build coming soon.',
+    ],
+    controlsEyebrow: 'Every section, in plain language',
+    controlsIntro: 'The analyzer is the center of the plugin. Everything else shapes how it corrects.',
+    controls: [
+      { k: 'Spectral Analyzer', h4: 'See the imbalance', p: 'Draws your signal against the target shape in real time so you know exactly where the correction is happening.' },
+      { k: 'Window · Start / End', h4: 'Focus the analysis', p: 'Constrain the frequency range the correction acts on so you\'re not touching what already sounds right.' },
+      { k: 'Global · Tilt / LR Link', h4: 'Shape the target', p: 'Tilt adjusts the overall slope of the target curve; LR Link ties the two channels together for mono-compatible correction.' },
+      { k: 'Low Shelf · Freq / Boost', h4: 'Anchor the lows', p: 'A dedicated low-shelf lets you lock the bottom end independently of the mid correction.' },
+      { k: 'Mid · Freq / Gain / Q', h4: 'Fine-tune the middle', p: 'Parametric mid band for surgical correction in the range that matters most.' },
+      { k: 'Dynamics · Threshold / Knee / Clamp', h4: 'Control the response', p: 'Sets how much imbalance has to be present before it corrects, and how hard it clamps the result.' },
+    ],
+    version: '1.0.0', formats: 'VST3 · CLAP', systems: 'Windows (Mac coming soon)', specPrice: 'Coming soon · free early access',
+    ctaHeading: 'Try the PC early access build.',
+    ctaSub: 'Windows build is ready for testing. Download free and tell me what you think.',
+    ctaFine: 'VST3 · CLAP · Windows · Mac coming soon',
   },
 
   slursh: {
