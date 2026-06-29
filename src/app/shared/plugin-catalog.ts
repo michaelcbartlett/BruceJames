@@ -73,7 +73,7 @@ export const PRODUCTS: Product[] = [
     slug: 'planar', name: 'Planar', category: 'EQ / Spectral Balance',
     img: '/plugin-planar.png', badge: 'PC Early Access',
     blurb: 'Spectral balance correction that reads your mix against a target shape and corrects it in real time. Phase-coherent, band-by-band, with full dynamics control.',
-    price: 'Coming soon',
+    price: '$29.99', buyUrl: 'https://brucejames.gumroad.com/l/planar?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Planar_1.0.0.zip',
   },
   {
