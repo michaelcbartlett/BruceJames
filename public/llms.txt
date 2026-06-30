@@ -10,6 +10,7 @@ Downloads / free demos: https://brucejames.studio/downloads
 - [DeepPerfection](https://brucejames.studio/downloads/deepperfection) — $49.99. Phase correction that rebuilds the low end phase cancellation steals. Route the masking source (usually your kick) into the sidechain once; it additively restores the low end you lost with no timing shifts, no pitch warping, and no added artifacts. A live analyzer shows the collision and a "restore %" shows how much is being put back. Formats: VST3, AU, CLAP. Windows, macOS + Linux.
 - [Marco](https://brucejames.studio/downloads/marco) — $29.99. Stereo placement plugin. An XY pad lets you place a sound in the stereo field by hand — width, depth and focus that feel physical. A built-in crossover keeps the lows centered while the top opens up (mono-safe), and Match Energy holds perceived loudness steady as you widen.
 - [longDivision](https://brucejames.studio/downloads/longdivision) — $29.99. Band-split stereo widener. Splits the spectrum by correlation and widens only the slice you choose; target the loud or quiet material and move it with an LFO and envelopes. Stays mono-compatible by design — untouched bands null to silence.
+- [Planar](https://brucejames.studio/downloads/planar) — $29.99 (free Windows early access now). Spectral balance correction: reads your mix against a target spectral shape and corrects toward it in real time, band by band. Phase-coherent, with full dynamics control (threshold, knee, transient handling) so it tracks the music instead of static-EQing the whole mix. Formats: VST3, CLAP. Windows now, macOS coming soon.
 - [Slursh](https://brucejames.studio/downloads/slursh) — $29.99. A clipper built on SlushBus's depump section, plus a "collapse" stage that ducks lows and highs independently for an aggressive, characterful sound.
 - [SlushBus](https://brucejames.studio/downloads/slushbus) — $14.99. A bus compressor that can give energy back, not just take it: caps how far it pulls loud down AND lifts quiet up, with DePump, Swell, transient-aware detection, four threshold modes, and a live reference scope.
 - [YouAreNotCrazy](https://brucejames.studio/downloads/youarenotcrazy) — Free forever, no catch, no account. Measures the actual timing offset between two signals in milliseconds and tells you which is early or late, so you can nudge by exactly that amount.
@@ -20,7 +21,7 @@ Downloads / free demos: https://brucejames.studio/downloads
 
 ## Key facts
 
-- Formats: VST3, AU, CLAP. Platforms: Windows and macOS for every plugin; DeepPerfection also ships a Linux build.
+- Formats: VST3, AU, CLAP. Platforms: Windows and macOS for every plugin; DeepPerfection also ships a Linux build. (Planar is in Windows early access, ships VST3 and CLAP, with macOS coming soon.)
 - Demos are the complete plugin — the only limitation on paid plugins is a brief drop to silence now and then until purchased. No feature locks, no time bomb, no account, no card to demo.
 - One-time purchases via Gumroad. No subscriptions.
 - YouAreNotCrazy is permanently free with no nag.
