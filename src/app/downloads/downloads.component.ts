@@ -65,16 +65,19 @@ export class DownloadsComponent implements OnInit {
 
   trackDemo(p: Product, os: OS): void {
     pushEvent(`dl_${p.slug}_${gaOS(os)}_click`, `${p.name} demo (${osLabel(os)})`);
+    pushEvent('download_click', `${p.name} demo (${osLabel(os)})`);
     recordDownloadClick(p.slug, os);
   }
 
   trackBuy(p: Product): void {
     pushEvent(`buy_${p.slug}_click`, `${p.name} buy`);
+    pushEvent('buy_click', `${p.name} buy`);
     recordBuyClick(p.slug);
   }
 
   trackBundle(): void {
     pushEvent('buy_everything_click', 'Everything bundle');
+    pushEvent('buy_click', 'Everything bundle');
     recordBuyClick('everything');
   }
 

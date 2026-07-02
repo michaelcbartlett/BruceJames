@@ -141,11 +141,13 @@ export class ProductComponent implements OnInit {
 
   trackDemo(os: OS): void {
     pushEvent(`dl_${this.product.slug}_${gaOS(os)}_click`, `${this.product.name} demo (${osLabel(os)})`);
+    pushEvent('download_click', `${this.product.name} demo (${osLabel(os)})`);
     recordDownloadClick(this.product.slug, os);
   }
 
   trackBuy(): void {
     pushEvent(`buy_${this.product.slug}_click`, `${this.product.name} buy`);
+    pushEvent('buy_click', `${this.product.name} buy`);
     recordBuyClick(this.product.slug);
   }
 

@@ -75,16 +75,19 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   trackDemo(p: Product, os: OS) {
     this.pushEvent(`dl_${p.slug}_${gaOS(os)}_click`, `${p.name} demo (${this.osLabel(os)})`);
+    this.pushEvent('download_click', `${p.name} demo (${this.osLabel(os)})`);
     recordDownloadClick(p.slug, os);
   }
 
   trackBuy(p: Product) {
     this.pushEvent(`buy_${p.slug}_click`, `${p.name} buy`);
+    this.pushEvent('buy_click', `${p.name} buy`);
     recordBuyClick(p.slug);
   }
 
   trackBundle() {
     this.pushEvent('buy_everything_click', 'Everything bundle');
+    this.pushEvent('buy_click', 'Everything bundle');
     recordBuyClick('everything');
   }
 
@@ -196,10 +199,12 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   handleCompareDownloadClick(os: OS) {
     this.pushEvent(`compare_download_${os}`, this.comparisons[this.activeComparison].plugin);
+    this.pushEvent('download_click', this.comparisons[this.activeComparison].plugin);
   }
 
   handleCompareBuyClick() {
     this.pushEvent('compare_buy_click', this.comparisons[this.activeComparison].plugin);
+    this.pushEvent('buy_click', this.comparisons[this.activeComparison].plugin);
   }
 
   private fmtTime(s: number): string {
