@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepPerfection User Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f3;
+    --ink:#16211f;
+    --muted:#5c6d68;
+    --faint:#8a958f;
+    --line:#dcd8cd;
+    --teal:#178578;        /* DeepPerfection teal — primary */
+    --teal-deep:#0c3a35;
+    --teal-deeper:#061a17;
+    --orange:#e8823a;      /* HIT */
+    --orange-deep:#bf6526; /* numbers / secondary accent */
+    --lime:#aecb3c;        /* RESTORE */
+    --lime-deep:#7c9220;
+    --sans:"IBM Plex Sans",system-ui,sans-serif;
+    --disp:"Space Grotesk",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#e7e4db;
+    font-family:var(--sans);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    padding:40px 0;
+  }
+
+  .page{
+    position:relative;
+    width:816px;
+    min-height:1056px;
+    margin:0 auto 34px;
+    background:var(--paper);
+    box-shadow:0 2px 16px rgba(0,0,0,0.10);
+    border-radius:3px;
+    padding:84px 80px 76px;
+    overflow:hidden;
+  }
+
+  /* ---- shared type ---- */
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:600;color:var(--teal-deep);margin:0;line-height:1.15;letter-spacing:-0.01em;}
+  p{margin:0 0 13px;}
+  .lede{font-size:16.5px;line-height:1.62;color:#23302c;}
+  strong{font-weight:600;color:var(--ink);}
+  a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(23,133,120,0.35);}
+  .mn{font-family:var(--mono);font-size:12px;}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--teal);font-weight:500;}
+  .kicker-row{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1.5px solid var(--teal-deep);padding-bottom:12px;margin-bottom:30px;}
+  .kicker-row .sec-no{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:0.1em;}
+  .page-h{font-size:30px;margin-top:6px;}
+
+  .section-lead{font-size:15px;color:var(--muted);margin-bottom:26px;max-width:58ch;}
+
+  /* ---- running footer ---- */
+  .footer{position:absolute;left:80px;right:80px;bottom:40px;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;color:var(--faint);text-transform:uppercase;
+    border-top:1px solid var(--line);padding-top:11px;}
+  .footer .b{color:var(--teal);}
+
+  /* ============ COVER ============ */
+  .cover{
+    background:radial-gradient(125% 95% at 50% 6%,#0f4b43 0%,var(--teal-deep) 44%,var(--teal-deeper) 100%);
+    color:#ece3cd;
+    padding:74px 76px;
+    display:flex;flex-direction:column;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:13px;
+    background:linear-gradient(90deg,var(--lime) 0 33.33%,var(--teal) 33.33% 66.66%,var(--orange) 66.66% 100%);
+    opacity:0.92;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .brand{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:#8fd8cf;text-transform:uppercase;}
+  .cover .mark{display:flex;align-items:center;gap:14px;margin-top:auto;}
+  .cover .mark .dot{width:28px;height:28px;border-radius:50%;background:var(--teal);box-shadow:0 0 18px rgba(52,200,188,0.7),0 0 0 7px rgba(52,200,188,0.14);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .title{font-family:var(--disp);font-weight:700;font-size:74px;line-height:0.96;letter-spacing:-0.03em;margin-top:24px;}
+  .cover .title .b{color:#f4efe3;}
+  .cover .title .d{color:var(--teal);}
+  .cover .sub{font-size:19px;color:#cfe0db;margin-top:18px;font-weight:400;max-width:33ch;}
+  .cover .tag{font-family:var(--mono);font-weight:500;letter-spacing:0.18em;font-size:14px;margin-top:22px;color:#bfe7e0;display:flex;align-items:center;gap:14px;text-transform:uppercase;}
+  .cover .tag .sep{color:var(--teal);}
+  .cover .rule{height:1.5px;background:linear-gradient(90deg,var(--teal),rgba(23,133,120,0));margin:38px 0 0;width:100%;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .meta{display:flex;gap:44px;margin-top:28px;}
+  .cover .meta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:#8fd8cf;margin-bottom:6px;}
+  .cover .meta .v{font-family:var(--disp);font-size:17px;color:#ece3cd;font-weight:500;}
+  .cover .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:#7fa39c;padding-bottom:4px;}
+  .cover .doctype{font-family:var(--disp);font-size:15px;letter-spacing:0.32em;text-transform:uppercase;color:#8fd8cf;font-weight:500;}
+
+  /* ============ CONTENTS ============ */
+  .toc{list-style:none;padding:0;margin:0;}
+  .toc li{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);}
+  .toc .n{font-family:var(--mono);font-size:13px;color:var(--orange-deep);width:30px;flex:none;font-weight:500;}
+  .toc .t{font-family:var(--disp);font-size:16.5px;color:var(--teal-deep);font-weight:500;flex:1;}
+  .toc .pg{font-family:var(--mono);font-size:12px;color:var(--faint);}
+
+  /* ============ generic blocks ============ */
+  .block{margin-bottom:24px;break-inside:avoid;}
+  .block h3{font-size:17px;margin-bottom:8px;}
+  .block h3 .num{font-family:var(--mono);color:var(--orange-deep);font-size:14px;margin-right:9px;}
+
+  .callout{background:#eef2ea;border-left:3px solid var(--teal);padding:15px 18px;margin:18px 0;border-radius:0 4px 4px 0;}
+  .callout .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;}
+  .callout p{margin:0;font-size:14px;}
+  .callout.orange{border-left-color:var(--orange-deep);}
+  .callout.orange .lbl{color:var(--orange-deep);}
+  .callout.lime{border-left-color:var(--lime-deep);}
+  .callout.lime .lbl{color:var(--lime-deep);}
+
+  /* parameter tables */
+  table.pt{width:100%;border-collapse:collapse;margin:6px 0 4px;}
+  table.pt th{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:0 10px 8px 0;border-bottom:1.5px solid var(--teal-deep);}
+  table.pt td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:13.5px;line-height:1.5;}
+  table.pt td.name{font-family:var(--disp);font-weight:600;color:var(--teal-deep);font-size:13.5px;white-space:nowrap;}
+  table.pt td.rng{font-family:var(--mono);font-size:11.5px;color:var(--orange-deep);white-space:nowrap;}
+  table.pt td.start{font-family:var(--mono);font-size:11px;color:var(--lime-deep);white-space:nowrap;}
+  table.pt tr{break-inside:avoid;}
+
+  .grouptag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;background:var(--teal);padding:4px 11px;border-radius:3px;margin:24px 0 12px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .grouptag.orange{background:var(--orange-deep);}
+  .grouptag.lime{background:var(--lime-deep);}
+  .grouptag .new{font-size:9px;letter-spacing:0.14em;background:rgba(255,255,255,0.22);padding:2px 6px;border-radius:2px;}
+
+  /* ============ interface tour ============ */
+  .shot-wrap{position:relative;width:100%;margin:4px 0 0;border-radius:6px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,0.22);background:#0c1817;}
+  .shot-wrap img{display:block;width:100%;}
+  /* UI screenshots carry numbered markers positioned for the plugin's 845x540 face.
+     Reserve that aspect so the box never collapses (while the image loads or if it's
+     missing) — which would pile the markers into an unreadable strip — and so a real
+     screenshot is shown contained, never stretched. */
+  .shot-ui{aspect-ratio:845 / 540;background:#0c1817;}
+  .shot-ui img{height:100%;object-fit:contain;}
+  .marker{position:absolute;width:21px;height:21px;border-radius:50%;background:var(--orange);color:#2a1408;
+    font-family:var(--mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;
+    transform:translate(-50%,-50%);box-shadow:0 0 0 2px rgba(250,248,243,0.92),0 1px 4px rgba(0,0,0,0.45);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .legend{column-count:2;column-gap:34px;margin-top:22px;}
+  .legend .item{break-inside:avoid;display:flex;gap:11px;padding:6px 0;align-items:baseline;}
+  .legend .ln{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--orange-deep);flex:none;width:18px;}
+  .legend .lt b{font-family:var(--disp);font-size:13px;color:var(--teal-deep);display:block;margin-bottom:1px;}
+  .legend .lt span{font-size:11.5px;color:var(--muted);line-height:1.4;}
+
+  /* ============ signal-flow (quick start) ============ */
+  .flow{display:flex;align-items:stretch;gap:0;margin:8px 0 4px;}
+  .flow .node{flex:1;border:1px solid var(--line);border-radius:5px;background:#f2f4ee;padding:14px 14px 13px;display:flex;flex-direction:column;gap:5px;}
+  .flow .node.proc{border-color:var(--teal);background:#e9f3f0;}
+  .flow .node .nl{font-family:var(--mono);font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);}
+  .flow .node .nn{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--teal-deep);}
+  .flow .node .nd{font-size:11px;color:var(--muted);line-height:1.4;}
+  .flow .arrow{flex:0 0 30px;display:flex;align-items:center;justify-content:center;color:var(--orange-deep);font-family:var(--mono);font-size:18px;}
+
+  /* ============ signal display diagram ============ */
+  .disp{position:relative;width:100%;margin:20px 0 8px;border:1px solid #20302d;border-radius:8px;overflow:hidden;
+    background:radial-gradient(120% 130% at 80% -20%,rgba(52,200,188,0.10),transparent 55%),#0a1413;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .disp .corr{display:flex;height:9px;}
+  .disp .corr i{flex:1;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .disp canvas{display:block;width:100%;height:188px;}
+  .disp .edge{position:absolute;bottom:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:#7f928d;}
+  .disp .edge.l{left:12px;} .disp .edge.r{right:12px;}
+  .disp .rdt{position:absolute;top:18px;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;}
+  .disp .rdt.l{left:12px;color:#8fd8cf;} .disp .rdt.r{right:12px;color:var(--lime);}
+  .siglegend{display:flex;flex-wrap:wrap;gap:8px 20px;margin:10px 0 2px;}
+  .siglegend .s{display:flex;align-items:center;gap:8px;font-size:12px;color:#2a342f;}
+  .siglegend .s .sw{width:22px;height:3px;border-radius:2px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .siglegend .s b{font-family:var(--disp);font-weight:600;color:var(--teal-deep);}
+
+  /* modes */
+  .modes{display:grid;grid-template-columns:1fr;gap:0;margin:6px 0;}
+  .mode{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);break-inside:avoid;}
+  .mode:last-child{border-bottom:none;}
+  .mode .mtag{flex:0 0 110px;}
+  .mode .mtag .mn2{font-family:var(--disp);font-weight:700;font-size:15px;color:var(--teal-deep);letter-spacing:0.02em;}
+  .mode .mtag .mp{font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:3px;}
+  .mode .mtag .def{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;background:var(--lime-deep);padding:2px 7px;border-radius:2px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .mode .mbody{font-size:13.5px;color:#283631;}
+  .mode .mbody b{font-family:var(--disp);}
+
+  /* ============ workflows ============ */
+  .wf{break-inside:avoid;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--line);}
+  .wf:last-child{border-bottom:none;}
+  .wf h4{font-size:16px;margin-bottom:4px;display:flex;align-items:baseline;gap:10px;}
+  .wf h4 .wn{font-family:var(--mono);font-size:12px;color:var(--orange-deep);}
+  .wf .recipe{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 0;}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:0.04em;color:var(--teal-deep);background:#eef0e9;border:1px solid var(--line);padding:4px 9px;border-radius:3px;}
+  .chip b{color:var(--orange-deep);font-weight:600;}
+
+  /* ============ FAQ ============ */
+  .faq{break-inside:avoid;margin-bottom:16px;}
+  .faq .q{font-family:var(--disp);font-weight:600;font-size:14.5px;color:var(--teal-deep);margin-bottom:4px;}
+  .faq .q::before{content:"Q";font-family:var(--mono);color:var(--orange-deep);margin-right:9px;font-size:12px;}
+  .faq .a{font-size:13.5px;color:#283631;padding-left:26px;}
+
+  /* steps */
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0;}
+  ol.steps li{position:relative;padding:0 0 16px 40px;break-inside:avoid;}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:50%;
+    background:var(--teal-deep);color:#fff;font-family:var(--mono);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  ol.steps li b{font-family:var(--disp);}
+
+  .two-col{column-count:2;column-gap:30px;}
+  .two-col p{break-inside:avoid;}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;margin-top:14px;}
+  .contact-grid .c .k{font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:4px;}
+  .contact-grid .c .v{font-family:var(--disp);font-size:15px;color:var(--teal-deep);font-weight:500;}
+
+  /* color key dots */
+  .ckey{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin:0 5px 2px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .ckey.blue{background:#4a8fd6;} .ckey.green{background:#3fae6a;} .ckey.white{background:#f1ece0;box-shadow:inset 0 0 0 1px #b9b6ab;} .ckey.orange{background:var(--orange);}
+
+  /* ============ lineup (three plugins) ============ */
+  .lineup{display:flex;flex-direction:column;gap:14px;margin:6px 0 4px;}
+  .plug{display:flex;gap:18px;border:1px solid var(--line);border-radius:7px;padding:18px 20px;background:#f3f5ef;break-inside:avoid;}
+  .plug .badge{flex:0 0 64px;height:64px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--disp);font-weight:700;font-size:24px;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .plug.a .badge{background:linear-gradient(150deg,#178578,#0c3a35);}
+  .plug.b .badge{background:linear-gradient(150deg,#aecb3c,#7c9220);}
+  .plug.c .badge{background:linear-gradient(150deg,#e8823a,#bf6526);}
+  .plug .pc h3{font-size:17px;margin-bottom:3px;}
+  .plug .pc .role{font-family:var(--mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:7px;}
+  .plug .pc p{font-size:13px;color:#283631;margin:0 0 6px;}
+  .plug .pc .where{font-size:12px;color:var(--muted);}
+  .plug .pc .where b{font-family:var(--disp);color:var(--teal-deep);}
+
+  /* ============ bridge diagram ============ */
+  .bridge{border:1px solid #20302d;border-radius:8px;padding:20px 22px;margin:6px 0 4px;
+    background:radial-gradient(130% 120% at 88% -20%,rgba(52,200,188,0.10),transparent 55%),#0a1413;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;color:#cfe0db;}
+  .bridge .row{display:flex;align-items:center;gap:14px;}
+  .bridge .sources{flex:0 0 188px;display:flex;flex-direction:column;gap:6px;}
+  .bridge .src{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;color:#bfe7e0;}
+  .bridge .src .pr{flex:0 0 22px;height:22px;border-radius:5px;background:var(--teal);color:#06201d;font-weight:600;
+    display:flex;align-items:center;justify-content:center;font-size:11px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .bridge .src.mst .pr{background:var(--orange);color:#2a1408;}
+  .bridge .src .nm{color:#dfeee9;}
+  .bridge .ring{flex:1;align-self:stretch;min-height:138px;border:1px dashed rgba(143,216,207,0.4);border-radius:7px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;padding:8px;}
+  .bridge .ring .rt{font-family:var(--disp);font-weight:600;font-size:14px;color:#8fd8cf;}
+  .bridge .ring .rs{font-family:var(--mono);font-size:9.5px;letter-spacing:0.06em;color:#7fa39c;line-height:1.5;}
+  .bridge .ring .cells{display:flex;gap:3px;margin-top:6px;}
+  .bridge .ring .cells i{width:9px;height:14px;border-radius:2px;background:rgba(52,200,188,0.28);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .bridge .ring .cells i.hot{background:var(--teal);}
+  .bridge .out{flex:0 0 132px;display:flex;flex-direction:column;gap:7px;}
+  .bridge .out .ob{border:1px solid rgba(174,203,60,0.5);border-radius:6px;padding:9px 10px;}
+  .bridge .out .ob .ol{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#aecb3c;}
+  .bridge .out .ob .ov{font-family:var(--disp);font-weight:600;font-size:13px;color:#ece3cd;}
+  .bridge .arrow2{flex:0 0 24px;color:var(--orange);font-family:var(--mono);font-size:17px;text-align:center;}
+
+  /* ============ Sum knob row ============ */
+  .sumrow{display:flex;gap:8px;margin:8px 0 4px;justify-content:space-between;}
+  .sumknob{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .sumknob .dial{position:relative;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#163e39,#0c2622);
+    border:1.5px solid #2c5a53;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .sumknob .dial::after{content:"";position:absolute;left:50%;top:7px;width:2px;height:13px;background:#bfe7e0;transform:translateX(-50%);border-radius:2px;}
+  .sumknob .dial .nullmark{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 1.5px rgba(250,248,243,0.9);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .sumknob .pl{font-family:var(--disp);font-weight:600;font-size:11px;color:var(--teal-deep);}
+  .sumknob .pill{width:18px;height:9px;border-radius:5px;background:var(--lime);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .sumknob .pill.off{background:#cdd2c6;}
+  .sumcap{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;}
+  .sumcap .sc2{display:flex;align-items:center;gap:8px;font-size:12px;color:#2a342f;}
+  .sumcap .sc2 .d{width:10px;height:10px;border-radius:50%;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  @media print{
+    body{background:none;padding:0;}
+    .page{box-shadow:none;border-radius:0;margin:0;width:auto;min-height:auto;break-after:page;}
+    .page:last-child{break-after:auto;}
+  }
+  @page{size:letter;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ============================ 1 · COVER ============================ -->
+<section class="page cover" data-screen-label="Cover">
+  <div class="brand">BruceJames.studio</div>
+  <div class="mark"><span class="dot"></span></div>
+  <div class="title"><span class="b">Deep</span><span class="d">Perfection</span></div>
+  <div class="sub">A three-plugin system for low-end clarity</div>
+  <div class="tag">DEEPPERFECTION <span class="sep">/</span> SEND <span class="sep">/</span> SUM</div>
+  <div class="rule"></div>
+  <div class="meta">
+    <div><div class="k">Version</div><div class="v">2.0.0</div></div>
+    <div><div class="k">Platform</div><div class="v">macOS and Windows</div></div>
+    <div><div class="k">Formats</div><div class="v">VST3, AU, and CLAP</div></div>
+  </div>
+  <div class="foot">
+    <div class="doctype">User Guide</div>
+    <div>brucejames.studio</div>
+  </div>
+</section>
+
+<!-- ============================ 2 · CONTENTS + OVERVIEW ============================ -->
+<section class="page" data-screen-label="Contents and overview">
+  <div class="kicker-row">
+    <div><div class="eyebrow">DeepPerfection</div><h1 class="page-h">Contents</h1></div>
+    <div class="sec-no">01</div>
+  </div>
+
+  <ul class="toc">
+    <li><span class="n">01</span><span class="t">Overview and what's new in 2.0.0</span><span class="pg">02</span></li>
+    <li><span class="n">02</span><span class="t">The lineup — three plugins, one license</span><span class="pg">03</span></li>
+    <li><span class="n">03</span><span class="t">How it works</span><span class="pg">04</span></li>
+    <li><span class="n">04</span><span class="t">Installation and authorization</span><span class="pg">05</span></li>
+    <li><span class="n">05</span><span class="t">Quick start — the original kick and bass</span><span class="pg">06</span></li>
+    <li><span class="n">06</span><span class="t">MultiTrack — the bridge and signal flow</span><span class="pg">07</span></li>
+    <li><span class="n">07</span><span class="t">MultiTrack setup — Sends and the Sum</span><span class="pg">08</span></li>
+    <li><span class="n">08</span><span class="t">Interface tour — the original</span><span class="pg">09</span></li>
+    <li><span class="n">09</span><span class="t">Parameter reference — the original</span><span class="pg">10</span></li>
+    <li><span class="n">10</span><span class="t">MultiTrack Sum reference and null calibration</span><span class="pg">12</span></li>
+    <li><span class="n">11</span><span class="t">Behaviour modes and the display</span><span class="pg">13</span></li>
+    <li><span class="n">12</span><span class="t">Tips and recipes</span><span class="pg">14</span></li>
+    <li><span class="n">13</span><span class="t">FAQ, limitations and troubleshooting</span><span class="pg">15</span></li>
+    <li><span class="n">14</span><span class="t">License and contact</span><span class="pg">17</span></li>
+  </ul>
+
+  <div style="margin-top:30px;">
+    <div class="eyebrow">01 · Overview</div>
+    <h2 style="font-size:23px;margin:10px 0 12px;">All your low end, one decision</h2>
+    <p class="lede">DeepPerfection 2.0.0 grows from a single sidechain plugin into a <strong>three-plugin system</strong> for low-end clarity. The original processor is unchanged. Alongside it, a new <strong>MultiTrack</strong> workflow lets up to eight prioritised low-end sources — kick, sub, bass, 808, toms — be ranked and resolved inside one processing instance, in any DAW, even hosts that only allow a single sidechain.</p>
+
+    <div class="callout lime">
+      <div class="lbl">What's new in 2.0.0</div>
+      <p>Priority-ranked multitrack processing for up to 8 sources · z-order ducking · fill-only output · master detection with red null-target markers · two new plugins (Send and Sum). One purchase, one license, three plugins.</p>
+    </div>
+    <div class="callout">
+      <div class="lbl">Drop-in upgrade</div>
+      <p>The original keeps its name, plugin code, CLAP id, and parameters, so existing sessions reload with nothing to swap. The two MultiTrack plugins are purely additive — new entries in your browser.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 2b · THE LINEUP ============================ -->
+<section class="page" data-screen-label="The lineup">
+  <div class="kicker-row">
+    <div><div class="eyebrow">02 · The system</div><h1 class="page-h">The lineup</h1></div>
+    <div class="sec-no">02</div>
+  </div>
+
+  <p class="section-lead">Three plugins, one license. The original does exactly what it always did; the two MultiTrack plugins add a priority-ranked workflow on top, without touching it.</p>
+
+  <div class="lineup">
+    <div class="plug a">
+      <div class="badge">DP</div>
+      <div class="pc">
+        <h3>DeepPerfection</h3>
+        <div class="role">The original processor · unchanged</div>
+        <p>The kick-and-bass deficit-fill processor with Main and L/R sidechain inputs. Identical to 1.x in name, parameters, and sound.</p>
+        <div class="where"><b>Goes on</b> the track or bus, exactly as before.</div>
+      </div>
+    </div>
+    <div class="plug b">
+      <div class="badge">SND</div>
+      <div class="pc">
+        <h3>DeepPerfection MultiTrack Send</h3>
+        <div class="role">A lightweight tap · ungated</div>
+        <p>Publishes a track into the shared bridge under a chosen role. A single Role dropdown is its only control.</p>
+        <div class="where"><b>Goes on</b> each low-end source track, plus one on the mix bus set to Master.</div>
+      </div>
+    </div>
+    <div class="plug c">
+      <div class="badge">SUM</div>
+      <div class="pc">
+        <h3>DeepPerfection MultiTrack Sum</h3>
+        <div class="role">The processor · reads up to 8 sources</div>
+        <p>Reads the prioritised sources from the bridge and outputs only the corrective fill. Eight Trims, enable toggles, and the fill controls.</p>
+        <div class="where"><b>Goes on</b> a return or aux bus, blended back into the mix.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout lime">
+    <div class="lbl">One license, ungated Send</div>
+    <p>All three authorize against your existing DeepPerfection license. The Send is an ungated router, so you can scatter as many as you need across a session at no extra cost.</p>
+  </div>
+  <div class="callout orange">
+    <div class="lbl">Which do I reach for?</div>
+    <p>One kick against one bass — use the <strong>original</strong> with a sidechain. Three or more low-end sources, or a host with only one sidechain — use <strong>Sends + the Sum</strong>.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 3 · HOW IT WORKS ============================ -->
+<section class="page" data-screen-label="How it works">
+  <div class="kicker-row">
+    <div><div class="eyebrow">03 · Concept</div><h1 class="page-h">How it works</h1></div>
+    <div class="sec-no">03</div>
+  </div>
+
+  <p class="section-lead">Three ideas explain almost everything DeepPerfection does: why low end cancels, how the plugin reconstructs the sum, and why the routing is purely additive.</p>
+
+  <div class="block">
+    <h3><span class="num">01</span>Why the low end cancels</h3>
+    <p>Two sounds occupying the same low frequencies rarely line up in phase. Where one waveform pushes up while the other pulls down, the energy subtracts instead of adding. The result is a sum that is weaker than either part on its own — the kick loses its thud, the bass loses its body, and turning either up just makes the problem louder. Compression and EQ cannot fix it because nothing is wrong with the individual tracks; the loss happens only when they meet.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">02</span>Reconstructing the sum, not squashing it</h3>
+    <p>DeepPerfection takes the main signal and a reference from the sidechain, and continuously estimates what their combined low end should be if it added up cleanly. It then <strong>synthesizes fill</strong> to make up the difference inside a band you define. Because the fill is generated rather than carved from the existing signal, there is no compression pumping and no tonal smearing — you get the weight back with the transients intact.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">03</span>Additive routing</h3>
+    <p>The plugin's output is purely additive. The source it sits on passes through, the sidechain source plays as it always did, and DeepPerfection adds only the synthesized fill on top:</p>
+    <div class="callout lime">
+      <div class="lbl">Signal sum</div>
+      <p style="font-family:var(--mono);font-size:13px;letter-spacing:0.02em;">A&nbsp;+&nbsp;fill&nbsp;+&nbsp;B &nbsp;=&nbsp; A&nbsp;+&nbsp;B&nbsp;+&nbsp;fill</p>
+    </div>
+    <p>This is the most important change to understand if you used an older build. <strong>You no longer mute or silence the sidechain source.</strong> Its track routes normally to the master alongside everything else; DeepPerfection only contributes the missing energy. Nothing is subtracted from your mix.</p>
+  </div>
+
+  <div class="callout orange">
+    <div class="lbl">Changed in 1.2.0</div>
+    <p>Earlier guides told you to mute the second source's output and let the plugin reproduce it. That is no longer correct. Output is additive only — leave the sidechain track routed to master as usual.</p>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-top:4px;">The MultiTrack Sum applies the same principle to many sources at once: it reads up to eight prioritised inputs from the bridge and outputs only the corrective fill — the same signal you'd hear from the original's Null Test. See page 07.</p>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 4 · INSTALLATION ============================ -->
+<section class="page" data-screen-label="Installation and authorization">
+  <div class="kicker-row">
+    <div><div class="eyebrow">04 · Setup</div><h1 class="page-h">Installation and authorization</h1></div>
+    <div class="sec-no">04</div>
+  </div>
+
+  <p class="section-lead">All three plugins run on macOS and Windows in VST3, AU, and CLAP — a universal macOS binary, 10.13 or later. One installer places everything; compatible DAWs scan the folders automatically.</p>
+
+  <div class="block">
+    <h3>Install</h3>
+    <ol class="steps">
+      <li><b>Close your DAW</b> before installing so it rescans plugins on the next launch.</li>
+      <li><b>Run the installer</b> and accept the license agreement. On Windows the VST3 and CLAP builds install to <span class="mn">C:\Program Files\Common Files\VST3</span> and the CLAP folder alongside it; on macOS the AU build installs to <span class="mn">/Library/Audio/Plug-Ins/Components</span> and VST3 to <span class="mn">/Library/Audio/Plug-Ins/VST3</span>.</li>
+      <li><b>Launch your DAW</b> and let it rescan. Three plugins will appear: <strong>DeepPerfection</strong>, <strong>MultiTrack Send</strong>, and <strong>MultiTrack Sum</strong>. If they do not show, trigger a manual rescan or add the folders above to your plugin paths.</li>
+      <li><b>Insert the one you need.</b> The original goes on the track that carries one of two clashing sources, usually the kick. For three or more sources, place a Send on each and a Sum on a return bus — see page 07.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h3>Authorization</h3>
+    <p>Enter the license key from your purchase confirmation when prompted. <strong>All three plugins authorize against the same DeepPerfection license</strong> — and the Send is an ungated router that needs no activation at all. Once accepted, the key is stored and applies to every instance on that machine. If you rebuild or replace a system drive, software activations are not part of a normal file backup, so you will need to reactivate; this is expected and not a fault in the plugin.</p>
+  </div>
+
+  <div class="block">
+    <h3>Demo mode</h3>
+    <p>Before authorization DeepPerfection runs in demo mode. It processes audio normally but introduces periodic brief silences, which lets you evaluate the correction fully before purchase without committing the sound to a render.</p>
+  </div>
+
+  <div class="block">
+    <h3>Plugin scan and updates</h3>
+    <p>If your host failed to scan the plugin on an early build, update to 1.2.2 or later, where the scan issue was fixed, and rescan. For updates, DeepPerfection checks <span class="mn">brucejames.studio/version.txt</span> and shows an indicator in the window when a newer build is available. Updates install over the existing version and preserve your presets and project state.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 5 · QUICK START ============================ -->
+<section class="page" data-screen-label="Quick start">
+  <div class="kicker-row">
+    <div><div class="eyebrow">05 · Get going</div><h1 class="page-h">Quick start — the original</h1></div>
+    <div class="sec-no">05</div>
+  </div>
+
+  <p class="section-lead">The classic kick-and-bass recipe with the original plugin, start to finish, in under five minutes. For three or more sources, skip to the MultiTrack workflow on page 07.</p>
+
+  <div class="flow" aria-hidden="true">
+    <div class="node"><span class="nl">Track A</span><span class="nn">Kick</span><span class="nd">DeepPerfection inserted here</span></div>
+    <div class="arrow">→</div>
+    <div class="node proc"><span class="nl">Sidechain in</span><span class="nn">Bass ref</span><span class="nd">Bass also routes to master as normal</span></div>
+    <div class="arrow">→</div>
+    <div class="node"><span class="nl">Master</span><span class="nn">A + B + fill</span><span class="nd">Restored low end</span></div>
+  </div>
+
+  <ol class="steps" style="margin-top:22px;">
+    <li><b>Insert DeepPerfection on the kick track.</b> Leave the bass track exactly as it is, still routed to the master.</li>
+    <li><b>Route the bass to the plugin's sidechain input.</b> In most hosts this is a sidechain or key-input selector on the DeepPerfection instance. Do not mute or re-route the bass — it plays normally and feeds the sidechain in parallel.</li>
+    <li><b>Set the starting patch.</b> Mode <strong>GREATER</strong>, Threshold around <strong>−18&nbsp;dB</strong>, <strong>Sweep / Target End</strong> at <strong>120–150&nbsp;Hz</strong>, <strong>HPF / Target Start</strong> low, Dry/Wet <strong>100%</strong>.</li>
+    <li><b>Play the section and raise More.</b> Bring <strong>More</strong> up until the low end fills back in and feels solid. Watch the white Output trace in the display lift toward where it should be.</li>
+    <li><b>Confirm with Bypass.</b> Toggle <strong>Bypass</strong> to A/B against the uncorrected sum. The corrected version should feel weightier and more even, not louder for its own sake.</li>
+  </ol>
+
+  <div class="callout lime">
+    <div class="lbl">Recommended default patch</div>
+    <p>Threshold ≈ −18&nbsp;dB · Sweep / Target End 120–150&nbsp;Hz · HPF / Target Start low · Mode GREATER · Dry/Wet 100% · Saturation 20–30%. A good neutral starting point for most kick-and-bass pairings.</p>
+  </div>
+
+  <div class="callout orange">
+    <div class="lbl">No sidechain in your host?</div>
+    <p>Some hosts hide sidechain routing. In Logic, send the bass to an aux bus and select that bus as DeepPerfection's sidechain input. See the FAQ for the per-host note.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 6 · MULTITRACK — BRIDGE ============================ -->
+<section class="page" data-screen-label="MultiTrack — the bridge">
+  <div class="kicker-row">
+    <div><div class="eyebrow">06 · MultiTrack</div><h1 class="page-h">The bridge and signal flow</h1></div>
+    <div class="sec-no">06</div>
+  </div>
+
+  <p class="section-lead">MultiTrack sidesteps the host's routing limits entirely. Instead of one sidechain, every source publishes itself into a shared-memory bridge, and the Sum reads them all back in perfect time.</p>
+
+  <div class="bridge" aria-hidden="true">
+    <div class="row">
+      <div class="sources">
+        <div class="src"><span class="pr">1</span><span class="nm">Kick</span></div>
+        <div class="src"><span class="pr">2</span><span class="nm">Bass</span></div>
+        <div class="src"><span class="pr">3</span><span class="nm">808</span></div>
+        <div class="src"><span class="pr">4</span><span class="nm">Sub</span></div>
+        <div class="src"><span class="pr">…</span><span class="nm" style="opacity:0.6;">up to 8</span></div>
+        <div class="src mst"><span class="pr">M</span><span class="nm">Mix bus → Master</span></div>
+      </div>
+      <div class="arrow2">→</div>
+      <div class="ring">
+        <div class="rt">Shared-memory bridge</div>
+        <div class="rs">ring buffer indexed by<br>absolute host sample position</div>
+        <div class="cells"><i></i><i></i><i class="hot"></i><i class="hot"></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="arrow2">→</div>
+      <div class="out">
+        <div class="ob"><div class="ol">MultiTrack Sum</div><div class="ov">fill only</div></div>
+        <div class="arrow2" style="flex:none;">↓</div>
+        <div class="ob"><div class="ol">Return bus</div><div class="ov">+ dry mix</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" style="margin-top:18px;">
+    <h3><span class="num">01</span>Sample-aligned by the playhead</h3>
+    <p>The bridge is a ring buffer indexed by absolute host sample position. Each Send writes at the playhead; the Sum reads two blocks behind, so the data is always present regardless of plugin process order, and every source plus the master line up exactly in time.</p>
+  </div>
+  <div class="block">
+    <h3><span class="num">02</span>Latency keeps the dry mix aligned</h3>
+    <p>Each Send delays its pass-through by the same budget and reports it as latency, so host delay compensation keeps the dry mix lined up with the Sum's output — the duck and the null cancel cleanly. The Send path adds a fixed ~2-block latency (it is a mixing tool, not a tracking one); the original DeepPerfection adds none.</p>
+  </div>
+
+  <div class="callout">
+    <div class="lbl">Why a bridge at all</div>
+    <p>Ableton and Logic give you a single sidechain. The bridge moves audio between instances outside the host's routing graph, so priority across eight sources works the same in every DAW.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 7 · MULTITRACK — SETUP ============================ -->
+<section class="page" data-screen-label="MultiTrack setup">
+  <div class="kicker-row">
+    <div><div class="eyebrow">07 · MultiTrack</div><h1 class="page-h">Setup — Sends and the Sum</h1></div>
+    <div class="sec-no">07</div>
+  </div>
+
+  <p class="section-lead">Tap each source with a Send, give it a priority, point one Send at the master, and process them all in a single Sum on a return bus.</p>
+
+  <ol class="steps">
+    <li><b>Put a MultiTrack Send on each low-end source.</b> Open its one control — the <strong>Role</strong> dropdown — and pick <strong>Priority 1</strong> through <strong>8</strong>. Priority 1 is king: rank your most important element first.</li>
+    <li><b>Add one more Send on the mix bus, set to Master.</b> This lets the Sum measure each source's real level in the full mix for null calibration.</li>
+    <li><b>Insert MultiTrack Sum on a return or aux bus.</b> It reads every published source from the bridge and outputs only the corrective fill — nothing of the dry signal it isn't fixing.</li>
+    <li><b>Blend the return into the mix to taste.</b> Because the Sum is fill-only, the return level is how much correction you add. Start low and bring it up until the low end locks.</li>
+    <li><b>Dial Trims to the red marks.</b> With the Master Send present, each Trim shows a red null-target marker — the setting that nulls that source. Set each knob to its mark, with Null off. Nothing is auto-applied.</li>
+  </ol>
+
+  <div style="display:flex;gap:22px;align-items:flex-start;margin:6px 0 6px;">
+    <div class="shot-wrap" style="flex:0 0 240px;">
+      <img src="assets/dp-send-role.png" alt="MultiTrack Send Role dropdown showing Priority 1 through 8 and Master">
+    </div>
+    <div style="flex:1;">
+      <div class="grouptag">The Send · one control</div>
+      <p style="font-size:13.5px;color:#283631;margin-top:4px;">A MultiTrack Send has a single <strong>Role</strong> dropdown: <strong>Priority&nbsp;1</strong> through <strong>Priority&nbsp;8</strong> for your ranked sources, plus <strong>Master</strong> for the one Send on the mix bus. Priority&nbsp;1 wins ties — rank your most important low-end element there.</p>
+      <p style="font-size:13.5px;color:#283631;">No two ranked Sends should share a number; the Master Send is what unlocks the red null-target marks on the Sum's Trims.</p>
+    </div>
+  </div>
+
+  <div class="callout lime">
+    <div class="lbl">Z-order resolution</div>
+    <p>Per band, the highest-priority source present wins; lower priorities yield to it. A transient on a higher priority momentarily <strong>ducks</strong> everything beneath it, so the priority element punches through cleanly — an inverted, time-aligned signal that nulls against the dry mix at the master.</p>
+  </div>
+  <div class="callout orange">
+    <div class="lbl">Read detection with Null off</div>
+    <p>Calibration and the null picture are exact during <strong>playback</strong>, where you mix — not while stopped — because alignment tracks the playhead. With Null on, a source is already cancelled in the master, so its target correctly reads near zero.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 8 · INTERFACE TOUR ============================ -->
+<section class="page" data-screen-label="Interface tour">
+  <div class="kicker-row">
+    <div><div class="eyebrow">08 · Reference</div><h1 class="page-h">Interface tour — the original</h1></div>
+    <div class="sec-no">08</div>
+  </div>
+
+  <p class="section-lead">A header strip with the A/B buttons and licence box, a large analysis display with the live restore readout, the Priority and Behavior toggles, and three labelled knob groups — Target, Extra, and Levels — along the bottom.</p>
+
+  <div class="shot-wrap shot-ui">
+    <img src="assets/dp-original-ui.png" alt="DeepPerfection original plugin interface, version 2.0.0">
+    <span class="marker" style="left:44%;top:8.5%;">1</span>
+    <span class="marker" style="left:53%;top:8.5%;">2</span>
+    <span class="marker" style="left:20%;top:8.5%;">3</span>
+    <span class="marker" style="left:88.5%;top:8.7%;">4</span>
+    <span class="marker" style="left:92%;top:18.5%;">5</span>
+    <span class="marker" style="left:50%;top:35%;">6</span>
+    <span class="marker" style="left:13%;top:65.5%;">7</span>
+    <span class="marker" style="left:83%;top:65.5%;">8</span>
+    <span class="marker" style="left:7.4%;top:81%;">9</span>
+    <span class="marker" style="left:17.9%;top:81%;">10</span>
+    <span class="marker" style="left:27.8%;top:81%;">11</span>
+    <span class="marker" style="left:37%;top:81%;">12</span>
+    <span class="marker" style="left:46.4%;top:81%;">13</span>
+    <span class="marker" style="left:55.5%;top:81%;">14</span>
+    <span class="marker" style="left:64.6%;top:81%;">15</span>
+    <span class="marker" style="left:73.9%;top:81%;">16</span>
+    <span class="marker" style="left:83.1%;top:81%;">17</span>
+    <span class="marker" style="left:92.8%;top:81%;">18</span>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="ln">1</span><span class="lt"><b>Bypass</b><span>True-bypass A/B against the uncorrected sum.</span></span></div>
+    <div class="item"><span class="ln">2</span><span class="lt"><b>Null</b><span>Subtracts both input and sidechain to verify the fill.</span></span></div>
+    <div class="item"><span class="ln">3</span><span class="lt"><b>Title and status</b><span>Plugin name and demo or licensed state.</span></span></div>
+    <div class="item"><span class="ln">4</span><span class="lt"><b>Licence box</b><span>Authorization and preset state, top right.</span></span></div>
+    <div class="item"><span class="ln">5</span><span class="lt"><b>restore readout</b><span>How much fill is being added right now.</span></span></div>
+    <div class="item"><span class="ln">6</span><span class="lt"><b>Analysis display</b><span>The two sources, Output, and Fill across the band.</span></span></div>
+    <div class="item"><span class="ln">7</span><span class="lt"><b>Priority — Input / Sidechain</b><span>Which source leads in Priority behavior.</span></span></div>
+    <div class="item"><span class="ln">8</span><span class="lt"><b>Behavior — Priority / Greater / Wave</b><span>The three correction modes.</span></span></div>
+    <div class="item"><span class="ln">9</span><span class="lt"><b>Target Start</b><span>Lower edge of the fill band. <i>Target</i> group.</span></span></div>
+    <div class="item"><span class="ln">10</span><span class="lt"><b>Target End</b><span>Upper edge of the fill band.</span></span></div>
+    <div class="item"><span class="ln">11</span><span class="lt"><b>Threshold</b><span>Level above which fill engages.</span></span></div>
+    <div class="item"><span class="ln">12</span><span class="lt"><b>More</b><span>Amount of fill added. <i>Extra</i> group.</span></span></div>
+    <div class="item"><span class="ln">13</span><span class="lt"><b>Saturate</b><span>Harmonic colour on the synthesized fill.</span></span></div>
+    <div class="item"><span class="ln">14</span><span class="lt"><b>Tighten</b><span>Subtracts the sidechain transient to clear mush.</span></span></div>
+    <div class="item"><span class="ln">15</span><span class="lt"><b>Window</b><span>Time window over which Tighten acts.</span></span></div>
+    <div class="item"><span class="ln">16</span><span class="lt"><b>SC Trim</b><span>Trims the internal sidechain reference. <i>Levels</i> group.</span></span></div>
+    <div class="item"><span class="ln">17</span><span class="lt"><b>Output</b><span>Output level of the processed signal.</span></span></div>
+    <div class="item"><span class="ln">18</span><span class="lt"><b>Dry / Wet</b><span>Blend of corrected against original.</span></span></div>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 8b · MULTITRACK SUM INTERFACE ============================ -->
+<section class="page" data-screen-label="Interface tour — MultiTrack Sum">
+  <div class="kicker-row">
+    <div><div class="eyebrow">08 · Reference</div><h1 class="page-h">Interface tour — MultiTrack Sum</h1></div>
+    <div class="sec-no">08</div>
+  </div>
+
+  <p class="section-lead">The Sum shares the original's header, display, and fill controls, and adds a row of <strong>eight Trims</strong> with enable toggles — one per prioritised source read from the bridge.</p>
+
+  <div class="shot-wrap shot-ui">
+    <img src="assets/dp-multitrack-ui.png" alt="DeepPerfection MultiTrack Sum interface, version 2.0.0">
+    <span class="marker" style="left:44%;top:8.5%;">1</span>
+    <span class="marker" style="left:53%;top:8.5%;">2</span>
+    <span class="marker" style="left:88.5%;top:9%;">3</span>
+    <span class="marker" style="left:94.5%;top:18.5%;">4</span>
+    <span class="marker" style="left:50%;top:35%;">5</span>
+    <span class="marker" style="left:37%;top:59.5%;">6</span>
+    <span class="marker" style="left:17.2%;top:68%;">7</span>
+    <span class="marker" style="left:7.5%;top:85.5%;">8</span>
+    <span class="marker" style="left:27.8%;top:85.5%;">9</span>
+    <span class="marker" style="left:37%;top:85.5%;">10</span>
+    <span class="marker" style="left:64.6%;top:85.5%;">11</span>
+    <span class="marker" style="left:83%;top:85.5%;">12</span>
+    <span class="marker" style="left:92.8%;top:85.5%;">13</span>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="ln">1</span><span class="lt"><b>Bypass</b><span>True-bypass A/B against the uncorrected mix.</span></span></div>
+    <div class="item"><span class="ln">2</span><span class="lt"><b>Null</b><span>Cancels a calibrated source against the master to verify alignment.</span></span></div>
+    <div class="item"><span class="ln">3</span><span class="lt"><b>Licence box</b><span>Authorization and preset state, top right.</span></span></div>
+    <div class="item"><span class="ln">4</span><span class="lt"><b>restore readout</b><span>How much fill is being added across all sources.</span></span></div>
+    <div class="item"><span class="ln">5</span><span class="lt"><b>Analysis display</b><span>The summed sources, output, and fill across the band.</span></span></div>
+    <div class="item"><span class="ln">6</span><span class="lt"><b>Trim 1–8 + enable</b><span>One Trim per priority; the toggle above enables that source. Red mark = null target.</span></span></div>
+    <div class="item"><span class="ln">7</span><span class="lt"><b>Target group</b><span>Target Start, Target End, Threshold — the fill band.</span></span></div>
+    <div class="item"><span class="ln">8</span><span class="lt"><b>Target Start</b><span>Lower edge of the fill band.</span></span></div>
+    <div class="item"><span class="ln">9</span><span class="lt"><b>Threshold</b><span>Level above which fill engages.</span></span></div>
+    <div class="item"><span class="ln">10</span><span class="lt"><b>More / Extra group</b><span>More, Saturate, Tighten, Window — the fill character.</span></span></div>
+    <div class="item"><span class="ln">11</span><span class="lt"><b>Window</b><span>Time window over which Tighten acts.</span></span></div>
+    <div class="item"><span class="ln">12</span><span class="lt"><b>Output / Levels group</b><span>Output level of the fill return.</span></span></div>
+    <div class="item"><span class="ln">13</span><span class="lt"><b>Dry / Wet</b><span>Blend of corrected fill against the dry return.</span></span></div>
+  </div>
+
+  <div class="callout orange" style="margin-top:18px;">
+    <div class="lbl">Trims and the red marks</div>
+    <p>Each Trim balances one source's contribution to the sum. With a Master Send present, a red null-target marker appears on each Trim during playback — set the knob to its mark to null that source. Nothing is applied automatically.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 7 · PARAMETER REFERENCE A ============================ -->
+<section class="page" data-screen-label="Parameter reference: the band and the fill">
+  <div class="kicker-row">
+    <div><div class="eyebrow">06 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">06</div>
+  </div>
+
+  <p class="section-lead">Every control in the order you meet it. Ranges and starting points are for DeepPerfection 2.0.0.</p>
+
+  <div class="grouptag">Detection and band</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th style="width:16%;">Start</th><th>Behaviour</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Threshold</td><td class="rng">level</td><td class="start">≈ −18 dB</td><td>Sets the level the sum must exceed before fill engages, so quiet passages and tails are left alone and only the parts that matter are corrected.</td></tr>
+      <tr><td class="name">Target Start</td><td class="rng">20–100 Hz</td><td class="start">low</td><td>The <em>lower</em> edge of the fill band. Raise it to keep the very bottom out of the correction and focus fill higher up.</td></tr>
+      <tr><td class="name">Target End</td><td class="rng">60–160 Hz</td><td class="start">120–150 Hz</td><td>The <em>upper</em> edge of the fill band. Everything between Target Start and Target End is where DeepPerfection reconstructs the sum.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag lime">The fill</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th style="width:16%;">Start</th><th>Behaviour</th></tr></thead>
+    <tbody>
+      <tr><td class="name">More</td><td class="rng">amount</td><td class="start">to taste</td><td>How much synthesized fill is added to restore the sum. Bring it up until the low end feels solid; back off if it starts to sound heavy or boomy.</td></tr>
+      <tr><td class="name">Saturate</td><td class="rng">0–100%</td><td class="start">20–30%</td><td>Adds harmonic colour to the fill so it reads on smaller speakers that cannot reproduce the fundamental. A little gives the restored low end presence; a lot makes it gritty.</td></tr>
+      <tr><td class="name">Output</td><td class="rng">dB</td><td class="start">0 dB</td><td>Output level of the processed signal, for gain-matching against bypass. (Replaces the former "Low Band Gain" label.)</td></tr>
+      <tr><td class="name">Dry/Wet</td><td class="rng">0–100%</td><td class="start">100%</td><td>Blends the corrected signal against the original. Full wet is normal; lower it only to ease the effect in.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="lbl">Target Start and Target End together</div>
+    <p>Think of Target Start and Target End as the two edges of a window. Fill is generated only inside it, and both edges track live in the display — so you can see exactly which part of the spectrum is being rebuilt.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 8 · PARAMETER REFERENCE B ============================ -->
+<section class="page" data-screen-label="Parameter reference: tighten, trim and A/B">
+  <div class="kicker-row">
+    <div><div class="eyebrow">06 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">06</div>
+  </div>
+
+  <div class="grouptag orange">Tighten <span class="new">1.3.0</span></div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th style="width:16%;">Start</th><th>Behaviour</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Tighten</td><td class="rng">amount</td><td class="start">0</td><td>Subtracts the sidechain transient from the sum to clear the mush where two sources collide on the same hit. Now active in 1.3.0. Raise it when the low end sounds cluttered rather than weak.</td></tr>
+      <tr><td class="name">Window</td><td class="rng">ms</td><td class="start">short</td><td>The length of time over which Tighten does its transient subtraction. Short windows act only on the initial collision; longer windows reach further into the body of the note.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Sidechain reference <span class="new">1.3.0</span></div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th style="width:16%;">Start</th><th>Behaviour</th></tr></thead>
+    <tbody>
+      <tr><td class="name">SC Trim</td><td class="rng">±24 dB</td><td class="start">0 dB</td><td>Trims the internal sidechain reference that feeds both the fill and Tighten. Use it when the sidechain source arrives much louder or quieter than the main signal, so detection sees a balanced pair. Does not change what the sidechain track sends to your mix.</td></tr>
+      <tr><td class="name">Priority <span style="font-weight:400;color:var(--muted);">(Input / Sidechain)</span></td><td class="rng">toggle</td><td class="start">Input</td><td>Under the <strong>Priority</strong> heading. Chooses which source leads when Behavior is set to Priority. <strong>Input</strong> is the track DeepPerfection sits on; <strong>Sidechain</strong> is the keyed source.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag orange">A/B and verification</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Type</th><th>Behaviour</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Bypass</td><td class="rng">A/B</td><td>True bypass of the correction, for an honest before/after. Match Output to bypass so you judge the effect and not a level change.</td></tr>
+      <tr><td class="name">Null Test</td><td class="rng">verify</td><td>Subtracts <em>both</em> the input and the sidechain from the output. When the result falls silent, the fill is perfectly reconstructing the sidechain's contribution to the sum — a quick way to trust the correction. (Updated in 1.2.0 to subtract both sources.)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout lime">
+    <div class="lbl">Tighten versus More</div>
+    <p>They pull in opposite directions on purpose. <strong>More</strong> adds energy when the sum is too weak; <strong>Tighten</strong> removes the colliding transient when the sum is too cluttered. Most pairings want one or the other, not both at once.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 9 · MODES + DISPLAY ============================ -->
+<section class="page" data-screen-label="Behavior modes and the display">
+  <div class="kicker-row">
+    <div><div class="eyebrow">07 · Deep dive</div><h1 class="page-h">Behavior modes and the display</h1></div>
+    <div class="sec-no">07</div>
+  </div>
+
+  <p class="section-lead">The Behavior modes decide which source the correction follows; the display shows you the result of that decision in real time.</p>
+
+  <div class="block">
+    <h3>The three modes</h3>
+    <div class="modes">
+      <div class="mode">
+        <div class="mtag"><div class="mn2">Priority</div><div class="mp">leader always</div></div>
+        <div class="mbody">The source you pick with the <b>Priority</b> toggle — Input or Sidechain — always leads, and the fill is built to follow it. Reach for this when one source should clearly define the low end and the other should fall in behind it, such as a kick that must always anchor the beat.</div>
+      </div>
+      <div class="mode">
+        <div class="mtag"><div class="mn2">Greater</div><div class="mp">greater wins</div><div class="def">Default</div></div>
+        <div class="mbody">Whichever source is momentarily greater wins, hit by hit. This is the most natural setting for most kick-and-bass material because it lets the louder event of the moment lead and keeps the groove breathing. Start here.</div>
+      </div>
+      <div class="mode">
+        <div class="mtag"><div class="mn2">Wave</div><div class="mp">trajectory</div></div>
+        <div class="mbody">Follows the trajectory of the combined waveform rather than picking a winner, for the smoothest reconstruction when the two sources are closely interwoven. Use it on sustained or melodic basslines where hard switching would sound restless.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Reading the display</h3>
+    <p>Four signals are overlaid across the fill band, and a correlation strip runs above them. The band's edges follow your knobs: the <strong>left edge tracks Target Start</strong> and the right edge tracks Target End, both live as you turn them.</p>
+
+    <div class="disp" aria-hidden="true">
+      <div class="corr">
+        <i style="background:#e85b4a;"></i><i style="background:#e8a23a;"></i><i style="background:#5fb84a;"></i><i style="background:#5fb84a;"></i><i style="background:#5fb84a;"></i><i style="background:#e8a23a;"></i>
+      </div>
+      <span class="rdt l">Correlation</span>
+      <span class="rdt r">Restore 10.7%</span>
+      <canvas id="dispCanvas"></canvas>
+      <span class="edge l">◂ Target Start</span>
+      <span class="edge r">Target End ▸</span>
+    </div>
+
+    <div class="siglegend">
+      <div class="s"><span class="sw" style="background:#4a8fd6;"></span><span><b>Input</b> — the track the plugin is on</span></div>
+      <div class="s"><span class="sw" style="background:#3fae6a;"></span><span><b>Sidechain</b> — the keyed source</span></div>
+      <div class="s"><span class="sw" style="background:#f1ece0;box-shadow:inset 0 0 0 1px #b9b6ab;"></span><span><b>Output</b> — the corrected sum</span></div>
+      <div class="s"><span class="sw" style="background:#e8823a;"></span><span><b>Fill</b> — what is being synthesized</span></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:12px;">Schematic. The correlation strip reads green when the two sources are in phase, yellow when marginal, and red when they fight. Watch the white Output trace rise to meet where the sum should sit as you raise More.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 10 · TIPS & RECIPES ============================ -->
+<section class="page" data-screen-label="Tips and recipes">
+  <div class="kicker-row">
+    <div><div class="eyebrow">08 · Practice</div><h1 class="page-h">Tips and recipes</h1></div>
+    <div class="sec-no">08</div>
+  </div>
+
+  <p class="section-lead">Starting points, not rules. Set the band first, then choose how the correction behaves, then trust your ears.</p>
+
+  <div class="wf">
+    <h4><span class="wn">01</span>The default kick-and-bass patch</h4>
+    <p>Insert on the kick, route the bass to the sidechain, and load the recommended patch: Behavior Greater, Threshold around −18&nbsp;dB, Target End 120–150&nbsp;Hz, Target Start low, Dry/Wet 100%, Saturate 20–30%. Raise More until the bottom feels whole. This handles most material before you touch anything else.</p>
+    <div class="recipe"><span class="chip">Behavior <b>Greater</b></span><span class="chip">Threshold <b>−18 dB</b></span><span class="chip">Target End <b>120–150 Hz</b></span><span class="chip">More <b>up to taste</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">02</span>Four-on-the-floor, kick leads</h4>
+    <p>When the kick must anchor every beat, switch Behavior to Priority and set the Priority toggle to Input (the kick track). The fill follows the kick so the bass never steals the downbeat. Keep the band tight around the kick's fundamental.</p>
+    <div class="recipe"><span class="chip">Behavior <b>Priority</b></span><span class="chip">Priority <b>Input</b></span><span class="chip">Target End <b>tight</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">03</span>Independent, melodic bass line</h4>
+    <p>For a bass that moves on its own under a busy kick, choose Wave so the correction follows the combined trajectory instead of switching hit by hit. It reconstructs the sustained notes smoothly and avoids a restless, pumping feel.</p>
+    <div class="recipe"><span class="chip">Behavior <b>Wave</b></span><span class="chip">Target Start <b>low</b></span><span class="chip">More <b>moderate</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">04</span>Clear the mush instead of adding weight</h4>
+    <p>If the problem is clutter rather than weakness — two sources smearing into each other on the same hit — leave More low and bring up Tighten. Shorten the Window to act only on the initial collision, lengthen it to reach into the note's body.</p>
+    <div class="recipe"><span class="chip">Tighten <b>up</b></span><span class="chip">Window <b>short → long</b></span><span class="chip">More <b>low</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">05</span>Trust it, then commit</h4>
+    <p>Balance the sidechain reference with SC Trim if the two sources arrive at very different levels, run a Null Test to confirm the fill is reconstructing the sum, then gain-match Output to Bypass so your A/B is honest. Only then decide whether it is helping.</p>
+    <div class="recipe"><span class="chip">SC Trim <b>balance</b></span><span class="chip">Null Test <b>verify</b></span><span class="chip">Output <b>match bypass</b></span></div>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 11 · FAQ ============================ -->
+<section class="page" data-screen-label="FAQ and troubleshooting">
+  <div class="kicker-row">
+    <div><div class="eyebrow">09 · Support</div><h1 class="page-h">FAQ and troubleshooting</h1></div>
+    <div class="sec-no">09</div>
+  </div>
+
+  <div class="faq"><div class="q">Do I still mute the second source like the old guide said?</div><div class="a">No. Since 1.2.0 the routing is additive: A&nbsp;+&nbsp;fill&nbsp;+&nbsp;B&nbsp;=&nbsp;A&nbsp;+&nbsp;B&nbsp;+&nbsp;fill. Leave the sidechain source routed to the master as normal. DeepPerfection only adds the synthesized fill on top — it never replaces either track.</div></div>
+
+  <div class="faq"><div class="q">My host has no sidechain input, or I cannot find it.</div><div class="a">Most DAWs expose a sidechain or key-input selector on the plugin instance. In Logic, route the second source to an aux bus and select that bus as DeepPerfection's sidechain input. The source still plays to the master in parallel; the bus only feeds the plugin's detection.</div></div>
+
+  <div class="faq"><div class="q">The plugin did not show up when my DAW scanned it.</div><div class="a">An early build had a scan problem that was fixed in 1.2.2. Update to 1.2.2 or later, confirm the VST3, AU, and CLAP folders are in your host's scan paths, and trigger a rescan or restart.</div></div>
+
+  <div class="faq"><div class="q">Is there latency I need to account for?</div><div class="a">DeepPerfection uses a short lookahead and reports about 5&nbsp;ms of latency to the host. Your DAW's delay compensation handles it automatically, so the corrected track stays in time with the rest of the mix.</div></div>
+
+  <div class="faq"><div class="q">The low end sounds heavy or boomy now.</div><div class="a">You are likely adding more fill than the sum needs. Lower More, raise the Threshold so quiet material is left alone, or narrow the band with Target Start and Target End. If the issue is clutter rather than weight, reach for Tighten instead of More.</div></div>
+
+  <div class="faq"><div class="q">How do I know the correction is actually working?</div><div class="a">Run the Null Test: it subtracts both the input and the sidechain from the output, so when the result goes silent the fill is reconstructing the sum correctly. Then toggle Bypass, with Output matched, to hear the before and after.</div></div>
+
+  <div class="faq"><div class="q">The sidechain source is much louder than the main track.</div><div class="a">Use SC Trim to balance the internal reference by up to ±24&nbsp;dB. It only affects what detection sees; it does not change what the sidechain track sends to your mix.</div></div>
+
+  <div class="faq"><div class="q">Which mode should I start with?</div><div class="a">GREATER, the default. It lets whichever source is momentarily greater lead, which suits most kick-and-bass material. Move to Priority when one source must always anchor, or Wave for smooth, sustained basslines.</div></div>
+
+  <div class="faq"><div class="q">DeepPerfection asks for activation after a system rebuild.</div><div class="a">Software activations are not part of a normal file backup, so after replacing a drive you will need to reactivate. This is expected. If an older saved instance keeps prompting, recreating that project resolves it; new instances are unaffected.</div></div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<!-- ============================ 12 · LICENSE + CONTACT ============================ -->
+<section class="page" data-screen-label="License and contact">
+  <div class="kicker-row">
+    <div><div class="eyebrow">10 · Legal</div><h1 class="page-h">License and contact</h1></div>
+    <div class="sec-no">10</div>
+  </div>
+
+  <div class="block">
+    <h3>License</h3>
+    <p>Use of DeepPerfection is governed by the end user license agreement included with the distribution as <span class="mn">license.txt</span>. Please refer to that file for the full terms. Your purchase authorizes installation under the conditions described there.</p>
+  </div>
+
+  <div class="block">
+    <h3>Included files</h3>
+    <p>The distribution archive contains the installer along with <span class="mn">readme.txt</span> for installation notes, <span class="mn">changelog.txt</span> for version history, and <span class="mn">license.txt</span> for the agreement. The readme is the canonical source for installation details.</p>
+  </div>
+
+  <div class="block">
+    <h3>Support and contact</h3>
+    <div class="contact-grid">
+      <div class="c"><div class="k">Studio</div><div class="v">BruceJames.studio</div></div>
+      <div class="c"><div class="k">Web</div><div class="v">brucejames.studio</div></div>
+      <div class="c"><div class="k">Support</div><div class="v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d2a1a7a2a2bda0a692b0a0a7b1b7b8b3bfb7a1fca1a6a7b6bbbd">[email&#160;protected]</a></div></div>
+      <div class="c"><div class="k">Version</div><div class="v">DeepPerfection 2.0.0</div></div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:30px;">
+    <div class="lbl">Before you write in</div>
+    <p>Including your DAW, its version, your operating system, and the plugin format you are running helps support resolve issues faster.</p>
+  </div>
+
+  <div style="margin-top:54px;text-align:center;">
+    <div style="display:inline-flex;align-items:center;gap:12px;">
+      <span style="width:16px;height:16px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px rgba(52,200,188,0.6);-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
+      <span style="font-family:var(--disp);font-size:20px;font-weight:700;color:var(--teal-deep);letter-spacing:0.01em;">DeepPerfection</span>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--faint);margin-top:12px;text-transform:uppercase;">Automatic low-end phase correction · macOS and Windows · VST3, AU, and CLAP</p>
+    <p style="font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:var(--faint);margin-top:14px;">Generated for DeepPerfection 2.0.0 — verify controls against the plugin.</p>
+  </div>
+
+  <div class="footer"><span>DeepPerfection User Guide</span><span class="b">BruceJames.studio · v2.0.0</span></div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function drawDisp(){
+  var c=document.getElementById('dispCanvas');
+  if(!c)return;
+  var dpr=2, w=c.clientWidth, h=c.clientHeight;
+  c.width=w*dpr; c.height=h*dpr;
+  var ctx=c.getContext('2d'); ctx.scale(dpr,dpr);
+  var base=h-14;
+  // band edges
+  var x0=w*0.10, x1=w*0.88;
+  // faint grid
+  ctx.strokeStyle='rgba(236,227,205,0.05)';ctx.lineWidth=1;
+  for(var gx=0;gx<=w;gx+=w/14){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,h);ctx.stroke();}
+  ctx.strokeStyle='rgba(236,227,205,0.10)';ctx.beginPath();ctx.moveTo(0,base);ctx.lineTo(w,base);ctx.stroke();
+  // band edge guides
+  ctx.strokeStyle='rgba(236,227,205,0.16)';ctx.setLineDash([4,5]);
+  [x0,x1].forEach(function(x){ctx.beginPath();ctx.moveTo(x,8);ctx.lineTo(x,base);ctx.stroke();});
+  ctx.setLineDash([]);
+  function env(t){return Math.pow(Math.sin(Math.PI*Math.min(Math.max(t,0),1)),0.55);}
+  // spectral-ish series drawn as smooth hump within band
+  function series(color,amp,freq,phase,lw,glow,fillCol){
+    ctx.save();
+    if(glow){ctx.shadowColor=color;ctx.shadowBlur=10;}
+    if(fillCol){
+      ctx.beginPath();ctx.moveTo(x0,base);
+      for(var x=x0;x<=x1;x++){var t=(x-x0)/(x1-x0);var y=base-(amp*env(t)*(0.6+0.4*Math.abs(Math.sin(t*Math.PI*freq+phase))));ctx.lineTo(x,y);}
+      ctx.lineTo(x1,base);ctx.closePath();ctx.fillStyle=fillCol;ctx.fill();
+    }
+    ctx.beginPath();
+    for(var x2=x0;x2<=x1;x2++){var t2=(x2-x0)/(x1-x0);var y2=base-(amp*env(t2)*(0.6+0.4*Math.abs(Math.sin(t2*Math.PI*freq+phase))));x2===x0?ctx.moveTo(x2,y2):ctx.lineTo(x2,y2);}
+    ctx.strokeStyle=color;ctx.lineWidth=lw;ctx.lineJoin='round';ctx.stroke();
+    ctx.restore();
+  }
+  // INPUT (blue) and SC (green) — the two clashing sources
+  series('#4a8fd6',58,5,0.4,1.6,false,null);
+  series('#3fae6a',50,7,1.7,1.6,false,null);
+  // Fill (orange) — what is synthesized, with soft fill under
+  series('#e8823a',40,3,0.2,1.8,false,'rgba(232,130,58,0.10)');
+  // Output (white) — the restored sum, bright on top
+  series('#f4efe6',96,3,0.2,2.4,true,null);
+}
+window.addEventListener('load',function(){
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(drawDisp);}
+  setTimeout(drawDisp,140);
+});
+window.addEventListener('resize',drawDisp);
+</script>
+
+</body>
+</html>

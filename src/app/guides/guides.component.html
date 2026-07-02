@@ -1,0 +1,36 @@
+<section class="guides-page">
+  <div class="guides-inner">
+
+    <span class="guides-eyebrow">Support</span>
+    <h1 class="guides-title">User Guides</h1>
+    <p class="guides-sub">
+      The manual for every plugin: what it does, every control explained, workflows, and
+      troubleshooting. No login, opens right in your browser.
+    </p>
+
+    <div class="guide-grid">
+      @for (p of withGuide; track p.slug) {
+        <a class="guide-card" [href]="p.guideUrl" target="_blank" rel="noopener">
+          <img class="guide-shot" [src]="p.img" [alt]="p.name + ' plugin interface'" />
+          <div class="guide-body">
+            <div class="guide-cat">{{ p.category }}</div>
+            <h2 class="guide-name">{{ p.name }}</h2>
+            <span class="guide-link">Read the guide →</span>
+          </div>
+        </a>
+      }
+    </div>
+
+    @if (withoutGuide.length) {
+      <div class="guides-soon">
+        <span class="guides-soon-label">Guides coming soon</span>
+        <p>
+          @for (p of withoutGuide; track p.slug; let last = $last) {
+            {{ p.name }}{{ last ? '' : ', ' }}
+          }
+        </p>
+      </div>
+    }
+
+  </div>
+</section>

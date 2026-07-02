@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slursh User Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5efe2;
+    --ink:#1b2723;
+    --muted:#5f6f68;
+    --faint:#8b958e;
+    --line:#ddd6c8;
+    --green:#1f7d68;          /* Slursh brand green — primary */
+    --green-deep:#173f35;
+    --green-deeper:#0e231e;
+    --panel:#1d2b28;          /* the actual plugin panel color */
+    --pink:#e85f93;           /* HI / collapse end */
+    --pink-deep:#d24e80;
+    --teal:#79c1b2;           /* LO / drive start */
+    --teal-deep:#4f9c8b;
+    --mustard:#e8b54a;
+    --mustard-deep:#c8952f;
+    --sans:"IBM Plex Sans",system-ui,sans-serif;
+    --disp:"Space Grotesk",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#e7e4db;
+    font-family:var(--sans);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    padding:40px 0;
+  }
+
+  .page{
+    position:relative;
+    width:816px;
+    min-height:1056px;
+    margin:0 auto 34px;
+    background:var(--paper);
+    box-shadow:0 2px 16px rgba(0,0,0,0.10);
+    border-radius:3px;
+    padding:84px 80px 76px;
+    overflow:hidden;
+  }
+
+  /* ---- shared type ---- */
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:600;color:var(--green-deep);margin:0;line-height:1.15;letter-spacing:-0.01em;}
+  p{margin:0 0 13px;}
+  .lede{font-size:16.5px;line-height:1.62;color:#23322d;}
+  strong{font-weight:600;color:var(--ink);}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(31,125,104,0.35);}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);font-weight:500;}
+  .kicker-row{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1.5px solid var(--green-deep);padding-bottom:12px;margin-bottom:30px;}
+  .kicker-row .sec-no{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:0.1em;}
+  .page-h{font-size:30px;margin-top:6px;}
+
+  .section-lead{font-size:15px;color:var(--muted);margin-bottom:26px;max-width:58ch;}
+
+  /* ---- running footer ---- */
+  .footer{position:absolute;left:80px;right:80px;bottom:40px;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;color:var(--faint);text-transform:uppercase;
+    border-top:1px solid var(--line);padding-top:11px;}
+  .footer .b{color:var(--green);}
+
+  /* ============ COVER ============ */
+  .cover{
+    background:radial-gradient(120% 92% at 50% 6%,#1f4b40 0%,var(--green-deep) 44%,var(--green-deeper) 100%);
+    color:#eef3ef;
+    padding:74px 76px;
+    display:flex;flex-direction:column;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:13px;
+    background:repeating-linear-gradient(90deg,var(--pink) 0,var(--pink) 22px,var(--mustard) 22px,var(--mustard) 44px,var(--teal) 44px,var(--teal) 66px);opacity:0.9;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .brand{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--teal);text-transform:uppercase;}
+  .cover .mark{display:flex;align-items:center;gap:14px;margin-top:auto;}
+  .cover .mark .dot{width:30px;height:30px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 7px rgba(232,95,147,0.16);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .title{font-family:var(--disp);font-weight:700;font-style:italic;font-size:92px;line-height:0.98;letter-spacing:-0.03em;margin-top:24px;color:var(--pink);text-shadow:3px 3px 0 rgba(121,193,178,0.55);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .sub{font-size:19px;color:#cfe0d8;margin-top:20px;font-weight:400;max-width:34ch;}
+  .cover .rule{height:1.5px;background:linear-gradient(90deg,var(--mustard),rgba(232,181,74,0));margin:40px 0 0;width:100%;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .meta{display:flex;gap:46px;margin-top:30px;}
+  .cover .meta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;}
+  .cover .meta .v{font-family:var(--disp);font-size:17px;color:#eef3ef;font-weight:500;}
+  .cover .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:#9fb6ab;padding-bottom:4px;}
+  .cover .doctype{font-family:var(--disp);font-size:15px;letter-spacing:0.32em;text-transform:uppercase;color:var(--teal);font-weight:500;}
+
+  /* ============ CONTENTS ============ */
+  .toc{list-style:none;padding:0;margin:0;}
+  .toc li{display:flex;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);}
+  .toc .n{font-family:var(--mono);font-size:13px;color:var(--pink-deep);width:30px;flex:none;font-weight:500;}
+  .toc .t{font-family:var(--disp);font-size:17px;color:var(--green-deep);font-weight:500;flex:1;}
+  .toc .pg{font-family:var(--mono);font-size:12px;color:var(--faint);}
+
+  /* ============ generic blocks ============ */
+  .block{margin-bottom:24px;break-inside:avoid;}
+  .block h3{font-size:17px;margin-bottom:8px;}
+  .block h3 .num{font-family:var(--mono);color:var(--pink-deep);font-size:14px;margin-right:9px;}
+
+  .callout{background:#efeadd;border-left:3px solid var(--green);padding:15px 18px;margin:18px 0;border-radius:0 4px 4px 0;}
+  .callout .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
+  .callout p{margin:0;font-size:14px;}
+  .callout.pink{border-left-color:var(--pink-deep);}
+  .callout.pink .lbl{color:var(--pink-deep);}
+  .callout.gold{border-left-color:var(--mustard-deep);}
+  .callout.gold .lbl{color:var(--mustard-deep);}
+
+  /* parameter tables */
+  table.pt{width:100%;border-collapse:collapse;margin:6px 0 4px;}
+  table.pt th{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:0 10px 8px 0;border-bottom:1.5px solid var(--green-deep);}
+  table.pt td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:13.5px;line-height:1.5;}
+  table.pt td.name{font-family:var(--disp);font-weight:600;color:var(--green-deep);font-size:13.5px;white-space:nowrap;}
+  table.pt td.rng{font-family:var(--mono);font-size:11.5px;color:var(--pink-deep);white-space:nowrap;}
+  table.pt tr{break-inside:avoid;}
+
+  .grouptag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;background:var(--green);padding:4px 11px;border-radius:3px;margin:24px 0 12px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .grouptag.pink{background:var(--pink-deep);}
+  .grouptag.gold{background:var(--mustard-deep);}
+  .grouptag.teal{background:var(--teal-deep);}
+
+  /* ============ interface tour ============ */
+  .shot-wrap{position:relative;width:100%;margin:4px 0 0;border-radius:6px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,0.20);}
+  .shot-wrap img{display:block;width:100%;}
+  .marker{position:absolute;width:21px;height:21px;border-radius:50%;background:var(--pink);color:#3a1422;
+    font-family:var(--mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;
+    transform:translate(-50%,-50%);box-shadow:0 0 0 2px rgba(245,239,226,0.92),0 1px 4px rgba(0,0,0,0.45);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .legend{column-count:2;column-gap:34px;margin-top:22px;}
+  .legend .item{break-inside:avoid;display:flex;gap:11px;padding:7px 0;align-items:baseline;}
+  .legend .ln{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--pink-deep);flex:none;width:18px;}
+  .legend .lt b{font-family:var(--disp);font-size:13px;color:var(--green-deep);display:block;margin-bottom:1px;}
+  .legend .lt span{font-size:11.5px;color:var(--muted);line-height:1.4;}
+
+  /* ============ signal flow diagram ============ */
+  .flow{display:flex;align-items:stretch;gap:0;margin:22px 0 8px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .flow .stage{flex:1;background:var(--panel);border-radius:7px;padding:16px 15px 15px;color:#eef3ef;position:relative;}
+  .flow .stage .st-k{font-family:var(--mono);font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(238,243,239,0.6);margin-bottom:6px;}
+  .flow .stage .st-t{font-family:var(--disp);font-size:16px;font-weight:600;}
+  .flow .stage .st-d{font-size:11px;line-height:1.42;color:rgba(238,243,239,0.78);margin-top:6px;}
+  .flow .stage.io{flex:0 0 78px;background:#28332f;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .flow .stage.io .st-t{font-size:13px;}
+  .flow .stage.slush{border:1.5px solid var(--mustard);}
+  .flow .stage.coll{border:1.5px solid var(--pink);}
+  .flow .arrow{flex:0 0 30px;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:18px;}
+  .flow .dot-k{width:9px;height:9px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  /* ============ envelope schematic ============ */
+  .env{position:relative;width:100%;height:230px;margin:20px 0 10px;background:var(--panel);border-radius:8px;overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .env .lane-lbl{position:absolute;left:16px;font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;}
+  .env .ball{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(255,255,255,0.10);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .env .ax{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(238,243,239,0.5);}
+
+  /* ============ workflows ============ */
+  .wf{break-inside:avoid;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--line);}
+  .wf:last-child{border-bottom:none;}
+  .wf h4{font-size:16px;margin-bottom:4px;display:flex;align-items:baseline;gap:10px;}
+  .wf h4 .wn{font-family:var(--mono);font-size:12px;color:var(--pink-deep);}
+  .wf .recipe{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 0;}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:0.04em;color:var(--green-deep);background:#eceadf;border:1px solid var(--line);padding:4px 9px;border-radius:3px;}
+  .chip b{color:var(--pink-deep);font-weight:600;}
+
+  /* ============ FAQ ============ */
+  .faq{break-inside:avoid;margin-bottom:18px;}
+  .faq .q{font-family:var(--disp);font-weight:600;font-size:14.5px;color:var(--green-deep);margin-bottom:4px;}
+  .faq .q::before{content:"Q";font-family:var(--mono);color:var(--pink-deep);margin-right:9px;font-size:12px;}
+  .faq .a{font-size:13.5px;color:#29362f;padding-left:26px;}
+
+  /* steps */
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0;}
+  ol.steps li{position:relative;padding:0 0 16px 40px;break-inside:avoid;}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:50%;
+    background:var(--green-deep);color:#fff;font-family:var(--mono);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  ol.steps li b{font-family:var(--disp);}
+
+  .two-col{column-count:2;column-gap:30px;}
+  .two-col p{break-inside:avoid;}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;margin-top:14px;}
+  .contact-grid .c .k{font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:4px;}
+  .contact-grid .c .v{font-family:var(--disp);font-size:15px;color:var(--green-deep);font-weight:500;}
+
+  /* color key dots */
+  .ckey{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin:0 5px 2px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .ckey.pink{background:var(--pink);}
+  .ckey.teal{background:var(--teal);}
+
+  @media print{
+    body{background:none;padding:0;}
+    .page{box-shadow:none;border-radius:0;margin:0;width:auto;min-height:auto;break-after:page;}
+    .page:last-child{break-after:auto;}
+  }
+  @page{size:letter;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ============================ 1 · COVER ============================ -->
+<section class="page cover" data-screen-label="Cover">
+  <div class="brand">BruceJames.studio</div>
+  <div class="mark"><span class="dot"></span></div>
+  <div class="title">slursh</div>
+  <div class="sub">Saturator with a transient-triggered Collapse stage</div>
+  <div class="rule"></div>
+  <div class="meta">
+    <div><div class="k">Version</div><div class="v">1.0.0</div></div>
+    <div><div class="k">Platform</div><div class="v">Windows</div></div>
+    <div><div class="k">Formats</div><div class="v">VST3 and CLAP</div></div>
+  </div>
+  <div class="foot">
+    <div class="doctype">User Guide</div>
+    <div>brucejames.studio</div>
+  </div>
+</section>
+
+<!-- ============================ 2 · CONTENTS + OVERVIEW ============================ -->
+<section class="page" data-screen-label="Contents and overview">
+  <div class="kicker-row">
+    <div><div class="eyebrow">Slursh</div><h1 class="page-h">Contents</h1></div>
+    <div class="sec-no">01</div>
+  </div>
+
+  <ul class="toc">
+    <li><span class="n">01</span><span class="t">Overview and the core idea</span><span class="pg">02</span></li>
+    <li><span class="n">02</span><span class="t">How it works</span><span class="pg">03</span></li>
+    <li><span class="n">03</span><span class="t">Installation and authorization</span><span class="pg">04</span></li>
+    <li><span class="n">04</span><span class="t">Interface tour</span><span class="pg">05</span></li>
+    <li><span class="n">05</span><span class="t">Parameter reference</span><span class="pg">06</span></li>
+    <li><span class="n">06</span><span class="t">The Collapse stage in depth</span><span class="pg">08</span></li>
+    <li><span class="n">07</span><span class="t">Workflows</span><span class="pg">09</span></li>
+    <li><span class="n">08</span><span class="t">FAQ and troubleshooting</span><span class="pg">10</span></li>
+    <li><span class="n">09</span><span class="t">License and contact</span><span class="pg">11</span></li>
+  </ul>
+
+  <div style="margin-top:40px;">
+    <div class="eyebrow">01 · Overview</div>
+    <h2 style="font-size:23px;margin:10px 0 14px;">Rounded saturation, then a duck that locks to the transients</h2>
+    <p class="lede">Slursh runs two engines in series. <strong>Slush</strong> is a soft-clip saturator that rounds the waveform toward a sine as you push it, for thick harmonic colour rather than hard digital clipping. <strong>Collapse</strong> tracks the low-frequency energy of the signal and, when it crosses a threshold, ducks the low and high bands independently, producing a rhythmic pump that follows whatever you feed it.</p>
+    <p class="lede">A threshold network keeps quiet detail clean while louder material saturates, and the dry path stays phase-clean, so at 0% wet the plugin nulls to silence and the Null button leaves only what Slursh is adding.</p>
+
+    <div class="callout">
+      <div class="lbl">In one line</div>
+      <p>Saturate with Slush, duck the low and high bands on transients with Collapse, and audition the difference with Null.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 3 · HOW IT WORKS ============================ -->
+<section class="page" data-screen-label="How it works">
+  <div class="kicker-row">
+    <div><div class="eyebrow">02 · Concept</div><h1 class="page-h">How it works</h1></div>
+    <div class="sec-no">02</div>
+  </div>
+
+  <p class="section-lead">Two stages in series explain almost everything Slursh does: the Slush saturator, the Collapse ducker, and a phase-clean dry path that ties them together.</p>
+
+  <div class="flow" aria-hidden="true">
+    <div class="stage io"><div class="st-k">In</div><div class="st-t">Input</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="stage slush"><div class="st-k"><span class="dot-k" style="background:var(--mustard);"></span>Stage 1</div><div class="st-t">Slush</div><div class="st-d">tanh soft-clip with a threshold / floor / knee blend back to dry.</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="stage coll"><div class="st-k"><span class="dot-k" style="background:var(--pink);"></span>Stage 2</div><div class="st-t">Collapse</div><div class="st-d">transient-triggered ducking of the low and high bands around a crossover.</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="stage io"><div class="st-k">Out</div><div class="st-t">Output</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--muted);margin-top:10px;">Signal flow. Input gain feeds the Slush saturator, whose output passes into the Collapse ducker before the output stage. Dry/Wet blends the whole chain against the clean input.</p>
+
+  <div class="block">
+    <h3><span class="num">01</span>Slush rounds the waveform</h3>
+    <p>Slush pushes the signal into a <span style="font-family:var(--mono);font-size:12px;">tanh</span> soft-clip. As Drive rises the waveform is rounded further toward a sine, giving thick, even saturation instead of the brittle edges of hard clipping. A threshold network blends the dry signal back in below a level you set, so quiet passages stay clean while louder material is driven into colour. Floor sets the minimum saturation allowed under that threshold, and Knee sets how soft the transition into saturation is.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">02</span>Collapse ducks on transients</h3>
+    <p>Collapse follows the low-frequency energy of the signal. When that energy crosses the Collapse Threshold, the effect engages and ducks two bands split at a sweepable crossover: the <strong><span class="ckey teal"></span>low</strong> band and the <strong><span class="ckey pink"></span>high</strong> band, each with its own duck depth, attack, and release. The result is a rhythmic pumping and de-pumping that locks to the transients of the source. As the low band collapses it can also be driven toward a squared-off fundamental with Squarify.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">03</span>The dry path stays phase-clean</h3>
+    <p>Slursh keeps the unprocessed signal phase-aligned with the processed one. At 0% Dry/Wet the two cancel to silence, which means parallel blends stay tight with no comb filtering. The <strong>Null</strong> button subtracts the dry signal from the output so you hear only the saturation and collapse movement Slursh is adding.</p>
+  </div>
+
+  <div class="callout pink">
+    <div class="lbl">What triggers the duck</div>
+    <p>Collapse is driven by low-frequency energy, not full-band level, so kicks and low transients set the rhythm of the pump. Lowering the Collapse Threshold keeps the duck engaged on steadier material.</p>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 4 · INSTALLATION ============================ -->
+<section class="page" data-screen-label="Installation and authorization">
+  <div class="kicker-row">
+    <div><div class="eyebrow">03 · Setup</div><h1 class="page-h">Installation and authorization</h1></div>
+    <div class="sec-no">03</div>
+  </div>
+
+  <p class="section-lead">Slursh runs on Windows in VST3 and CLAP hosts. Installation places the plugin in the standard system folders that compatible DAWs scan automatically.</p>
+
+  <div class="block">
+    <h3>Install</h3>
+    <ol class="steps">
+      <li><b>Close your DAW</b> before installing so it rescans plugins on the next launch.</li>
+      <li><b>Run the installer</b> and accept the license agreement. The VST3 build installs to <span style="font-family:var(--mono);font-size:12px;">C:\Program Files\Common Files\VST3</span> and the CLAP build to <span style="font-family:var(--mono);font-size:12px;">C:\Program Files\Common Files\CLAP</span>.</li>
+      <li><b>Launch your DAW</b> and let it rescan. If Slursh does not appear, trigger a manual rescan or add the folders above to your plugin paths.</li>
+      <li><b>Insert Slursh</b> on a channel or bus. It works on individual elements and on submixes, so it usually lives on a track or a bus rather than the master.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h3>Authorization</h3>
+    <p>When prompted, enter the license key from your purchase confirmation. Once accepted, your license is written to <span style="font-family:var(--mono);font-size:12px;">%APPDATA%\Slursh\license.json</span> and applies to every instance on that machine. When unlicensed, <strong>Purchase</strong> and <strong>Authorize</strong> pills appear in the top bar. If you rebuild or replace a system drive you will need to reactivate, since activations are not part of a normal file backup; this is expected.</p>
+  </div>
+
+  <div class="block">
+    <h3>Updates</h3>
+    <p>Slursh can check for new versions from the Settings panel. When a newer build is available, an <strong>Update Available</strong> badge appears in the top bar. Updates install over the existing version; your saved presets and project state are preserved.</p>
+  </div>
+
+  <div class="callout gold">
+    <div class="lbl">Display scaling</div>
+    <p>The window is 760 by 400 pixels and scales to 100, 150, or 200 percent. Open Settings by clicking the round <strong>logo mark</strong> at the top right, then choose the UI size that suits your display and save it as part of your default state.</p>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 5 · INTERFACE TOUR ============================ -->
+<section class="page" data-screen-label="Interface tour">
+  <div class="kicker-row">
+    <div><div class="eyebrow">04 · Reference</div><h1 class="page-h">Interface tour</h1></div>
+    <div class="sec-no">04</div>
+  </div>
+
+  <p class="section-lead">A top bar with the wordmark and utility buttons, two metering flanks, the Slush and Global knobs and envelope display up top, and the Collapse row along the bottom.</p>
+
+  <div class="shot-wrap">
+    <img src="assets/slursh-ui.png" alt="Slursh plugin interface">
+    <span class="marker" style="left:10%;top:11%;">1</span>
+    <span class="marker" style="left:29%;top:9.5%;">2</span>
+    <span class="marker" style="left:93.5%;top:11%;">3</span>
+    <span class="marker" style="left:7.3%;top:25%;">4</span>
+    <span class="marker" style="left:12%;top:26%;">5</span>
+    <span class="marker" style="left:43%;top:26%;">6</span>
+    <span class="marker" style="left:77.5%;top:24%;">7</span>
+    <span class="marker" style="left:87.5%;top:56.5%;">8</span>
+    <span class="marker" style="left:93.5%;top:25%;">9</span>
+    <span class="marker" style="left:13.5%;top:55.5%;">10</span>
+    <span class="marker" style="left:50%;top:90%;">11</span>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="ln">1</span><span class="lt"><b>Wordmark and subtitle</b><span>The slursh mark with the SATURATOR · COLLAPSE label, plus license state.</span></span></div>
+    <div class="item"><span class="ln">2</span><span class="lt"><b>Bypass · Null</b><span>Hard bypass, and Null to hear only what Slursh adds.</span></span></div>
+    <div class="item"><span class="ln">3</span><span class="lt"><b>Logo mark · Settings</b><span>Opens UI size, update check, and support email.</span></span></div>
+    <div class="item"><span class="ln">4</span><span class="lt"><b>Drive meter</b><span>Saturation amount, +6 / 0 / -12 / -30, green to amber to red.</span></span></div>
+    <div class="item"><span class="ln">5</span><span class="lt"><b>Slush section</b><span>Drive, Thresh, Floor, Knee — the saturator controls.</span></span></div>
+    <div class="item"><span class="ln">6</span><span class="lt"><b>Global section</b><span>Input, Dry/Wet, Output.</span></span></div>
+    <div class="item"><span class="ln">7</span><span class="lt"><b>Envelope display</b><span>HI (pink) and LO (teal) attack and release shapes with live travelling balls.</span></span></div>
+    <div class="item"><span class="ln">8</span><span class="lt"><b>Engaged LED</b><span>Lights teal to pink with collapse activity.</span></span></div>
+    <div class="item"><span class="ln">9</span><span class="lt"><b>Collapse meter</b><span>How far the collapse has engaged, FULL / ½ / ¼ / 0, teal to pink.</span></span></div>
+    <div class="item"><span class="ln">10</span><span class="lt"><b>Collapse section</b><span>Amount, Xover, Thresh, Lo/Hi Duck, Lo/Hi Atk, Lo/Hi Rel, Squarify.</span></span></div>
+    <div class="item"><span class="ln">11</span><span class="lt"><b>Value readout</b><span>Shows a knob's current value while you drag it.</span></span></div>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 6 · PARAMETER REFERENCE A ============================ -->
+<section class="page" data-screen-label="Parameter reference: global and slush">
+  <div class="kicker-row">
+    <div><div class="eyebrow">05 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">05</div>
+  </div>
+
+  <p class="section-lead">Every control, grouped as it appears in the plugin. Defaults follow the in-app values.</p>
+
+  <div class="grouptag">Global</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:22%;">Range · Default</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Input</td><td class="rng">-24 to +12 dB · 0</td><td>Input gain applied before saturation. Drives how hard the signal hits the Slush stage.</td></tr>
+      <tr><td class="name">Dry / Wet</td><td class="rng">0 to 100% · 100%</td><td>Blend between the dry input and the processed signal. The dry path is phase-clean, so 0% nulls to silence.</td></tr>
+      <tr><td class="name">Output</td><td class="rng">-24 to +12 dB · 0</td><td>Output gain applied after processing.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag gold">Slush · saturation</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:22%;">Range · Default</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Drive</td><td class="rng">1 to 10 · 1</td><td>How hard the signal is pushed into the tanh saturator. Higher values round the waveform further toward a sine.</td></tr>
+      <tr><td class="name">Threshold</td><td class="rng">low to high · ~0.3</td><td>Level below which the dry signal is blended back in, so quiet detail stays clean while louder material saturates.</td></tr>
+      <tr><td class="name">Floor</td><td class="rng">0 to 1 · 0</td><td>Minimum amount of saturation blended in below the threshold. 0 is fully clean under threshold.</td></tr>
+      <tr><td class="name">Knee</td><td class="rng">0 to 1 · 0.5</td><td>Softness of the transition into saturation. 0 is hard, 1 is gentle.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout gold">
+    <div class="lbl">Reading the Drive meter</div>
+    <p>The left meter shows the amount of saturation being applied, not just output level. Watch it fill from green into amber and red to judge how hard Slush is working, then use Output to set the level it leaves at.</p>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 7 · PARAMETER REFERENCE B ============================ -->
+<section class="page" data-screen-label="Parameter reference: collapse, utility, metering">
+  <div class="kicker-row">
+    <div><div class="eyebrow">05 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">05</div>
+  </div>
+
+  <div class="grouptag pink">Collapse · transient-triggered ducking</div>
+  <table class="pt">
+    <thead><tr><th style="width:20%;">Control</th><th style="width:22%;">Range · Default</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Amount</td><td class="rng">0 to 100% · 100%</td><td>Overall depth of the collapse effect. 0 is off.</td></tr>
+      <tr><td class="name">Xover</td><td class="rng">100 to 1000 Hz · 600</td><td>Crossover frequency splitting the duck into a low and a high band.</td></tr>
+      <tr><td class="name">Threshold</td><td class="rng">0 to 1 · 0.3</td><td>Low-energy level at which the collapse engages.</td></tr>
+      <tr><td class="name">Lo Duck</td><td class="rng">0 to 48 dB · 6</td><td>How far the <span class="ckey teal"></span>low band drops when engaged.</td></tr>
+      <tr><td class="name">Hi Duck</td><td class="rng">0 to 48 dB · 12</td><td>How far the <span class="ckey pink"></span>high band drops when engaged.</td></tr>
+      <tr><td class="name">Lo Atk</td><td class="rng">1 to 500 ms · 10</td><td>Attack time of the low-band gate.</td></tr>
+      <tr><td class="name">Hi Atk</td><td class="rng">1 to 500 ms · 5</td><td>Attack time of the high-band gate.</td></tr>
+      <tr><td class="name">Lo Rel</td><td class="rng">10 to 2000 ms · 120</td><td>Release time of the low-band gate.</td></tr>
+      <tr><td class="name">Hi Rel</td><td class="rng">10 to 2000 ms · 80</td><td>Release time of the high-band gate.</td></tr>
+      <tr><td class="name">Squarify</td><td class="rng">0 to 1 · 1</td><td>How much the low band is driven toward a squared-off fundamental as the collapse engages.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag teal">Utility</div>
+  <table class="pt">
+    <thead><tr><th style="width:20%;">Control</th><th style="width:22%;">State</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Bypass</td><td class="rng">on · off</td><td>Hard bypass. Processing halts and the input passes through unchanged.</td></tr>
+      <tr><td class="name">Null</td><td class="rng">on · off</td><td>Subtracts the dry signal from the output so you hear only what Slursh is adding. Useful for auditing the effect in isolation.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Metering</div>
+  <table class="pt">
+    <thead><tr><th style="width:20%;">Readout</th><th style="width:22%;">Shows</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Drive</td><td class="rng">left flank</td><td>Saturation amount — how much the waveform is being bent by the Slush stage. Fills bottom-up, green to amber to red.</td></tr>
+      <tr><td class="name">Collapse</td><td class="rng">right flank</td><td>How far the Collapse stage has engaged. Fills top-down, teal to pink.</td></tr>
+      <tr><td class="name">Envelope</td><td class="rng">upper right</td><td>Live attack and release position for the <span class="ckey pink"></span>HI and <span class="ckey teal"></span>LO bands, drawn as travelling balls.</td></tr>
+      <tr><td class="name">Engaged LED</td><td class="rng">collapse header</td><td>Lights teal to pink with collapse activity.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 8 · COLLAPSE IN DEPTH ============================ -->
+<section class="page" data-screen-label="Collapse stage in depth">
+  <div class="kicker-row">
+    <div><div class="eyebrow">06 · Deep dive</div><h1 class="page-h">The Collapse stage in depth</h1></div>
+    <div class="sec-no">06</div>
+  </div>
+
+  <p class="section-lead">Collapse is two independent gates sharing one trigger. Reading the envelope display makes the rest of the controls intuitive.</p>
+
+  <div class="env" aria-hidden="true">
+    <svg viewBox="0 0 760 230" width="100%" height="100%" preserveAspectRatio="none">
+      <!-- HI lane (pink): attack down, hold, release up -->
+      <path d="M28,40 C70,40 78,98 150,98 L300,98 C300,98 330,98 430,46" fill="none" stroke="#e85f93" stroke-width="3"/>
+      <!-- LO lane (teal): slower attack, longer release -->
+      <path d="M28,150 C95,150 110,206 200,206 L300,206 C300,206 360,206 560,158" fill="none" stroke="#79c1b2" stroke-width="3"/>
+    </svg>
+    <div class="lane-lbl" style="top:30px;color:var(--pink);">HI</div>
+    <div class="lane-lbl" style="top:140px;color:var(--teal);">LO</div>
+    <div class="ball" style="left:39.5%;top:42.6%;background:var(--pink);"></div>
+    <div class="ball" style="left:39.5%;top:89.5%;background:var(--teal);"></div>
+    <div class="ax" style="left:18px;bottom:8px;">Attack</div>
+    <div class="ax" style="left:50%;bottom:8px;transform:translateX(-50%);">Hold</div>
+    <div class="ax" style="right:18px;bottom:8px;">Release</div>
+  </div>
+  <p style="font-size:12.5px;color:var(--muted);margin-top:10px;">Schematic of the envelope display. Each band ducks down on attack when the collapse engages, holds while the trigger persists, then releases back up. The travelling balls show where each band currently sits. The HI band typically uses a faster attack and shorter release than the LO band.</p>
+
+  <div class="block">
+    <h3>The trigger and the two bands</h3>
+    <p>The Collapse Threshold listens to low-frequency energy. When that energy crosses it, both gates fire. <strong>Xover</strong> decides where the signal is split: everything below it is the low band, everything above is the high band. Each band then has its own depth — <strong>Lo Duck</strong> and <strong>Hi Duck</strong> — so you can pump the lows hard while barely touching the highs, or the reverse.</p>
+  </div>
+
+  <div class="block">
+    <h3>Shaping the movement</h3>
+    <div class="two-col">
+      <p><strong>Attack</strong> sets how fast a band drops once triggered. Short Hi Atk values give a sharp, clicky duck; longer values soften the onset. The defaults attack the high band faster than the low band.</p>
+      <p><strong>Release</strong> sets how long a band takes to return after the trigger falls away. Long releases give a slow breathing pump; short ones give a tight, rhythmic chop. Watch the travelling balls to dial the feel by eye.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Squarify on the low band</h3>
+    <p>As the low band collapses, <strong>Squarify</strong> drives it toward a squared-off fundamental. At higher settings the ducked lows take on a harder, fundamental-heavy character rather than simply dropping in level, which is useful for carving space while adding weight under a transient.</p>
+    <div class="callout pink">
+      <div class="lbl">When to reach for it</div>
+      <p>Pair Squarify with a higher Lo Duck and a crossover set around the bass and low-mid split to reshape a bass line as the transients hit.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 9 · WORKFLOWS ============================ -->
+<section class="page" data-screen-label="Workflows">
+  <div class="kicker-row">
+    <div><div class="eyebrow">07 · Practice</div><h1 class="page-h">Workflows</h1></div>
+    <div class="sec-no">07</div>
+  </div>
+
+  <p class="section-lead">Starting points, not rules. Adjust to the material and watch the meters and envelope display.</p>
+
+  <div class="wf">
+    <h4><span class="wn">01</span>Glue and thickness on a drum bus</h4>
+    <p>Insert on the drum bus and raise Drive for rounded saturation. Set Collapse Amount around 50% and lower the Collapse Threshold until the kick and snare transients trigger the duck. A low Xover, roughly 150 to 300 Hz, lets the low band pump with the kick while the highs stay present.</p>
+    <div class="recipe"><span class="chip">Drive <b>up</b></span><span class="chip">Amount <b>~50%</b></span><span class="chip">Xover <b>150–300 Hz</b></span><span class="chip">Threshold <b>down to taste</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">02</span>Rhythmic pump on a sustained source</h4>
+    <p>On a held pad or synth, lower the Collapse Threshold so steady energy keeps the duck engaged. Shape the movement with Lo and Hi Release: longer releases give a slow breathing pump, shorter ones a tighter chop. Use the travelling balls in the envelope display to dial the feel.</p>
+    <div class="recipe"><span class="chip">Threshold <b>low</b></span><span class="chip">Lo/Hi Rel <b>long = breathe</b></span><span class="chip">Lo/Hi Rel <b>short = chop</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">03</span>Parallel saturation</h4>
+    <p>Pull Dry/Wet below 100% to blend the saturated and collapsed signal under the dry. Because the dry path is phase-clean, the blend stays tight with no comb filtering, so you can drive Slush hard and dial in only as much as the part needs.</p>
+    <div class="recipe"><span class="chip">Dry/Wet <b>below 100%</b></span><span class="chip">Drive <b>hard</b></span><span class="chip">Blend <b>to taste</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">04</span>Bass control with the low band</h4>
+    <p>Raise Lo Duck and Squarify, and set Xover around the bass and low-mid split. As transients hit, the low band ducks and squares off, carving space and adding a fundamental-heavy character under the hits.</p>
+    <div class="recipe"><span class="chip">Lo Duck <b>up</b></span><span class="chip">Squarify <b>up</b></span><span class="chip">Xover <b>bass/low-mid</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">05</span>Auditing what you are adding</h4>
+    <p>Enable Null and solo the track to hear only the delta — the saturation plus the collapse movement — in isolation. It is the quickest way to confirm the effect is doing what you intend before committing it to the mix.</p>
+    <div class="recipe"><span class="chip">Null <b>on</b></span><span class="chip">Solo <b>track</b></span></div>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 10 · FAQ ============================ -->
+<section class="page" data-screen-label="FAQ and troubleshooting">
+  <div class="kicker-row">
+    <div><div class="eyebrow">08 · Support</div><h1 class="page-h">FAQ and troubleshooting</h1></div>
+    <div class="sec-no">08</div>
+  </div>
+
+  <div class="faq"><div class="q">Slursh does not appear in my DAW.</div><div class="a">Confirm the DAW has rescanned plugins after installation, and that the VST3 and CLAP system folders are in its scan paths. Some hosts require a manual rescan or a restart.</div></div>
+
+  <div class="faq"><div class="q">The Collapse stage does not seem to do anything.</div><div class="a">Collapse is triggered by low-frequency energy crossing its Threshold. If nothing is happening, lower the Collapse Threshold, raise Amount above zero, and check that Lo Duck or Hi Duck is set above zero. The Engaged LED and the right-hand Collapse meter confirm when it is firing.</div></div>
+
+  <div class="faq"><div class="q">The pump sounds clicky or too abrupt.</div><div class="a">Lengthen the attack times, especially Hi Atk, to soften the onset, and raise the release times so the bands return more gradually. Watch the travelling balls in the envelope display to see the shape you are dialing.</div></div>
+
+  <div class="faq"><div class="q">The saturation is distorting quiet passages I wanted to keep clean.</div><div class="a">Raise the Slush Threshold so more of the dry signal is blended back in below it, and keep Floor low so there is little or no saturation under the threshold. Increasing Knee softens the transition into saturation.</div></div>
+
+  <div class="faq"><div class="q">The output is much louder or quieter after processing.</div><div class="a">Heavy Drive adds level and the duck removes it, so net level shifts. Use the Output knob to compensate, and read the Drive meter to judge how hard the saturator is working rather than going by loudness alone.</div></div>
+
+  <div class="faq"><div class="q">What does Null actually do?</div><div class="a">It subtracts the dry signal from the output, leaving only the difference Slursh is introducing — the saturation and the collapse movement. Solo the track with it engaged to audition that delta in isolation. Because the dry path is phase-clean, the subtraction is exact.</div></div>
+
+  <div class="faq"><div class="q">How do I change the window size?</div><div class="a">Click the round logo mark at the top right to open Settings, then choose 100, 150, or 200 percent. The same panel holds the update check and the support email.</div></div>
+
+  <div class="faq"><div class="q">Do my presets survive an update?</div><div class="a">Yes. Updates install over the existing version and preserve saved presets and project state.</div></div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 11 · LICENSE + CONTACT ============================ -->
+<section class="page" data-screen-label="License and contact">
+  <div class="kicker-row">
+    <div><div class="eyebrow">09 · Legal</div><h1 class="page-h">License and contact</h1></div>
+    <div class="sec-no">09</div>
+  </div>
+
+  <div class="block">
+    <h3>License</h3>
+    <p>Use of Slursh is governed by the end user license agreement included with the distribution as <span style="font-family:var(--mono);font-size:12px;">license.txt</span>. Please refer to that file for the full terms. Your purchase authorizes installation under the conditions described there. After activation, your license is stored at <span style="font-family:var(--mono);font-size:12px;">%APPDATA%\Slursh\license.json</span>.</p>
+  </div>
+
+  <div class="block">
+    <h3>Included files</h3>
+    <p>The distribution archive contains the installer along with <span style="font-family:var(--mono);font-size:12px;">readme.txt</span> for installation notes, <span style="font-family:var(--mono);font-size:12px;">changelog.txt</span> for version history, and <span style="font-family:var(--mono);font-size:12px;">license.txt</span> for the agreement. The readme is the canonical source for installation details.</p>
+  </div>
+
+  <div class="block">
+    <h3>Support and contact</h3>
+    <div class="contact-grid">
+      <div class="c"><div class="k">Studio</div><div class="v">BruceJames.studio</div></div>
+      <div class="c"><div class="k">Web</div><div class="v">brucejames.studio</div></div>
+      <div class="c"><div class="k">Support</div><div class="v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b383e3b3b24393f0b29393e282e212a262e3865383f3e2f2224">[email&#160;protected]</a></div></div>
+      <div class="c"><div class="k">Version</div><div class="v">Slursh 1.0.0</div></div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:30px;">
+    <div class="lbl">Before you write in</div>
+    <p>Including your DAW, its version, your Windows version, and the plugin format you are running helps support resolve issues faster.</p>
+  </div>
+
+  <div style="margin-top:60px;text-align:center;">
+    <div style="display:inline-flex;align-items:center;gap:12px;">
+      <span style="width:18px;height:18px;border-radius:50%;background:var(--pink);-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
+      <span style="font-family:var(--disp);font-style:italic;font-size:21px;font-weight:700;color:var(--pink-deep);letter-spacing:-0.02em;">slursh</span>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--faint);margin-top:12px;text-transform:uppercase;">Saturator with a transient-triggered Collapse stage · Windows · VST3 and CLAP</p>
+  </div>
+
+  <div class="footer"><span>Slursh User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

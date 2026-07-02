@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marco User Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f3;
+    --ink:#172620;
+    --muted:#5d6e64;
+    --faint:#8a9389;
+    --line:#dcd8cd;
+    --green:#1d7d57;       /* Marco forest green — primary */
+    --green-deep:#0d3a29;
+    --green-deeper:#072218;
+    --coral:#e58a9e;
+    --coral-deep:#c96b82;
+    --gold:#c79a52;        /* the tan/gold knobs */
+    --gold-deep:#a87f38;
+    --cyan:#7fcdb8;        /* teal toggle */
+    --wood:#7a4a2e;
+    --sans:"IBM Plex Sans",system-ui,sans-serif;
+    --disp:"Space Grotesk",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#e7e4db;
+    font-family:var(--sans);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    padding:40px 0;
+  }
+
+  .page{
+    position:relative;
+    width:816px;
+    min-height:1056px;
+    margin:0 auto 34px;
+    background:var(--paper);
+    box-shadow:0 2px 16px rgba(0,0,0,0.10);
+    border-radius:3px;
+    padding:84px 80px 76px;
+    overflow:hidden;
+  }
+
+  /* ---- shared type ---- */
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:600;color:var(--green-deep);margin:0;line-height:1.15;letter-spacing:-0.01em;}
+  p{margin:0 0 13px;}
+  .lede{font-size:16.5px;line-height:1.62;color:#22302a;}
+  strong{font-weight:600;color:var(--ink);}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(29,125,87,0.35);}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);font-weight:500;}
+  .kicker-row{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1.5px solid var(--green-deep);padding-bottom:12px;margin-bottom:30px;}
+  .kicker-row .sec-no{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:0.1em;}
+  .page-h{font-size:30px;margin-top:6px;}
+
+  .section-lead{font-size:15px;color:var(--muted);margin-bottom:26px;max-width:58ch;}
+
+  /* ---- running footer ---- */
+  .footer{position:absolute;left:80px;right:80px;bottom:40px;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;color:var(--faint);text-transform:uppercase;
+    border-top:1px solid var(--line);padding-top:11px;}
+  .footer .b{color:var(--green);}
+
+  /* ============ COVER ============ */
+  .cover{
+    background:radial-gradient(125% 95% at 50% 6%,#155a3f 0%,var(--green-deep) 44%,var(--green-deeper) 100%);
+    color:#eef3ef;
+    padding:74px 76px;
+    display:flex;flex-direction:column;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:14px;background:repeating-linear-gradient(90deg,#7a4a2e,#7a4a2e 2px,#653c25 2px,#653c25 5px);opacity:0.9;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .brand{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--cyan);text-transform:uppercase;}
+  .cover .mark{display:flex;align-items:center;gap:14px;margin-top:auto;}
+  .cover .mark .dot{width:30px;height:30px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 7px rgba(199,154,82,0.18);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .title{font-family:var(--disp);font-weight:700;font-size:88px;line-height:0.98;letter-spacing:-0.02em;margin-top:26px;color:#f4efe3;}
+  .cover .sub{font-size:19px;color:#cfe0d8;margin-top:18px;font-weight:400;max-width:32ch;}
+  .cover .rule{height:1.5px;background:linear-gradient(90deg,var(--gold),rgba(199,154,82,0));margin:40px 0 0;width:100%;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cover .meta{display:flex;gap:46px;margin-top:30px;}
+  .cover .meta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;}
+  .cover .meta .v{font-family:var(--disp);font-size:17px;color:#eef3ef;font-weight:500;}
+  .cover .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:#9fb6ab;padding-bottom:6px;}
+  .cover .doctype{font-family:var(--disp);font-size:15px;letter-spacing:0.32em;text-transform:uppercase;color:var(--cyan);font-weight:500;}
+
+  /* ============ CONTENTS ============ */
+  .toc{list-style:none;padding:0;margin:0;}
+  .toc li{display:flex;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);}
+  .toc .n{font-family:var(--mono);font-size:13px;color:var(--coral-deep);width:30px;flex:none;font-weight:500;}
+  .toc .t{font-family:var(--disp);font-size:17px;color:var(--green-deep);font-weight:500;flex:1;}
+  .toc .pg{font-family:var(--mono);font-size:12px;color:var(--faint);}
+
+  /* ============ generic blocks ============ */
+  .block{margin-bottom:24px;break-inside:avoid;}
+  .block h3{font-size:17px;margin-bottom:8px;}
+  .block h3 .num{font-family:var(--mono);color:var(--coral-deep);font-size:14px;margin-right:9px;}
+
+  .callout{background:#eef2ea;border-left:3px solid var(--green);padding:15px 18px;margin:18px 0;border-radius:0 4px 4px 0;}
+  .callout .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
+  .callout p{margin:0;font-size:14px;}
+  .callout.coral{border-left-color:var(--coral-deep);}
+  .callout.coral .lbl{color:var(--coral-deep);}
+  .callout.gold{border-left-color:var(--gold-deep);}
+  .callout.gold .lbl{color:var(--gold-deep);}
+
+  /* parameter tables */
+  table.pt{width:100%;border-collapse:collapse;margin:6px 0 4px;}
+  table.pt th{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:0 10px 8px 0;border-bottom:1.5px solid var(--green-deep);}
+  table.pt td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:13.5px;line-height:1.5;}
+  table.pt td.name{font-family:var(--disp);font-weight:600;color:var(--green-deep);font-size:13.5px;white-space:nowrap;}
+  table.pt td.rng{font-family:var(--mono);font-size:11.5px;color:var(--coral-deep);white-space:nowrap;}
+  table.pt tr{break-inside:avoid;}
+
+  .grouptag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;background:var(--green);padding:4px 11px;border-radius:3px;margin:24px 0 12px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .grouptag.left{background:var(--coral-deep);}
+  .grouptag.gold{background:var(--gold-deep);}
+
+  /* ============ interface tour ============ */
+  .shot-wrap{position:relative;width:100%;margin:4px 0 0;border-radius:6px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,0.20);}
+  .shot-wrap img{display:block;width:100%;}
+  .marker{position:absolute;width:21px;height:21px;border-radius:50%;background:var(--coral);color:#3a1620;
+    font-family:var(--mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;
+    transform:translate(-50%,-50%);box-shadow:0 0 0 2px rgba(250,248,243,0.9),0 1px 4px rgba(0,0,0,0.4);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .legend{column-count:2;column-gap:34px;margin-top:22px;}
+  .legend .item{break-inside:avoid;display:flex;gap:11px;padding:7px 0;align-items:baseline;}
+  .legend .ln{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--coral-deep);flex:none;width:18px;}
+  .legend .lt b{font-family:var(--disp);font-size:13px;color:var(--green-deep);display:block;margin-bottom:1px;}
+  .legend .lt span{font-size:11.5px;color:var(--muted);line-height:1.4;}
+
+  /* ============ XY pad diagram ============ */
+  .xy{position:relative;width:100%;height:300px;margin:22px 0 10px;background:radial-gradient(120% 120% at 50% 45%,#1e6f4d,#0f3d2b);border:3px solid var(--wood);border-radius:8px;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden;}
+  .xy .ch{position:absolute;background:rgba(220,206,160,0.5);}
+  .xy .ch.v{left:50%;top:0;bottom:0;width:1px;}
+  .xy .ch.h{top:50%;left:0;right:0;height:1px;}
+  .xy .puck{position:absolute;width:22px;height:22px;border-radius:50%;background:#efe7d2;box-shadow:0 2px 6px rgba(0,0,0,0.45);transform:translate(-50%,-50%);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .xy .axlbl{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(239,231,210,0.85);}
+  .xy .quad{position:absolute;font-family:var(--disp);font-size:12px;color:rgba(239,231,210,0.66);font-weight:500;}
+
+  /* ============ workflows ============ */
+  .wf{break-inside:avoid;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--line);}
+  .wf:last-child{border-bottom:none;}
+  .wf h4{font-size:16px;margin-bottom:4px;display:flex;align-items:baseline;gap:10px;}
+  .wf h4 .wn{font-family:var(--mono);font-size:12px;color:var(--coral-deep);}
+  .wf .recipe{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 0;}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:0.04em;color:var(--green-deep);background:#eef0e9;border:1px solid var(--line);padding:4px 9px;border-radius:3px;}
+  .chip b{color:var(--coral-deep);font-weight:600;}
+
+  /* ============ FAQ ============ */
+  .faq{break-inside:avoid;margin-bottom:18px;}
+  .faq .q{font-family:var(--disp);font-weight:600;font-size:14.5px;color:var(--green-deep);margin-bottom:4px;}
+  .faq .q::before{content:"Q";font-family:var(--mono);color:var(--coral-deep);margin-right:9px;font-size:12px;}
+  .faq .a{font-size:13.5px;color:#283631;padding-left:26px;}
+
+  /* steps */
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0;}
+  ol.steps li{position:relative;padding:0 0 16px 40px;break-inside:avoid;}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:50%;
+    background:var(--green-deep);color:#fff;font-family:var(--mono);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  ol.steps li b{font-family:var(--disp);}
+
+  .two-col{column-count:2;column-gap:30px;}
+  .two-col p{break-inside:avoid;}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;margin-top:14px;}
+  .contact-grid .c .k{font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:4px;}
+  .contact-grid .c .v{font-family:var(--disp);font-size:15px;color:var(--green-deep);font-weight:500;}
+
+  /* color key dots */
+  .ckey{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin:0 5px 2px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .ckey.blue{background:var(--cyan);}
+  .ckey.red{background:var(--coral);}
+
+  @media print{
+    body{background:none;padding:0;}
+    .page{box-shadow:none;border-radius:0;margin:0;width:auto;min-height:auto;break-after:page;}
+    .page:last-child{break-after:auto;}
+  }
+  @page{size:letter;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ============================ 1 · COVER ============================ -->
+<section class="page cover" data-screen-label="Cover">
+  <div class="brand">BruceJames.studio</div>
+  <div class="mark"><span class="dot"></span></div>
+  <div class="title">MARCO</div>
+  <div class="sub">Spatial placement and depth processor</div>
+  <div class="rule"></div>
+  <div class="meta">
+    <div><div class="k">Version</div><div class="v">1.1.12</div></div>
+    <div><div class="k">Platform</div><div class="v">macOS and Windows</div></div>
+    <div><div class="k">Formats</div><div class="v">VST3, AU, and CLAP</div></div>
+  </div>
+  <div class="foot">
+    <div class="doctype">User Guide</div>
+    <div>brucejames.studio</div>
+  </div>
+</section>
+
+<!-- ============================ 2 · CONTENTS + OVERVIEW ============================ -->
+<section class="page" data-screen-label="Contents and overview">
+  <div class="kicker-row">
+    <div><div class="eyebrow">Marco</div><h1 class="page-h">Contents</h1></div>
+    <div class="sec-no">01</div>
+  </div>
+
+  <ul class="toc">
+    <li><span class="n">01</span><span class="t">Overview and the core idea</span><span class="pg">02</span></li>
+    <li><span class="n">02</span><span class="t">How it works</span><span class="pg">03</span></li>
+    <li><span class="n">03</span><span class="t">Installation and authorization</span><span class="pg">04</span></li>
+    <li><span class="n">04</span><span class="t">Interface tour</span><span class="pg">05</span></li>
+    <li><span class="n">05</span><span class="t">Parameter reference</span><span class="pg">06</span></li>
+    <li><span class="n">06</span><span class="t">The XY pad and profiles in depth</span><span class="pg">08</span></li>
+    <li><span class="n">07</span><span class="t">Workflows</span><span class="pg">09</span></li>
+    <li><span class="n">08</span><span class="t">FAQ and troubleshooting</span><span class="pg">10</span></li>
+    <li><span class="n">09</span><span class="t">License and contact</span><span class="pg">11</span></li>
+  </ul>
+
+  <div style="margin-top:40px;">
+    <div class="eyebrow">01 · Overview</div>
+    <h2 style="font-size:23px;margin:10px 0 14px;">Depth and placement, without the reverb wash</h2>
+    <p class="lede">Marco moves a sound to a believable position and distance in the stereo field. Instead of drenching the signal in reverb, it convolves it with short captured reflections, so an element settles back into the mix while keeping the tail essentially non-existent.</p>
+    <p class="lede">You drive it from a single XY pad. The horizontal axis sets position and the balance between two tonal profiles; the vertical axis sets depth and perceived proximity. Four knobs and a handful of toggles shape what happens inside that movement.</p>
+
+    <div class="callout">
+      <div class="lbl">In one line</div>
+      <p>Place a part in space with short reflections, steer it on the XY pad, and choose how clean or how hazy that placement sounds.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 3 · HOW IT WORKS ============================ -->
+<section class="page" data-screen-label="How it works">
+  <div class="kicker-row">
+    <div><div class="eyebrow">02 · Concept</div><h1 class="page-h">How it works</h1></div>
+    <div class="sec-no">02</div>
+  </div>
+
+  <p class="section-lead">Three ideas explain almost everything Marco does: reflections instead of reverb, two tonal profiles, and the XY pad that steers between them.</p>
+
+  <div class="block">
+    <h3><span class="num">01</span>Reflections, not reverb</h3>
+    <p>Marco convolves the signal with short impulse responses captured from real and modeled spaces. Because the captures are short, there is no audible reverb tail to build up or wash over the mix. What you hear instead is the sense of air and distance that comes from early reflections, which is what pushes an element back without smearing it.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">02</span>Two tonal profiles, clean to dirty</h3>
+    <p>The captures come in two characters. The <strong>clean</strong> end is focused and controlled, either a model of how an ideal room should sound or a measurement-style capture with the harsh reflections removed. The <strong>dirty</strong> end is fuzzier and less focused, the sound of a dark ribbon microphone, including one pointed away from the source, so it reads as more distant and hazy. The Profile knob crossfades between these two ends, and the two color toggles choose exactly which capture sits at each end.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">03</span>The XY pad steers the placement</h3>
+    <p>The pad is the main control surface. Moving the cursor <strong>left and right</strong> sets the profile balance and how the result is panned across the stereo field. Moving it <strong>up and down</strong> sets depth and intensity: the further north the cursor, the more distant and intense the placement; lower brings the element forward and closer. Small movements tend to be more musical than extreme ones.</p>
+
+    <div class="xy" aria-hidden="true">
+      <div class="ch v"></div>
+      <div class="ch h"></div>
+      <div class="puck" style="left:68%;top:36%;"></div>
+      <div class="axlbl" style="left:14px;top:50%;transform:translateY(-50%);">Profile · pan ←</div>
+      <div class="axlbl" style="right:14px;top:50%;transform:translateY(-50%);">→ Profile · pan</div>
+      <div class="axlbl" style="left:50%;top:10px;transform:translateX(-50%);">Back · distant</div>
+      <div class="axlbl" style="left:50%;bottom:10px;transform:translateX(-50%);">Forward · close</div>
+      <div class="quad" style="left:50%;top:50%;transform:translate(12px,-26px);">cursor</div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:12px;">Schematic. Horizontal position blends the two profiles and sets panning behavior; vertical position sets depth and intensity. The puck is the cursor you drag.</p>
+  </div>
+
+  <div class="callout coral">
+    <div class="lbl">Is it reverb?</div>
+    <p>Technically the dirty profiles are reflections, so a small amount of reverberant energy is present. The difference is that Marco's tail is essentially non-existent next to a normal reverb, so you get placement and depth rather than a wash.</p>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 4 · INSTALLATION ============================ -->
+<section class="page" data-screen-label="Installation and authorization">
+  <div class="kicker-row">
+    <div><div class="eyebrow">03 · Setup</div><h1 class="page-h">Installation and authorization</h1></div>
+    <div class="sec-no">03</div>
+  </div>
+
+  <p class="section-lead">Marco runs on macOS and Windows in VST3, AU, and CLAP hosts. Installation places the plugin in the standard system folders that compatible DAWs scan automatically.</p>
+
+  <div class="block">
+    <h3>Install</h3>
+    <ol class="steps">
+      <li><b>Close your DAW</b> before installing so it rescans plugins on the next launch.</li>
+      <li><b>Run the installer</b> and accept the license agreement. On Windows the VST3 build installs to <span style="font-family:var(--mono);font-size:12px;">C:\Program Files\Common Files\VST3</span> and the CLAP build alongside it; on macOS the AU build installs to <span style="font-family:var(--mono);font-size:12px;">/Library/Audio/Plug-Ins/Components</span> and VST3 to <span style="font-family:var(--mono);font-size:12px;">/Library/Audio/Plug-Ins/VST3</span>.</li>
+      <li><b>Launch your DAW</b> and let it rescan. If Marco does not appear, trigger a manual rescan or add the folders above to your plugin paths.</li>
+      <li><b>Insert Marco</b> on a stereo channel or bus. It is designed to place individual elements, so it usually lives on a track rather than the master.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h3>Authorization</h3>
+    <p>Enter the license key from your purchase confirmation when prompted. Once accepted, the key is stored and applies to every instance on that machine. If you rebuild or replace a system drive, software activations are not part of a normal file backup, so you will need to reactivate; this is expected and not a fault in the plugin.</p>
+  </div>
+
+  <div class="block">
+    <h3>Demo mode</h3>
+    <p>Before authorization Marco runs in demo mode. It processes audio normally but introduces periodic brief silences, which lets you evaluate tone and spatial behavior fully before purchase without committing the sound to a render.</p>
+  </div>
+
+  <div class="block">
+    <h3>Updates</h3>
+    <p>Marco checks for new versions against <span style="font-family:var(--mono);font-size:12px;">brucejames.studio/version.txt</span>. When a newer build is available, an indicator appears in the top right of the window. Updates install over the existing version; your saved presets and project state are preserved.</p>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 5 · INTERFACE TOUR ============================ -->
+<section class="page" data-screen-label="Interface tour">
+  <div class="kicker-row">
+    <div><div class="eyebrow">04 · Reference</div><h1 class="page-h">Interface tour</h1></div>
+    <div class="sec-no">04</div>
+  </div>
+
+  <p class="section-lead">A header strip with metering, the XY pad in the center, and a row of four knobs with their toggles along the bottom.</p>
+
+  <div class="shot-wrap">
+    <img src="assets/marco-ui.png" alt="Marco plugin interface">
+    <span class="marker" style="left:19%;top:11%;">1</span>
+    <span class="marker" style="left:51%;top:11%;">2</span>
+    <span class="marker" style="left:84.5%;top:11%;">3</span>
+    <span class="marker" style="left:48%;top:45%;">4</span>
+    <span class="marker" style="left:14%;top:82%;">5</span>
+    <span class="marker" style="left:14%;top:94.5%;">6</span>
+    <span class="marker" style="left:37.5%;top:82%;">7</span>
+    <span class="marker" style="left:51.5%;top:94.5%;">8</span>
+    <span class="marker" style="left:60.5%;top:82%;">9</span>
+    <span class="marker" style="left:69.5%;top:94.5%;">10</span>
+    <span class="marker" style="left:84%;top:82%;">11</span>
+    <span class="marker" style="left:84%;top:94.5%;">12</span>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="ln">1</span><span class="lt"><b>Title and status</b><span>Plugin name, preset display, and demo or licensed state.</span></span></div>
+    <div class="item"><span class="ln">2</span><span class="lt"><b>Pan Style</b><span>Toggles how the stereo image is handled.</span></span></div>
+    <div class="item"><span class="ln">3</span><span class="lt"><b>IN / OUT meters</b><span>Input and output level for gain-matching by eye.</span></span></div>
+    <div class="item"><span class="ln">4</span><span class="lt"><b>XY pad</b><span>Profile balance and pan on X, depth and intensity on Y.</span></span></div>
+    <div class="item"><span class="ln">5</span><span class="lt"><b>Crossover</b><span>Blends dry signal back in below the shown frequency.</span></span></div>
+    <div class="item"><span class="ln">6</span><span class="lt"><b>Pan-Link (low)</b><span>Links the below-crossover signal to the cursor pan.</span></span></div>
+    <div class="item"><span class="ln">7</span><span class="lt"><b>Match Energy</b><span>Compensates perceived loudness through the processing.</span></span></div>
+    <div class="item"><span class="ln">8</span><span class="lt"><b>Clean profile toggle</b><span>Selects the capture at the clean end of Profile.</span></span></div>
+    <div class="item"><span class="ln">9</span><span class="lt"><b>Profile (Focus)</b><span>Crossfades from least to most affected character.</span></span></div>
+    <div class="item"><span class="ln">10</span><span class="lt"><b>Dirty profile toggle</b><span>Selects the capture at the dirty end of Profile.</span></span></div>
+    <div class="item"><span class="ln">11</span><span class="lt"><b>Mix</b><span>Dry and processed blend.</span></span></div>
+    <div class="item"><span class="ln">12</span><span class="lt"><b>Pan-Link (dry)</b><span>Links the dry signal to the cursor pan.</span></span></div>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 6 · PARAMETER REFERENCE A ============================ -->
+<section class="page" data-screen-label="Parameter reference: pad and knobs">
+  <div class="kicker-row">
+    <div><div class="eyebrow">05 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">05</div>
+  </div>
+
+  <p class="section-lead">Every control, grouped as it appears in the plugin.</p>
+
+  <div class="grouptag">Center · XY pad</div>
+  <table class="pt">
+    <thead><tr><th style="width:24%;">Axis</th><th style="width:16%;">Direction</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Horizontal</td><td class="rng">left · right</td><td>Sets the balance between the two tonal profiles and the panning behavior of the placement across the stereo field.</td></tr>
+      <tr><td class="name">Vertical</td><td class="rng">up · down</td><td>Sets depth and perceived proximity. The further up, the more distant and intense the placement; down brings the element forward and closer.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag gold">Bottom · Knobs</div>
+  <table class="pt">
+    <thead><tr><th style="width:24%;">Control</th><th style="width:16%;">Range</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Crossover</td><td class="rng">~20 Hz to 20 kHz</td><td>Blends the dry signal back in below the shown frequency, so low end can stay forward and anchored while the rest of the signal is placed. The readout shows the current crossover frequency.</td></tr>
+      <tr><td class="name">Match Energy</td><td class="rng">0 to max</td><td>Reduces the perceived loudness change between input and processed output, so you judge placement on its spatial merits rather than a level jump.</td></tr>
+      <tr><td class="name">Profile <span style="font-weight:400;color:var(--muted);">(Focus)</span></td><td class="rng">Blue ↔ Red</td><td>Crossfades the tonal character. <span class="ckey blue"></span>Left is the least affected, most focused profile; <span class="ckey red"></span>right is the most affected, most distant profile. Click to swap which color mode is active.</td></tr>
+      <tr><td class="name">Mix</td><td class="rng">0 to 100%</td><td>Blends dry and processed signal. 100% is fully processed. Values in the lower half of the range, and around 50% in particular, blend the two paths most evenly and can introduce audible phase interaction.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout gold">
+    <div class="lbl">Tip</div>
+    <p>Match Energy is best left engaged while you audition placements. Without it, a louder or quieter processed path can make a setting feel better or worse than it really is.</p>
+  </div>
+
+  <div class="callout coral">
+    <div class="lbl">Known limitation · Mix phase</div>
+    <p>In the lower half of the Mix range, and most noticeably at 50%, the dry and processed paths can interact and introduce phase coloration. Favor Mix at or near 100% when you need the cleanest result. This behavior is being addressed in a future update.</p>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 7 · PARAMETER REFERENCE B ============================ -->
+<section class="page" data-screen-label="Parameter reference: toggles">
+  <div class="kicker-row">
+    <div><div class="eyebrow">05 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">05</div>
+  </div>
+
+  <div class="grouptag">Header · Pan Style</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Mode</th><th style="width:18%;">Color</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Isolate</td><td class="rng"><span class="ckey blue"></span>Blue</td><td>Isolates the stereo extremes for a harder, more deliberate placement across the field.</td></tr>
+      <tr><td class="name">Natural</td><td class="rng"><span class="ckey red"></span>Red</td><td>Preserves a low-passed, reduced version of the opposite side, for a more natural image that holds together better in mono and on small speakers.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag gold">Profile color toggles</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Toggle</th><th style="width:18%;">Selects</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Clean toggle</td><td class="rng">clean end</td><td>Chooses the capture used at the clean end of the Profile sweep. <span class="ckey blue"></span>Blue is a clean modeled room; <span class="ckey red"></span>Red is a flatter, more neutral measurement-style capture.</td></tr>
+      <tr><td class="name">Dirty toggle</td><td class="rng">dirty end</td><td>Chooses the capture used at the dirty end. <span class="ckey blue"></span>Blue is a flatter option; <span class="ckey red"></span>Red is a sparser, more affected and hazy ribbon capture.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag left">Pan-Link</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Toggle</th><th style="width:18%;">Links</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Pan-Link (low)</td><td class="rng">below crossover</td><td>The signal sitting below the Crossover frequency follows the cursor pan instead of staying centered, so the anchored low band moves with the placement.</td></tr>
+      <tr><td class="name">Pan-Link (dry)</td><td class="rng">dry path</td><td>The dry signal follows the cursor pan, keeping the unprocessed component aligned with the placed component rather than fixed in the center.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Header · Metering</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Readout</th><th style="width:18%;">Shows</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">IN</td><td class="rng">input</td><td>Level entering the plugin. Use it as the reference when gain-matching by eye.</td></tr>
+      <tr><td class="name">OUT</td><td class="rng">output</td><td>Level leaving the plugin after processing and Match Energy.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 8 · XY PAD IN DEPTH ============================ -->
+<section class="page" data-screen-label="XY pad and profiles in depth">
+  <div class="kicker-row">
+    <div><div class="eyebrow">06 · Deep dive</div><h1 class="page-h">The XY pad and profiles in depth</h1></div>
+    <div class="sec-no">06</div>
+  </div>
+
+  <p class="section-lead">The pad and the Profile knob are the same idea seen from two angles. Understanding how they interact makes the rest of the plugin intuitive.</p>
+
+  <div class="block">
+    <h3>Reading the two axes</h3>
+    <p>Treat the pad as a map of the space behind your speakers. The <strong>vertical</strong> position is distance: high on the pad sends the element back and dials up the intensity of the effect, low on the pad keeps it close and present. The <strong>horizontal</strong> position does two things at once, it pans the placement and it shifts the balance between the clean and dirty profiles, so moving sideways changes both where the element sits and how focused it sounds.</p>
+  </div>
+
+  <div class="block">
+    <h3>Clean versus dirty, and why the toggles matter</h3>
+    <div class="two-col">
+      <p><strong>The clean end</strong> is for placements that should stay defined: a vocal that moves back a step but keeps its edges, a guitar that sits behind the lead without going soft. Its toggle picks between a modeled ideal room and a flatter measurement capture.</p>
+      <p><strong>The dirty end</strong> is for distance and haze: a part that should read as far away, dark, and slightly out of focus. Its toggle picks between a flatter option and a sparse ribbon capture that is intentionally fuzzy and unfocused.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Keeping the low end in place</h3>
+    <p>Spatial processing on a full-range source can thin out the low end. The <strong>Crossover</strong> control blends the dry signal back below its frequency, so the kick and bass weight stay forward and centered while the body of the sound is placed. If you would rather the low band travel with the placement, enable <strong>Pan-Link</strong> so it follows the cursor instead of holding center.</p>
+    <div class="callout coral">
+      <div class="lbl">When to reach for it</div>
+      <p>Raise the Crossover on bass-heavy sources, drum buses, and anything where moving the lows back makes the mix feel smaller than you intended.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Watching the meters</h3>
+    <p>Spatial moves change perceived level, which makes A/B judgments unreliable. Keep <strong>Match Energy</strong> engaged and watch the IN and OUT meters so a placement is chosen because it sounds right in the mix, not because it happens to be a little louder.</p>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 9 · WORKFLOWS ============================ -->
+<section class="page" data-screen-label="Workflows">
+  <div class="kicker-row">
+    <div><div class="eyebrow">07 · Practice</div><h1 class="page-h">Workflows</h1></div>
+    <div class="sec-no">07</div>
+  </div>
+
+  <p class="section-lead">Starting points, not rules. Adjust to the material and trust your ears.</p>
+
+  <div class="wf">
+    <h4><span class="wn">01</span>Push a part back in the mix</h4>
+    <p>Set Mix to 100% while you design the tone, pick a profile, and drag the cursor up and slightly to one side. Engage Match Energy so the level does not fool you, then blend Mix back if you want some of the dry element to remain up front.</p>
+    <div class="recipe"><span class="chip">Mix <b>100% then blend</b></span><span class="chip">Cursor <b>up / back</b></span><span class="chip">Match Energy <b>on</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">02</span>Natural placement that holds in mono</h4>
+    <p>Choose Pan Style Red so a reduced, low-passed opposite side is preserved. This keeps the image believable and mono-compatible rather than hard-panned, which suits backing vocals and ambient layers.</p>
+    <div class="recipe"><span class="chip">Pan Style <b>Red</b></span><span class="chip">Profile <b>clean side</b></span><span class="chip">Cursor <b>gentle</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">03</span>Far and hazy</h4>
+    <p>Run the Profile toward Red and set the dirty toggle to its sparse ribbon capture. Drag the cursor high for distance. The result is dark and out of focus, useful for parts that should sit clearly behind everything else.</p>
+    <div class="recipe"><span class="chip">Profile <b>toward Red</b></span><span class="chip">Dirty toggle <b>sparse</b></span><span class="chip">Cursor <b>high</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">04</span>Keep the low end anchored</h4>
+    <p>On bass-heavy sources, raise the Crossover so the low band passes dry and stays centered while the rest is placed. If the lows should travel with the move, turn on Pan-Link for that band.</p>
+    <div class="recipe"><span class="chip">Crossover <b>up</b></span><span class="chip">Pan-Link <b>optional</b></span><span class="chip">Mix <b>to taste</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">05</span>Let small moves do the work</h4>
+    <p>Extreme cursor positions can sound effortful. Make small XY movements and short Profile sweeps; the placement tends to read as more musical and sits in a busy mix more easily.</p>
+    <div class="recipe"><span class="chip">XY <b>small moves</b></span><span class="chip">Profile <b>short sweeps</b></span></div>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 10 · FAQ ============================ -->
+<section class="page" data-screen-label="FAQ and troubleshooting">
+  <div class="kicker-row">
+    <div><div class="eyebrow">08 · Support</div><h1 class="page-h">FAQ and troubleshooting</h1></div>
+    <div class="sec-no">08</div>
+  </div>
+
+  <div class="faq"><div class="q">Marco does not appear in my DAW.</div><div class="a">Confirm the DAW has rescanned plugins after installation, and that the VST3, AU, and CLAP system folders are in its scan paths. Some hosts require a manual rescan or a restart.</div></div>
+
+  <div class="faq"><div class="q">It sounds like reverb. I thought it was not reverb.</div><div class="a">The dirty profiles are built from reflections, so a small reverberant character is part of the effect. The tail is essentially non-existent compared with a normal reverb, so if a setting feels washy, move the cursor up and forward, lower Mix, or sweep Profile toward the clean end.</div></div>
+
+  <div class="faq"><div class="q">The processed signal jumps in level.</div><div class="a">Engage Match Energy. It compensates the perceived loudness change between input and output so you can judge placement without a level bias. Use the IN and OUT meters to confirm.</div></div>
+
+  <div class="faq"><div class="q">The low end thins out when I place a part.</div><div class="a">Raise the Crossover so the signal below that frequency passes dry and stays anchored. Leave Pan-Link off if you want the low band to hold center.</div></div>
+
+  <div class="faq"><div class="q">Something sounds phasey at in-between Mix settings.</div><div class="a">Blending the dry and processed paths can introduce phase interaction, most noticeably in the lower half of the Mix range and around 50%. Favor Mix at or near 100%, or automate from dry to wet rather than parking at a midpoint, and keep Match Energy engaged. This is a known limitation that is being addressed in a future update.</div></div>
+
+  <div class="faq"><div class="q">Marco asks for activation in old projects after a system rebuild.</div><div class="a">After replacing or reinstalling a drive you will need to reactivate, since activations are not part of a normal file backup. Most instances reactivate normally. In rare cases an older saved instance keeps prompting; recreating that project, or copying its content into a fresh project, resolves it. New instances are unaffected. If it persists, contact support with your DAW and version.</div></div>
+
+  <div class="faq"><div class="q">How do I know when there is an update.</div><div class="a">Marco checks brucejames.studio/version.txt and shows an indicator in the top right of the window when a newer build is available. Updates install over the current version and preserve presets and project state.</div></div>
+
+  <div class="faq"><div class="q">What is the difference between the two color toggles and the Profile knob.</div><div class="a">The Profile knob crossfades between a clean end and a dirty end. Each toggle chooses which specific capture sits at its end of that sweep, so the knob sets the balance and the toggles set the ingredients.</div></div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<!-- ============================ 11 · LICENSE + CONTACT ============================ -->
+<section class="page" data-screen-label="License and contact">
+  <div class="kicker-row">
+    <div><div class="eyebrow">09 · Legal</div><h1 class="page-h">License and contact</h1></div>
+    <div class="sec-no">09</div>
+  </div>
+
+  <div class="block">
+    <h3>License</h3>
+    <p>Use of Marco is governed by the end user license agreement included with the distribution as <span style="font-family:var(--mono);font-size:12px;">license.txt</span>. Please refer to that file for the full terms. Your purchase authorizes installation under the conditions described there.</p>
+  </div>
+
+  <div class="block">
+    <h3>Included files</h3>
+    <p>The distribution archive contains the installer along with <span style="font-family:var(--mono);font-size:12px;">readme.txt</span> for installation notes, <span style="font-family:var(--mono);font-size:12px;">changelog.txt</span> for version history, and <span style="font-family:var(--mono);font-size:12px;">license.txt</span> for the agreement. The readme is the canonical source for installation details.</p>
+  </div>
+
+  <div class="block">
+    <h3>Support and contact</h3>
+    <div class="contact-grid">
+      <div class="c"><div class="k">Studio</div><div class="v">BruceJames.studio</div></div>
+      <div class="c"><div class="k">Web</div><div class="v">brucejames.studio</div></div>
+      <div class="c"><div class="k">Support</div><div class="v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="285b5d5858475a5c684a5a5d4b4d4249454d5b065b5c5d4c4147">[email&#160;protected]</a></div></div>
+      <div class="c"><div class="k">Version</div><div class="v">Marco 1.1.12</div></div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:30px;">
+    <div class="lbl">Before you write in</div>
+    <p>Including your DAW, its version, your Windows version, and the plugin format you are running helps support resolve issues faster.</p>
+  </div>
+
+  <div style="margin-top:60px;text-align:center;">
+    <div style="display:inline-flex;align-items:center;gap:12px;">
+      <span style="width:18px;height:18px;border-radius:50%;background:var(--gold);-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
+      <span style="font-family:var(--disp);font-size:20px;font-weight:700;color:var(--green-deep);letter-spacing:0.04em;">MARCO</span>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--faint);margin-top:12px;text-transform:uppercase;">Spatial placement and depth processor · macOS and Windows · VST3, AU, and CLAP</p>
+  </div>
+
+  <div class="footer"><span>Marco User Guide</span><span class="b">BruceJames.studio · v1.1.12</span></div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

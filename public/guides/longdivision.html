@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LongDivision User Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f3;
+    --ink:#182a25;
+    --muted:#5e6f6a;
+    --faint:#8a958f;
+    --line:#dcd8cd;
+    --teal:#1d8473;
+    --teal-deep:#0d342e;
+    --teal-deeper:#072420;
+    --coral:#e58a9e;
+    --coral-deep:#c96b82;
+    --yellow:#e3b24b;
+    --cyan:#8ec9bd;
+    --display:#2a201c;
+    --sans:"IBM Plex Sans",system-ui,sans-serif;
+    --disp:"Space Grotesk",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#e7e4db;
+    font-family:var(--sans);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    padding:40px 0;
+  }
+
+  .page{
+    position:relative;
+    width:816px;
+    min-height:1056px;
+    margin:0 auto 34px;
+    background:var(--paper);
+    box-shadow:0 2px 16px rgba(0,0,0,0.10);
+    border-radius:3px;
+    padding:84px 80px 76px;
+    overflow:hidden;
+  }
+
+  /* ---- shared type ---- */
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:600;color:var(--teal-deep);margin:0;line-height:1.15;letter-spacing:-0.01em;}
+  p{margin:0 0 13px;}
+  .lede{font-size:16.5px;line-height:1.62;color:#26342f;}
+  strong{font-weight:600;color:var(--ink);}
+  a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(29,132,115,0.35);}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--teal);font-weight:500;}
+  .kicker-row{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1.5px solid var(--teal-deep);padding-bottom:12px;margin-bottom:30px;}
+  .kicker-row .sec-no{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:0.1em;}
+  .page-h{font-size:30px;margin-top:6px;}
+
+  .section-lead{font-size:15px;color:var(--muted);margin-bottom:26px;max-width:58ch;}
+
+  /* ---- running footer ---- */
+  .footer{position:absolute;left:80px;right:80px;bottom:40px;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;color:var(--faint);text-transform:uppercase;
+    border-top:1px solid var(--line);padding-top:11px;}
+  .footer .b{color:var(--teal);}
+
+  /* ============ COVER ============ */
+  .cover{
+    background:radial-gradient(120% 90% at 50% 8%,#0e3b33 0%,var(--teal-deep) 42%,var(--teal-deeper) 100%);
+    color:#eef3f0;
+    padding:74px 76px;
+    display:flex;flex-direction:column;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .cover .brand{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--cyan);text-transform:uppercase;}
+  .cover .mark{display:flex;align-items:center;gap:14px;margin-top:auto;}
+  .cover .mark .dot{width:30px;height:30px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 7px rgba(229,138,158,0.16);}
+  .cover .title{font-family:var(--disp);font-weight:700;font-size:78px;line-height:0.98;letter-spacing:-0.03em;margin-top:26px;}
+  .cover .title .b{color:#f4efe6;}
+  .cover .title .d{color:var(--coral);}
+  .cover .sub{font-size:19px;color:#cfe0db;margin-top:18px;font-weight:400;max-width:30ch;}
+  .cover .rule{height:1.5px;background:linear-gradient(90deg,var(--coral),rgba(229,138,158,0));margin:40px 0 0;width:100%;}
+  .cover .meta{display:flex;gap:46px;margin-top:30px;}
+  .cover .meta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;}
+  .cover .meta .v{font-family:var(--disp);font-size:17px;color:#eef3f0;font-weight:500;}
+  .cover .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:#9fb6b0;}
+  .cover .doctype{font-family:var(--disp);font-size:15px;letter-spacing:0.32em;text-transform:uppercase;color:var(--cyan);font-weight:500;}
+
+  /* ============ CONTENTS ============ */
+  .toc{list-style:none;padding:0;margin:0;}
+  .toc li{display:flex;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);}
+  .toc .n{font-family:var(--mono);font-size:13px;color:var(--coral-deep);width:30px;flex:none;font-weight:500;}
+  .toc .t{font-family:var(--disp);font-size:17px;color:var(--teal-deep);font-weight:500;flex:1;}
+  .toc .pg{font-family:var(--mono);font-size:12px;color:var(--faint);}
+
+  /* ============ generic blocks ============ */
+  .block{margin-bottom:24px;break-inside:avoid;}
+  .block h3{font-size:17px;margin-bottom:8px;}
+  .block h3 .num{font-family:var(--mono);color:var(--coral-deep);font-size:14px;margin-right:9px;}
+
+  .callout{background:#f1efe7;border-left:3px solid var(--teal);padding:15px 18px;margin:18px 0;border-radius:0 4px 4px 0;}
+  .callout .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;}
+  .callout p{margin:0;font-size:14px;}
+  .callout.coral{border-left-color:var(--coral-deep);}
+  .callout.coral .lbl{color:var(--coral-deep);}
+
+  /* parameter tables */
+  table.pt{width:100%;border-collapse:collapse;margin:6px 0 4px;}
+  table.pt th{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:0 10px 8px 0;border-bottom:1.5px solid var(--teal-deep);}
+  table.pt td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:13.5px;line-height:1.5;}
+  table.pt td.name{font-family:var(--disp);font-weight:600;color:var(--teal-deep);font-size:13.5px;white-space:nowrap;}
+  table.pt td.rng{font-family:var(--mono);font-size:11.5px;color:var(--coral-deep);white-space:nowrap;}
+  table.pt tr{break-inside:avoid;}
+
+  .grouptag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;background:var(--teal);padding:4px 11px;border-radius:3px;margin:24px 0 12px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .grouptag.left{background:var(--coral-deep);}
+
+  /* ============ interface tour ============ */
+  .shot-wrap{position:relative;width:100%;margin:4px 0 0;border-radius:6px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,0.18);}
+  .shot-wrap img{display:block;width:100%;}
+  .marker{position:absolute;width:21px;height:21px;border-radius:50%;background:var(--coral);color:#3a1620;
+    font-family:var(--mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;
+    transform:translate(-50%,-50%);box-shadow:0 0 0 2px rgba(250,248,243,0.9),0 1px 4px rgba(0,0,0,0.4);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .legend{column-count:2;column-gap:34px;margin-top:22px;}
+  .legend .item{break-inside:avoid;display:flex;gap:11px;padding:7px 0;align-items:baseline;}
+  .legend .ln{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--coral-deep);flex:none;width:18px;}
+  .legend .lt b{font-family:var(--disp);font-size:13px;color:var(--teal-deep);display:block;margin-bottom:1px;}
+  .legend .lt span{font-size:11.5px;color:var(--muted);line-height:1.4;}
+
+  /* ============ correlation diagram ============ */
+  .axis{margin:24px 0 8px;}
+  .axis .track{position:relative;height:46px;background:linear-gradient(90deg,#2a201c,#3a2c25);border-radius:5px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .axis .win{position:absolute;top:0;bottom:0;left:24%;right:34%;background:rgba(227,178,75,0.34);border-left:2px solid var(--yellow);border-right:2px solid var(--yellow);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .axis .center{position:absolute;top:-6px;bottom:-6px;left:50%;width:1px;background:rgba(255,255,255,0.35);}
+  .axis .bar{position:absolute;height:5px;border-radius:3px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .axis-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:9px;}
+  .handle{position:absolute;top:-7px;width:11px;height:60px;background:var(--paper);border:2px solid var(--yellow);border-radius:3px;transform:translateX(-50%);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  /* ============ workflows ============ */
+  .wf{break-inside:avoid;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--line);}
+  .wf:last-child{border-bottom:none;}
+  .wf h4{font-size:16px;margin-bottom:4px;display:flex;align-items:baseline;gap:10px;}
+  .wf h4 .wn{font-family:var(--mono);font-size:12px;color:var(--coral-deep);}
+  .wf .recipe{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 0;}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:0.04em;color:var(--teal-deep);background:#eef0e9;border:1px solid var(--line);padding:4px 9px;border-radius:3px;}
+  .chip b{color:var(--coral-deep);font-weight:600;}
+
+  /* ============ FAQ ============ */
+  .faq{break-inside:avoid;margin-bottom:18px;}
+  .faq .q{font-family:var(--disp);font-weight:600;font-size:14.5px;color:var(--teal-deep);margin-bottom:4px;}
+  .faq .q::before{content:"Q";font-family:var(--mono);color:var(--coral-deep);margin-right:9px;font-size:12px;}
+  .faq .a{font-size:13.5px;color:#2c3a35;padding-left:26px;}
+
+  /* steps */
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0;}
+  ol.steps li{position:relative;padding:0 0 16px 40px;break-inside:avoid;}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:50%;
+    background:var(--teal-deep);color:#fff;font-family:var(--mono);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  ol.steps li b{font-family:var(--disp);}
+
+  .two-col{column-count:2;column-gap:30px;}
+  .two-col p{break-inside:avoid;}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;margin-top:14px;}
+  .contact-grid .c .k{font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:4px;}
+  .contact-grid .c .v{font-family:var(--disp);font-size:15px;color:var(--teal-deep);font-weight:500;}
+
+  @media print{
+    body{background:none;padding:0;}
+    .page{box-shadow:none;border-radius:0;margin:0;width:auto;min-height:auto;break-after:page;}
+    .page:last-child{break-after:auto;}
+  }
+  @page{size:letter;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ============================ 1 · COVER ============================ -->
+<section class="page cover" data-screen-label="Cover">
+  <div class="brand">BruceJames.studio</div>
+  <div class="mark"><span class="dot"></span></div>
+  <div class="title"><span class="b">long</span><span class="d">Division</span></div>
+  <div class="sub">Frequency-band stereo widener</div>
+  <div class="rule"></div>
+  <div class="meta">
+    <div><div class="k">Version</div><div class="v">1.0.0</div></div>
+    <div><div class="k">Platform</div><div class="v">Windows</div></div>
+    <div><div class="k">Formats</div><div class="v">VST3 and CLAP</div></div>
+  </div>
+  <div class="foot">
+    <div class="doctype">User Guide</div>
+    <div>brucejames.studio</div>
+  </div>
+</section>
+
+<!-- ============================ 2 · CONTENTS + OVERVIEW ============================ -->
+<section class="page" data-screen-label="Contents and overview">
+  <div class="kicker-row">
+    <div><div class="eyebrow">LongDivision</div><h1 class="page-h">Contents</h1></div>
+    <div class="sec-no">01</div>
+  </div>
+
+  <ul class="toc">
+    <li><span class="n">01</span><span class="t">Overview and the core idea</span><span class="pg">02</span></li>
+    <li><span class="n">02</span><span class="t">How it works</span><span class="pg">03</span></li>
+    <li><span class="n">03</span><span class="t">Installation and authorization</span><span class="pg">04</span></li>
+    <li><span class="n">04</span><span class="t">Interface tour</span><span class="pg">05</span></li>
+    <li><span class="n">05</span><span class="t">Parameter reference</span><span class="pg">06</span></li>
+    <li><span class="n">06</span><span class="t">The Target Window in depth</span><span class="pg">08</span></li>
+    <li><span class="n">07</span><span class="t">Workflows</span><span class="pg">09</span></li>
+    <li><span class="n">08</span><span class="t">FAQ and troubleshooting</span><span class="pg">10</span></li>
+    <li><span class="n">09</span><span class="t">License and contact</span><span class="pg">11</span></li>
+  </ul>
+
+  <div style="margin-top:40px;">
+    <div class="eyebrow">01 · Overview</div>
+    <h2 style="font-size:23px;margin:10px 0 14px;">A widener that only touches what needs widening</h2>
+    <p class="lede">LongDivision splits the incoming stereo signal into frequency bands and measures how correlated each band is, from perfectly mono to fully out of phase. It then widens only the bands whose correlation falls inside a target window you define. Everything outside the window passes through untouched.</p>
+    <p class="lede">The result is selective and mono compatible. Already wide material is left alone, so widening is applied where it is useful rather than across the whole signal.</p>
+
+    <div class="callout">
+      <div class="lbl">In one line</div>
+      <p>Measure correlation per band, capture a range of it with the Target Window, and add stereo width only to the captured bands.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 3 · HOW IT WORKS ============================ -->
+<section class="page" data-screen-label="How it works">
+  <div class="kicker-row">
+    <div><div class="eyebrow">02 · Concept</div><h1 class="page-h">How it works</h1></div>
+    <div class="sec-no">02</div>
+  </div>
+
+  <p class="section-lead">Three ideas explain almost everything LongDivision does: per-band correlation, the Target Window, and the per-band gate.</p>
+
+  <div class="block">
+    <h3><span class="num">01</span>Per-band correlation</h3>
+    <p>The signal is divided into frequency bands set by the Resolution control. For each band, LongDivision compares the left and right channels and places the band on a correlation axis. Bands where left and right are nearly identical sit toward <strong>Equal</strong>. Bands where the channels diverge or invert sit toward <strong>Opposite</strong>.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">02</span>The Target Window captures a range</h3>
+    <p>The Target Window is a dual-handle slider running from Equal to Opposite. Its two handles define a correlation range. Only bands that land between the handles are processed. In the spectrum display the captured zone is shown in yellow, so you can see exactly which bands are being widened in real time.</p>
+
+    <div class="axis">
+      <div class="track">
+        <div class="center"></div>
+        <div class="win"></div>
+        <div class="bar" style="left:50%;width:9%;top:8px;background:var(--cyan);"></div>
+        <div class="bar" style="right:50%;width:9%;top:8px;background:var(--coral);"></div>
+        <div class="bar" style="left:50%;width:20%;top:20px;background:var(--cyan);"></div>
+        <div class="bar" style="right:50%;width:20%;top:20px;background:var(--coral);"></div>
+        <div class="bar" style="left:50%;width:34%;top:32px;background:var(--cyan);"></div>
+        <div class="bar" style="right:50%;width:34%;top:32px;background:var(--coral);"></div>
+        <div class="handle" style="left:24%;"></div>
+        <div class="handle" style="left:66%;"></div>
+      </div>
+      <div class="axis-labels"><span>Equal · mono</span><span>Captured range</span><span>Opposite · out of phase</span></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:14px;">Schematic. Bands extend left and right from the center line by an amount that reflects their correlation. The yellow region marks the inner and outer handles. Bands reaching into that region are widened; the rest are left as they are.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="num">03</span>A gate tracks the window</h3>
+    <p>Bands move in and out of the window as the music changes. A per-band gate manages those transitions: <strong>Attack</strong> sets how quickly widening fades in when a band enters the window, and <strong>Release</strong> sets how long it takes to fade out after a band leaves. This keeps the effect smooth rather than chattering as content crosses the boundary.</p>
+  </div>
+
+  <div class="callout coral">
+    <div class="lbl">Mono compatibility</div>
+    <p>Because widening is confined to a chosen correlation range and can be capped with Lock to Window, LongDivision avoids the phase problems that come from widening an entire mix indiscriminately.</p>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 4 · INSTALLATION ============================ -->
+<section class="page" data-screen-label="Installation and authorization">
+  <div class="kicker-row">
+    <div><div class="eyebrow">03 · Setup</div><h1 class="page-h">Installation and authorization</h1></div>
+    <div class="sec-no">03</div>
+  </div>
+
+  <p class="section-lead">LongDivision runs on Windows in VST3 and CLAP hosts. Installation places the plugin in the standard system folders that compatible DAWs scan automatically.</p>
+
+  <div class="block">
+    <h3>Install</h3>
+    <ol class="steps">
+      <li><b>Close your DAW</b> before installing so it rescans plugins on the next launch.</li>
+      <li><b>Run the installer</b> and accept the license agreement. The VST3 build installs to <span style="font-family:var(--mono);font-size:12px;">C:\Program Files\Common Files\VST3</span> and the CLAP build to <span style="font-family:var(--mono);font-size:12px;">C:\Program Files\Common Files\CLAP</span>.</li>
+      <li><b>Launch your DAW</b> and let it rescan. If LongDivision does not appear, trigger a manual rescan or add the folders above to your plugin paths.</li>
+      <li><b>Insert LongDivision</b> on a stereo channel, bus, or master. The plugin operates on stereo signal, so a mono track has nothing to widen.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h3>Authorization</h3>
+    <p>Open the plugin and use the <strong>Authorize</strong> control to enter the license key from your purchase confirmation. Once accepted, the key is stored and applies to every instance on that machine. Until then the plugin runs in its trial state.</p>
+  </div>
+
+  <div class="block">
+    <h3>Updates</h3>
+    <p>The settings gear includes an update check. When a newer build is available, an <strong>Update Available</strong> indicator appears near the top of the window. Updates install over the existing version; your saved presets and project state are preserved.</p>
+  </div>
+
+  <div class="callout">
+    <div class="lbl">Display scaling</div>
+    <p>The window is 1120 by 716 pixels and scales to 75, 100, or 150 percent from the settings gear. Choose the scale that suits your display, then save it as part of your default state.</p>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 5 · INTERFACE TOUR ============================ -->
+<section class="page" data-screen-label="Interface tour">
+  <div class="kicker-row">
+    <div><div class="eyebrow">04 · Reference</div><h1 class="page-h">Interface tour</h1></div>
+    <div class="sec-no">04</div>
+  </div>
+
+  <p class="section-lead">Three zones: controls on the left, the live spectrum and Target Window in the center, and the shaping groups on the right.</p>
+
+  <div class="shot-wrap">
+    <img src="assets/longdivision-ui.png" alt="LongDivision plugin interface">
+    <span class="marker" style="left:9.5%;top:5.2%;">1</span>
+    <span class="marker" style="left:10%;top:21.8%;">2</span>
+    <span class="marker" style="left:10%;top:39.8%;">3</span>
+    <span class="marker" style="left:10%;top:50.6%;">4</span>
+    <span class="marker" style="left:10%;top:94%;">5</span>
+    <span class="marker" style="left:43%;top:42%;">6</span>
+    <span class="marker" style="left:34%;top:95%;">7</span>
+    <span class="marker" style="left:57%;top:94.5%;">8</span>
+    <span class="marker" style="left:82%;top:25.5%;">9</span>
+    <span class="marker" style="left:82%;top:46%;">10</span>
+    <span class="marker" style="left:83%;top:66.5%;">11</span>
+    <span class="marker" style="left:82%;top:87.5%;">12</span>
+    <span class="marker" style="left:98.5%;top:97.5%;">13</span>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="ln">1</span><span class="lt"><b>Bypass · Null</b><span>Hard bypass and the null test for monitoring only what is added.</span></span></div>
+    <div class="item"><span class="ln">2</span><span class="lt"><b>Width</b><span>Stereo spread added per captured band, 0 to 8.</span></span></div>
+    <div class="item"><span class="ln">3</span><span class="lt"><b>Resolution</b><span>Number of analysis bands, 4 to 256.</span></span></div>
+    <div class="item"><span class="ln">4</span><span class="lt"><b>Lock to Window</b><span>Caps widening at the outer handle position.</span></span></div>
+    <div class="item"><span class="ln">5</span><span class="lt"><b>Status readout</b><span>Plugin name, state, and version.</span></span></div>
+    <div class="item"><span class="ln">6</span><span class="lt"><b>Spectrum display</b><span>Per-band correlation, left and right of center, with the captured zone in yellow.</span></span></div>
+    <div class="item"><span class="ln">7</span><span class="lt"><b>Target Window</b><span>Dual-handle slider from Equal to Opposite.</span></span></div>
+    <div class="item"><span class="ln">8</span><span class="lt"><b>Magnitude Bias</b><span>None, Loud, or Quiet weighting across captured bands.</span></span></div>
+    <div class="item"><span class="ln">9</span><span class="lt"><b>Shape group</b><span>LFO Amt, LFO Rate, Attack, Release.</span></span></div>
+    <div class="item"><span class="ln">10</span><span class="lt"><b>Target group</b><span>HPF, LPF, Tilt.</span></span></div>
+    <div class="item"><span class="ln">11</span><span class="lt"><b>Mix</b><span>Dry and wet blend.</span></span></div>
+    <div class="item"><span class="ln">12</span><span class="lt"><b>Bias group</b><span>Emphasis threshold and Curve.</span></span></div>
+    <div class="item"><span class="ln">13</span><span class="lt"><b>Settings gear</b><span>Display scale and update check.</span></span></div>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 6 · PARAMETER REFERENCE A ============================ -->
+<section class="page" data-screen-label="Parameter reference: left and center">
+  <div class="kicker-row">
+    <div><div class="eyebrow">05 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">05</div>
+  </div>
+
+  <p class="section-lead">Every control, grouped as it appears in the plugin. Ranges and behavior follow the in-app tooltips.</p>
+
+  <div class="grouptag left">Left panel</div>
+  <table class="pt">
+    <thead><tr><th style="width:24%;">Control</th><th style="width:16%;">Range</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Width</td><td class="rng">0 to 8</td><td>How much stereo spread to add per captured band. 0 is off, 8 is maximum.</td></tr>
+      <tr><td class="name">Resolution</td><td class="rng">4 to 256</td><td>Number of frequency bands. More bands give finer detail at higher CPU cost.</td></tr>
+      <tr><td class="name">Lock to Window</td><td class="rng">on · off</td><td>When on, scales widening so processed bands cannot be pushed wider than the outer handle position.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Center · Target Window</div>
+  <table class="pt">
+    <thead><tr><th style="width:24%;">Control</th><th style="width:16%;">Axis</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Inner handle</td><td class="rng">Equal side</td><td>Lower bound of the captured correlation range. Sets how mono a band can be before it is processed.</td></tr>
+      <tr><td class="name">Outer handle</td><td class="rng">Opposite side</td><td>Upper bound of the captured range. Sets how wide a band can be and still be processed.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Center · Magnitude Bias</div>
+  <table class="pt">
+    <thead><tr><th style="width:24%;">Mode</th><th style="width:16%;">Tooltip</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">None</td><td class="rng">Flat</td><td>All bands within the window are widened equally.</td></tr>
+      <tr><td class="name">Loud</td><td class="rng">Louder Wider</td><td>Louder bands get widened more.</td></tr>
+      <tr><td class="name">Quiet</td><td class="rng">Louder Mono</td><td>Louder bands stay narrow; quieter bands get widened.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="lbl">Tip</div>
+    <p>Magnitude Bias decides which captured bands lean wider based on level. The Emphasis and Curve knobs in the Bias group shape how strongly that weighting is applied.</p>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 7 · PARAMETER REFERENCE B ============================ -->
+<section class="page" data-screen-label="Parameter reference: right panel">
+  <div class="kicker-row">
+    <div><div class="eyebrow">05 · Reference</div><h1 class="page-h">Parameter reference</h1></div>
+    <div class="sec-no">05</div>
+  </div>
+
+  <div class="grouptag">Shape</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">LFO Amt</td><td class="rng">0 to max</td><td>How much the LFO sweeps the stereo image. 0 is static.</td></tr>
+      <tr><td class="name">LFO Rate</td><td class="rng">Hz</td><td>Speed of the stereo image sweep.</td></tr>
+      <tr><td class="name">Attack</td><td class="rng">0 to 1000 ms</td><td>How quickly widening fades in when a band enters the Target Window.</td></tr>
+      <tr><td class="name">Release</td><td class="rng">0 to 1000 ms</td><td>How long before widening fades out after a band leaves the window.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Target</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">HPF</td><td class="rng">~20 Hz to 20 kHz</td><td>High-pass cutoff. Bands below this frequency are never widened.</td></tr>
+      <tr><td class="name">LPF</td><td class="rng">~20 Hz to 20 kHz</td><td>Low-pass cutoff. Bands above this frequency are never widened.</td></tr>
+      <tr><td class="name">Tilt</td><td class="rng">bipolar</td><td>Left widens only the right channel, right widens only the left channel, center widens both equally.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Mix</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Dry / Wet</td><td class="rng">0 to 100%</td><td>Blend between the dry input and the widened output. 100% is fully processed.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag">Bias</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">Range</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Emphasis</td><td class="rng">dB</td><td>Emphasis threshold. The level at which the emphasis effect engages.</td></tr>
+      <tr><td class="name">Curve</td><td class="rng">&lt;1 · 1 · &gt;1</td><td>Emphasis curve. 1 is linear, above 1 is selective toward loud bands, below 1 is broad across all bands.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grouptag left">Utility</div>
+  <table class="pt">
+    <thead><tr><th style="width:22%;">Control</th><th style="width:18%;">State</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Bypass</td><td class="rng">on · off</td><td>Hard bypass. Processing halts and the input passes through unchanged.</td></tr>
+      <tr><td class="name">Null Test</td><td class="rng">on · off</td><td>Subtracts the dry signal from the output so you hear only what LongDivision is adding.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 8 · TARGET WINDOW IN DEPTH ============================ -->
+<section class="page" data-screen-label="Target Window in depth">
+  <div class="kicker-row">
+    <div><div class="eyebrow">06 · Deep dive</div><h1 class="page-h">The Target Window in depth</h1></div>
+    <div class="sec-no">06</div>
+  </div>
+
+  <p class="section-lead">The Target Window is the heart of the plugin. Understanding the two handles makes everything else fall into place.</p>
+
+  <div class="block">
+    <h3>Reading the two handles</h3>
+    <p>The window runs along the correlation axis. The <strong>inner handle</strong>, toward Equal, is the lower bound: it decides how close to mono a band may be before it qualifies for widening. The <strong>outer handle</strong>, toward Opposite, is the upper bound: it decides how wide a band may already be and still be captured. A band is processed only when its measured correlation sits between the two.</p>
+  </div>
+
+  <div class="block">
+    <h3>Narrow window versus wide window</h3>
+    <div class="two-col">
+      <p><strong>A tight window near Equal</strong> targets only the most mono content. This is the surgical setting: widen a boxy, narrowly recorded element without disturbing parts that already have stereo information.</p>
+      <p><strong>A broad window</strong> reaching toward Opposite captures most of the signal, leaving only the widest material untouched. Use it for gentle, program-wide widening on a bus.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Lock to Window</h3>
+    <p>With Lock to Window enabled, the widening is scaled so a processed band cannot be pushed wider than the outer handle position. Rather than adding a fixed amount of spread, the effect respects the ceiling you set with the outer handle. This keeps results inside a defined stereo field, which matters when stems are being re-widened for a specific delivery format.</p>
+    <div class="callout coral">
+      <div class="lbl">When to reach for it</div>
+      <p>Turn it on whenever predictability matters more than maximum width: mastering, stem preparation, or any context with a hard stereo-field requirement.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Watching it work</h3>
+    <p>Keep an eye on the spectrum display. Bars that extend into the yellow zone are being widened in that moment; bars outside it are passing through. Because content shifts constantly, the captured set changes with the music, and the Attack and Release values smooth those transitions.</p>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 9 · WORKFLOWS ============================ -->
+<section class="page" data-screen-label="Workflows">
+  <div class="kicker-row">
+    <div><div class="eyebrow">07 · Practice</div><h1 class="page-h">Workflows</h1></div>
+    <div class="sec-no">07</div>
+  </div>
+
+  <p class="section-lead">Starting points, not rules. Adjust to the material and trust the display.</p>
+
+  <div class="wf">
+    <h4><span class="wn">01</span>Gentle bus widening</h4>
+    <p>Place LongDivision on a drum bus or mix bus. Set a moderate Width and open the Target Window to cover the center-to-moderate correlation range. Elements that are already wide stay where they are, while the more mono center gains a little air.</p>
+    <div class="recipe"><span class="chip">Width <b>3 to 4</b></span><span class="chip">Window <b>broad</b></span><span class="chip">Bias <b>None</b></span><span class="chip">Dry/Wet <b>100%</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">02</span>Fixing a narrow or boxy element</h4>
+    <p>On a narrowly recorded source such as a close-mic room or a mono DI, keep both handles close to Equal so only near-mono bands are captured. Raise Width until the element opens up without smearing.</p>
+    <div class="recipe"><span class="chip">Window <b>tight, near Equal</b></span><span class="chip">Width <b>5 to 8</b></span><span class="chip">Lock <b>optional</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">03</span>Surgical control with Lock to Window</h4>
+    <p>When the widening needs to stay within a defined stereo field, enable Lock to Window and set the outer handle to your ceiling. This is the setting for stems being re-widened for a specific format.</p>
+    <div class="recipe"><span class="chip">Lock <b>on</b></span><span class="chip">Outer handle <b>= ceiling</b></span><span class="chip">Width <b>to taste</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">04</span>Monitoring what you are adding</h4>
+    <p>Enable Null Test and solo the track. You hear only the widening signal, a phase difference of what was added. Use it to confirm the effect is clean and free of artifacts before committing.</p>
+    <div class="recipe"><span class="chip">Null Test <b>on</b></span><span class="chip">Solo <b>track</b></span></div>
+  </div>
+
+  <div class="wf">
+    <h4><span class="wn">05</span>High-resolution precision</h4>
+    <p>For dense material where you want to widen specific frequency ranges precisely, raise Resolution to 128 or more. Lower it again for lighter CPU use on simpler sources.</p>
+    <div class="recipe"><span class="chip">Resolution <b>128 to 256</b></span><span class="chip">Window <b>tight</b></span><span class="chip">CPU <b>watch</b></span></div>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 10 · FAQ ============================ -->
+<section class="page" data-screen-label="FAQ and troubleshooting">
+  <div class="kicker-row">
+    <div><div class="eyebrow">08 · Support</div><h1 class="page-h">FAQ and troubleshooting</h1></div>
+    <div class="sec-no">08</div>
+  </div>
+
+  <div class="faq"><div class="q">LongDivision does not appear in my DAW.</div><div class="a">Confirm the DAW has rescanned plugins after installation, and that the VST3 and CLAP system folders are in its scan paths. Some hosts require a manual rescan or a restart.</div></div>
+
+  <div class="faq"><div class="q">Nothing seems to happen on this track.</div><div class="a">The plugin widens stereo signal, so a mono source has nothing to act on. Check that the channel is stereo, that Mix is above zero, and that bands are actually reaching the yellow zone in the display. If the Target Window is set too tight, no bands may be captured.</div></div>
+
+  <div class="faq"><div class="q">CPU usage is high.</div><div class="a">Resolution is the main cost. High band counts give finer detail but use more CPU. Lower Resolution on simpler material, or freeze and bounce dense sessions.</div></div>
+
+  <div class="faq"><div class="q">The effect chatters or pumps as the music plays.</div><div class="a">Bands are crossing the window boundary quickly. Increase Attack and Release to slow the gate transitions, or widen the Target Window so bands sit inside it more consistently.</div></div>
+
+  <div class="faq"><div class="q">My widened mix collapses in mono.</div><div class="a">Enable Lock to Window to cap the spread, narrow the Target Window so less material is widened, and use Null Test to check what is being added. Reducing Width also helps preserve mono compatibility.</div></div>
+
+  <div class="faq"><div class="q">What does Null Test actually do?</div><div class="a">It subtracts the dry signal from the output, leaving only the difference LongDivision is introducing. Solo the track with it engaged to audition the widening signal in isolation.</div></div>
+
+  <div class="faq"><div class="q">How are Magnitude Bias and the Bias knobs related?</div><div class="a">Magnitude Bias chooses the weighting mode, None, Loud, or Quiet. The Emphasis threshold sets the level at which that weighting engages, and Curve sets how selective it is.</div></div>
+
+  <div class="faq"><div class="q">Do my presets survive an update.</div><div class="a">Yes. Updates install over the existing version and preserve saved presets and project state.</div></div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<!-- ============================ 11 · LICENSE + CONTACT ============================ -->
+<section class="page" data-screen-label="License and contact">
+  <div class="kicker-row">
+    <div><div class="eyebrow">09 · Legal</div><h1 class="page-h">License and contact</h1></div>
+    <div class="sec-no">09</div>
+  </div>
+
+  <div class="block">
+    <h3>License</h3>
+    <p>Use of LongDivision is governed by the end user license agreement included with the distribution as <span style="font-family:var(--mono);font-size:12px;">license.txt</span>. Please refer to that file for the full terms. Your purchase authorizes installation under the conditions described there.</p>
+  </div>
+
+  <div class="block">
+    <h3>Included files</h3>
+    <p>The distribution archive contains the installer along with <span style="font-family:var(--mono);font-size:12px;">readme.txt</span> for installation notes, <span style="font-family:var(--mono);font-size:12px;">changelog.txt</span> for version history, and <span style="font-family:var(--mono);font-size:12px;">license.txt</span> for the agreement. The readme is the canonical source for installation details.</p>
+  </div>
+
+  <div class="block">
+    <h3>Support and contact</h3>
+    <div class="contact-grid">
+      <div class="c"><div class="k">Studio</div><div class="v">BruceJames.studio</div></div>
+      <div class="c"><div class="k">Web</div><div class="v">brucejames.studio</div></div>
+      <div class="c"><div class="k">Support</div><div class="v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e89b9d9898879a9ca88a9a9d8b8d8289858d9bc69b9c9d8c8187">[email&#160;protected]</a></div></div>
+      <div class="c"><div class="k">Version</div><div class="v">LongDivision 1.0.0</div></div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:30px;">
+    <div class="lbl">Before you write in</div>
+    <p>Including your DAW, its version, your Windows version, and the plugin format you are running helps support resolve issues faster.</p>
+  </div>
+
+  <div style="margin-top:60px;text-align:center;">
+    <div style="display:inline-flex;align-items:center;gap:12px;">
+      <span style="width:18px;height:18px;border-radius:50%;background:var(--coral);-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
+      <span style="font-family:var(--disp);font-size:20px;font-weight:700;color:var(--teal-deep);letter-spacing:-0.02em;">long<span style="color:var(--coral-deep);">Division</span></span>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--faint);margin-top:12px;text-transform:uppercase;">Frequency-band stereo widener · Windows · VST3 and CLAP</p>
+  </div>
+
+  <div class="footer"><span>LongDivision User Guide</span><span class="b">BruceJames.studio · v1.0.0</span></div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

@@ -24,6 +24,7 @@ export interface Product {
   demoWin: string;
   demoMac?: string;     // optional: not all builds ship for macOS yet
   demoLinux?: string;   // optional: only some plugins ship a Linux build
+  guideUrl?: string;    // optional: not every plugin has a user guide yet
 }
 
 // Source of truth for the catalog cards. Order = display order.
@@ -36,6 +37,7 @@ export const PRODUCTS: Product[] = [
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_2.0.2.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-2.0.2-mac.pkg',
     demoLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-linux-v2.0.2.zip',
+    guideUrl: '/guides/deepperfection.html',
   },
   {
     slug: 'marco', name: 'Marco', category: 'Stereo / Space',
@@ -44,6 +46,7 @@ export const PRODUCTS: Product[] = [
     price: '$29.99', buyUrl: 'https://plugins.brucejames.studio?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_1.1.15.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Marco_1.1.15_mac.zip',
+    guideUrl: '/guides/marco.html',
   },
   {
     slug: 'slushbus', name: 'SlushBus', category: 'Dynamics / Glue',
@@ -70,6 +73,7 @@ export const PRODUCTS: Product[] = [
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.2.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision-1.0.2-mac.pkg',
     demoLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision-linux_v1_0_2.zip',
+    guideUrl: '/guides/longdivision.html',
   },
   {
     slug: 'planar', name: 'Planar', category: 'EQ / Spectral Balance',
@@ -85,6 +89,7 @@ export const PRODUCTS: Product[] = [
     price: '$29.99', buyUrl: 'https://brucejames.gumroad.com/l/slursh?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/Slursh_1.0.0_mac.zip',
+    guideUrl: '/guides/slursh.html',
   },
 ];
 

@@ -4,6 +4,7 @@
 
 Site: https://brucejames.studio
 Downloads / free demos: https://brucejames.studio/downloads
+User guides / manuals: https://brucejames.studio/guides
 
 ## Plugins
 
@@ -18,6 +19,17 @@ Downloads / free demos: https://brucejames.studio/downloads
 ## Bundles
 
 - [The Everything Bundle](https://brucejames.gumroad.com/l/everything) — $99. Every BruceJames plugin (DeepPerfection, Marco, longDivision, Slursh, SlushBus, and the free YouAreNotCrazy). Buying separately is $154.95. Full plugins, free updates for life.
+
+## User Guides
+
+Full manuals (overview, controls, workflows, troubleshooting) for the plugins that have one so far:
+
+- [DeepPerfection user guide](https://brucejames.studio/guides/deepperfection.html)
+- [Marco user guide](https://brucejames.studio/guides/marco.html)
+- [longDivision user guide](https://brucejames.studio/guides/longdivision.html)
+- [Slursh user guide](https://brucejames.studio/guides/slursh.html)
+
+SlushBus, Planar, and YouAreNotCrazy don't have a published guide yet.
 
 ## Key facts
 
