@@ -35,7 +35,7 @@ export const PRODUCTS: Product[] = [
     price: '$49.99', buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_2.0.2.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-2.0.2-mac.pkg',
-    demoLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-2.0.1-linux.zip',
+    demoLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-linux-v2.0.2.zip',
   },
   {
     slug: 'marco', name: 'Marco', category: 'Stereo / Space',
@@ -146,7 +146,7 @@ export const COMPARISONS: ComparisonSet[] = [
     sourceLabel: 'hear the full track',
     downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection_2.0.2.zip',
     downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-2.0.2-mac.pkg',
-    downloadLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-2.0.1-linux.zip',
+    downloadLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/DeepPerfection-linux-v2.0.2.zip',
     buyUrl: 'https://brucejames.gumroad.com/l/deepperfection?wanted=true',
     price: '$49.99',
     tracks: [
