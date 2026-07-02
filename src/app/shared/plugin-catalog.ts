@@ -51,7 +51,8 @@ export const PRODUCTS: Product[] = [
     blurb: 'Bus glue with movement and more control than anything in its class. Dozens of parameters and live diagnostics that add tension and release.',
     price: '$14.99', buyUrl: 'https://brucejames.gumroad.com/l/slushbus?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.5.zip',
-    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4_mac.zip',
+    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.5.pkg',
+    demoLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus-linux+v1.1.5.zip'
   },
   {
     slug: 'youarenotcrazy', name: 'YouAreNotCrazy', category: 'Utility / Diagnostics',
@@ -67,7 +68,8 @@ export const PRODUCTS: Product[] = [
     blurb: 'A stereo widener that splits the spectrum into bands and widens only the correlation range you choose. Target the loud or the quiet, shape it with an LFO and envelopes, keep the rest untouched.',
     price: '$29.99', buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
     demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.2.zip',
-    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1_mac.zip',
+    demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision-1.0.2-mac.pkg',
+    demoLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision-linux_v1_0_2.zip',
   },
   {
     slug: 'planar', name: 'Planar', category: 'EQ / Spectral Balance',
@@ -163,7 +165,8 @@ export const COMPARISONS: ComparisonSet[] = [
     description: 'Same drum loop, five widths. Hear the stereo field open up — and the LFO put it in motion.',
     tag: 'Widening',
     downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.2.zip',
-    downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision_1.0.1_mac.zip',
+    downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision-1.0.2-mac.pkg',
+    downloadLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/LongDivision-linux_v1_0_2.zip',
     buyUrl: 'https://brucejames.gumroad.com/l/longDivision?wanted=true',
     price: '$29.99',
     tracks: [
@@ -197,7 +200,8 @@ export const COMPARISONS: ComparisonSet[] = [
     plugin: 'SlushBus',
     description: 'A 2 track with SlushBus applied in strong and subtle amount.',
     downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.5.zip',
-    downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4_mac.zip',
+    downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.5.pkg',
+    downloadLinux: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus-linux+v1.1.5.zip',
     buyUrl: 'https://brucejames.gumroad.com/l/slushbus?wanted=true',
     price: '$14.99',
     tracks: [

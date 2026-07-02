@@ -1,7 +1,7 @@
 Marco:1.1.15
-SlushBus:1.1.4
-DeepPerfection:2.0.1
-longDivision:1.0.1
+SlushBus:1.1.5
+DeepPerfection:2.0.2
+longDivision:1.0.2
 YouAreNotCrazy:1.0.0
 GreatWallOfSound:1.0.0
 Thumbelina:1.0.0
