@@ -7,6 +7,8 @@ interface Activation {
   id: number;
   fingerprint: string;
   alias: string | null;
+  hostname: string;
+  os_name: string;
   activated_at: string;
 }
 

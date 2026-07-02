@@ -47,7 +47,8 @@
 
       <div class="ml-activation" *ngFor="let a of activations">
         <div class="ml-activation-info">
-          <span class="ml-machine-name">{{ a.alias ?? 'Unknown machine' }}</span>
+          <span class="ml-machine-name">{{ a.hostname || a.alias || 'Unknown machine' }}</span>
+          <span class="ml-machine-os" *ngIf="a.os_name">{{ a.os_name }}</span>
           <span class="ml-machine-fp">{{ a.fingerprint }}</span>
           <span class="ml-machine-date">Activated {{ a.activated_at }}</span>
         </div>
