@@ -83,6 +83,24 @@ export function pushEvent(event: string, label: string): void {
   }
 }
 
+// GA4 ecommerce purchase event, pushed from /thank-you once Gumroad redirects
+// a buyer back to us. Feeds the GA4 purchase event directly, and (via a custom
+// event trigger named "purchase" in GTM) the Google Ads Conversion Tracking tag.
+export function pushPurchase(transactionId: string, itemId: string, itemName: string, value: number): void {
+  if (typeof window === 'undefined' || !(window as any).dataLayer) return;
+  const dataLayer = (window as any).dataLayer;
+  dataLayer.push({ ecommerce: null }); // clear any previous ecommerce object first (GA4 best practice)
+  dataLayer.push({
+    event: 'purchase',
+    ecommerce: {
+      transaction_id: transactionId,
+      value,
+      currency: 'USD',
+      items: [{ item_id: itemId, item_name: itemName, price: value }],
+    },
+  });
+}
+
 // Fire-and-forget POST that survives the navigation a download/buy link starts.
 // Clicking an <a download> or target=_blank link makes the browser abort the
 // page's in-flight fetches (NS_BINDING_ABORTED in Firefox), so a plain fetch

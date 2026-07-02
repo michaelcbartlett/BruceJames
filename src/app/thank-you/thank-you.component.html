@@ -1,0 +1,16 @@
+<section class="ty-page">
+  <div class="ty-inner">
+    @if (productName) {
+      <span class="ty-eyebrow">Order confirmed</span>
+      <h1 class="ty-title">Thanks for grabbing {{ productName }}.</h1>
+    } @else {
+      <span class="ty-eyebrow">Thanks</span>
+      <h1 class="ty-title">Thanks for your purchase.</h1>
+    }
+    <p class="ty-lede">
+      Check your email for the receipt and download link from Gumroad.
+      If it doesn't show up in a few minutes, check spam before reaching out.
+    </p>
+    <a routerLink="/downloads" class="btn btn-primary">Back to downloads</a>
+  </div>
+</section>
