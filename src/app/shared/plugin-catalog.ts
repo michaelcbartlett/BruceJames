@@ -50,7 +50,7 @@ export const PRODUCTS: Product[] = [
     img: '/plugin-slushbus.png',
     blurb: 'Bus glue with movement and more control than anything in its class. Dozens of parameters and live diagnostics that add tension and release.',
     price: '$14.99', buyUrl: 'https://brucejames.gumroad.com/l/slushbus?wanted=true',
-    demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4.zip',
+    demoWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.5.zip',
     demoMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4_mac.zip',
   },
   {
@@ -196,7 +196,7 @@ export const COMPARISONS: ComparisonSet[] = [
     tag: 'Tension',
     plugin: 'SlushBus',
     description: 'A 2 track with SlushBus applied in strong and subtle amount.',
-    downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4.zip',
+    downloadWin: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.5.zip',
     downloadMac: 'https://f005.backblazeb2.com/file/BruceJames-Marco/SlushBus_1.1.4_mac.zip',
     buyUrl: 'https://brucejames.gumroad.com/l/slushbus?wanted=true',
     price: '$14.99',
