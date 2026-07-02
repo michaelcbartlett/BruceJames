@@ -15,7 +15,6 @@ export class GuidesComponent implements OnInit {
 
   constructor(private titleService: Title, private metaService: Meta) {}
 
-  
   ngOnInit(): void {
     this.titleService.setTitle('User Guides · BruceJames');
     this.metaService.updateTag({
